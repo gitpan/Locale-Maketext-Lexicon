@@ -13,7 +13,7 @@ Locale::Maketext::Lexicon::Tie - Use tied hashes as lexicons for Maketext
     package Hello::L10N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
-	en => [ Tie => [ DB_File => 'en.db' ] ],
+        en => [ Tie => [ DB_File => 'en.db' ] ],
     };
 
 =head1 DESCRIPTION
@@ -34,8 +34,8 @@ sub parse {
 
     # Load the target module into memory
     {
-	no strict 'refs';
-	eval "use $mod; 1" or die $@ unless defined %{"$mod\::"};
+        no strict 'refs';
+        eval "use $mod; 1" or die $@ unless defined %{"$mod\::"};
     }
 
     # Perform the actual tie 

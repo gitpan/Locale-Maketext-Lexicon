@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon::Auto - Auto fallback lexicon for Maketext
     package Hello::L10N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
-	en => ['Auto'],
-	# ... other languages
+        en => ['Auto'],
+        # ... other languages
     };
 
 =head1 DESCRIPTION

@@ -12,13 +12,13 @@ Locale::Maketext::Lexicon::Msgcat - Msgcat catalog parser Maketext
     package Hello::L10N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
-	en => ['Msgcat', 'en_US/hello.pl.m'],
+        en => ['Msgcat', 'en_US/hello.pl.m'],
     };
 
     package main;
     my $lh = Hello::L10N->get_handle('en');
-    print $lh->maketext(1,2);	# set 1, msg 2
-    print $lh->maketext("1,2");	# same thing
+    print $lh->maketext(1,2);   # set 1, msg 2
+    print $lh->maketext("1,2"); # same thing
 
 =head1 DESCRIPTION
 
@@ -47,41 +47,41 @@ sub parse {
 
     # Parse *.m files; Locale::Msgcat objects and *.cat are not yet supported.
     foreach (@_) {
-	s/[\015\012]*\z//; # fix CRLF issues
+        s/[\015\012]*\z//; # fix CRLF issues
 
-	/^\$set (\d+)/ 				? do {	# set_id
-	    $set = int($1);
-	    push @out, $1, "[msgcat,$1,_1]";
-	} :
+        /^\$set (\d+)/                          ? do {  # set_id
+            $set = int($1);
+            push @out, $1, "[msgcat,$1,_1]";
+        } :
 
-	/^\$quote (.)/ 				? do {	# quote character
-	    $qc = $1;
-	    $qq = quotemeta($1);
-	    $qr = qr/$qq?/;
-	} :
+        /^\$quote (.)/                          ? do {  # quote character
+            $qc = $1;
+            $qq = quotemeta($1);
+            $qr = qr/$qq?/;
+        } :
 
-	/^(\d+) ($qr)(.*?)\2(\\?)$/			? do {	# msg_id and msg_str
-	    local $^W;
-	    push @out, "$set,".int($1);
-	    if ($4) {
-		$msg = $3;
-	    }
-	    else {
-		push @out, unescape($qq, $qc, $3);
-		undef $msg;
-	    }
-	} : 
+        /^(\d+) ($qr)(.*?)\2(\\?)$/                     ? do {  # msg_id and msg_str
+            local $^W;
+            push @out, "$set,".int($1);
+            if ($4) {
+                $msg = $3;
+            }
+            else {
+                push @out, unescape($qq, $qc, $3);
+                undef $msg;
+            }
+        } : 
 
-	(defined $msg and /^($qr)(.*?)\1(\\?)$/)	? do {	# continued string
-	    local $^W;
-	    if ($3) {
-		$msg .= $2;
-	    }
-	    else {
-		push @out, unescape($qq, $qc, $msg . $2);
-		undef $msg;
-	    }
-	} : ();
+        (defined $msg and /^($qr)(.*?)\1(\\?)$/)        ? do {  # continued string
+            local $^W;
+            if ($3) {
+                $msg .= $2;
+            }
+            else {
+                push @out, unescape($qq, $qc, $msg . $2);
+                undef $msg;
+            }
+        } : ();
     }
 
     push @out, '' if defined $msg;

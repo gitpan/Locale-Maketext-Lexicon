@@ -222,20 +222,20 @@ sub extract {
     # Comment-based mark: "..." # loc
     $line = 1; pos($_) = 0;
     while (m/\G(.*?($quoted)[\}\)\],]*\s*\#\s*loc\s*$)/smog) {
-	my $str = substr($2, 1, -1);
-	$line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
-	$str  =~ s/\\(["'])/$1/g;
+        my $str = substr($2, 1, -1);
+        $line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
+        $str  =~ s/\\(["'])/$1/g;
         $self->add_entry($str, [ $file, $line, '' ]);
     }
 
     # Comment-based pair mark: "..." => "..." # loc_pair
     $line = 1; pos($_) = 0;
     while (m/\G(.*?(\w+)\s*=>\s*($quoted)[\}\)\],]*\s*\#\s*loc_pair\s*$)/smg) {
-	my $key = $2;
-	my $val = substr($3, 1, -1);
-	$line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
-	$key  =~ s/\\(["'])/$1/g;
-	$val  =~ s/\\(["'])/$1/g;
+        my $key = $2;
+        my $val = substr($3, 1, -1);
+        $line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
+        $key  =~ s/\\(["'])/$1/g;
+        $val  =~ s/\\(["'])/$1/g;
         $self->add_entry($key, [ $file, $line, '' ]);
         $self->add_entry($val, [ $file, $line, '' ]);
     }
@@ -340,8 +340,8 @@ sub normalize_space {
     return unless (!$self->has_msgid($msgid) and $self->has_msgid($nospace));
 
     $self->set_msgstr(
-	$msgid => $self->msgstr($nospace) .
-		    (' ' x (length($msgid) - length($nospace)))
+        $msgid => $self->msgstr($nospace) .
+                    (' ' x (length($msgid) - length($nospace)))
     );
 }
 
@@ -434,7 +434,7 @@ sub _to_gettext {
     $text =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
     $text =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*),([^\]]+)\]/$1%$2("""$3""")/g;
     $text = join('', map {
-	/^""".*"""$/ ? _escape(substr($_, 3, -3)) : $_
+        /^""".*"""$/ ? _escape(substr($_, 3, -3)) : $_
     } split(/(""".*?""")/, $text));
 
     $text =~ s/~([\~\[\]])/$1/g;

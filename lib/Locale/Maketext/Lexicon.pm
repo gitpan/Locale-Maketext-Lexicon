@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.44';
+$Locale::Maketext::Lexicon::VERSION = '0.45';
 
 use strict;
 
@@ -9,8 +9,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.44 of Locale::Maketext::Lexicon,
-released September 25, 2004.
+This document describes version 0.45 of Locale::Maketext::Lexicon,
+released October 26, 2004.
 
 =head1 SYNOPSIS
 
@@ -20,8 +20,8 @@ lexicons:
     package Hello::L10N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
-	'*' => [Gettext => '/usr/local/share/locale/*/LC_MESSAGES/hello.mo'],
-	_decode => 1,	# decode lexicon entries into utf8-strings
+        '*' => [Gettext => '/usr/local/share/locale/*/LC_MESSAGES/hello.mo'],
+        _decode => 1,   # decode lexicon entries into utf8-strings
     };
 
 Explicitly specify languages, during compile- or run-time:
@@ -29,15 +29,15 @@ Explicitly specify languages, during compile- or run-time:
     package Hello::L10N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
-	de => [Gettext => 'hello_de.po'],
-	fr => [
-	    Gettext => 'hello_fr.po',
-	    Gettext => 'local/hello/fr.po',
-	],
+        de => [Gettext => 'hello_de.po'],
+        fr => [
+            Gettext => 'hello_fr.po',
+            Gettext => 'local/hello/fr.po',
+        ],
     };
     # ... incrementally add new lexicons
     Locale::Maketext::Lexicon->import({
-	de => [Gettext => 'local/hello/de.po'],
+        de => [Gettext => 'local/hello/de.po'],
     })
 
 Alternatively, as part of a localization subclass:
@@ -174,31 +174,31 @@ sub encoding {
 
     local $@;
     eval {
-	require I18N::Langinfo;
-	$locale_encoding = I18N::Langinfo::langinfo(I18N::Langinfo::CODESET());
+        require I18N::Langinfo;
+        $locale_encoding = I18N::Langinfo::langinfo(I18N::Langinfo::CODESET());
     } or eval {
-	require Win32::Console;
-	$locale_encoding = 'cp'.Win32::Console::OutputCP();
+        require Win32::Console;
+        $locale_encoding = 'cp'.Win32::Console::OutputCP();
     };
     if (!$locale_encoding) {
-	foreach my $key (qw( LANGUAGE LC_ALL LC_MESSAGES LANG )) {
-	    $ENV{$key} =~ /^([^.]+)\.([^.:]+)/ or next;
-	    ($country_language, $locale_encoding) = ($1, $2);
-	    last;
-	}
+        foreach my $key (qw( LANGUAGE LC_ALL LC_MESSAGES LANG )) {
+            $ENV{$key} =~ /^([^.]+)\.([^.:]+)/ or next;
+            ($country_language, $locale_encoding) = ($1, $2);
+            last;
+        }
     }
     if (defined $locale_encoding &&
-	lc($locale_encoding) eq 'euc' &&
-	defined $country_language) {
-	if ($country_language =~ /^ja_JP|japan(?:ese)?$/i) {
-	    $locale_encoding = 'euc-jp';
-	} elsif ($country_language =~ /^ko_KR|korean?$/i) {
-	    $locale_encoding = 'euc-kr';
-	} elsif ($country_language =~ /^zh_CN|chin(?:a|ese)?$/i) {
-	    $locale_encoding = 'euc-cn';
-	} elsif ($country_language =~ /^zh_TW|taiwan(?:ese)?$/i) {
-	    $locale_encoding = 'euc-tw';
-	}
+        lc($locale_encoding) eq 'euc' &&
+        defined $country_language) {
+        if ($country_language =~ /^ja_JP|japan(?:ese)?$/i) {
+            $locale_encoding = 'euc-jp';
+        } elsif ($country_language =~ /^ko_KR|korean?$/i) {
+            $locale_encoding = 'euc-kr';
+        } elsif ($country_language =~ /^zh_CN|chin(?:a|ese)?$/i) {
+            $locale_encoding = 'euc-cn';
+        } elsif ($country_language =~ /^zh_TW|taiwan(?:ese)?$/i) {
+            $locale_encoding = 'euc-tw';
+        }
     }
 
     return $locale_encoding;
@@ -210,79 +210,79 @@ sub import {
 
     my %entries;
     if (UNIVERSAL::isa($_[0], 'HASH')) {
-	# a hashref with $lang as keys, [$format, $src ...] as values
-	%entries = %{$_[0]};
+        # a hashref with $lang as keys, [$format, $src ...] as values
+        %entries = %{$_[0]};
     }
     elsif (@_ % 2) {
-	%entries = ( '' => [ @_ ] );
+        %entries = ( '' => [ @_ ] );
     }
 
     # expand the wildcard entry
     if (my $wild_entry = delete $entries{'*'}) {
-	while (my ($format, $src) = splice(@$wild_entry, 0, 2)) {
-	    next if ref($src); # XXX: implement globbing for the 'Tie' backend
+        while (my ($format, $src) = splice(@$wild_entry, 0, 2)) {
+            next if ref($src); # XXX: implement globbing for the 'Tie' backend
 
-	    my $pattern = quotemeta($src);
+            my $pattern = quotemeta($src);
             $pattern =~ s/\\\*(?=[^*]+$)/\([-\\w]+\)/g or next;
-	    $pattern =~ s/\\\*/.*?/g;
-	    $pattern =~ s/\\\?/./g;
-	    $pattern =~ s/\\\[/[/g;
-	    $pattern =~ s/\\\]/]/g;
-	    $pattern =~ s[\\\{(.*?)\\\\}][
-		'(?:'.join('|', split(/,/, $1)).')'
-	    ]eg;
+            $pattern =~ s/\\\*/.*?/g;
+            $pattern =~ s/\\\?/./g;
+            $pattern =~ s/\\\[/[/g;
+            $pattern =~ s/\\\]/]/g;
+            $pattern =~ s[\\\{(.*?)\\\\}][
+                '(?:'.join('|', split(/,/, $1)).')'
+            ]eg;
 
-	    require File::Glob;
-	    foreach my $file (File::Glob::bsd_glob($src)) {
-		$file =~ /$pattern/ or next;
-		push @{$entries{$1}}, ($format => $file) if $1;
-	    }
-	    delete $entries{$1}
-		unless !defined($1)
-		    or exists $entries{$1} and @{$entries{$1}};
-	}
+            require File::Glob;
+            foreach my $file (File::Glob::bsd_glob($src)) {
+                $file =~ /$pattern/ or next;
+                push @{$entries{$1}}, ($format => $file) if $1;
+            }
+            delete $entries{$1}
+                unless !defined($1)
+                    or exists $entries{$1} and @{$entries{$1}};
+        }
     }
 
     %Opts = ();
     foreach my $key (grep /^_/, keys %entries) {
-	set_option(lc(substr($key, 1)) => delete($entries{$key}));
+        set_option(lc(substr($key, 1)) => delete($entries{$key}));
     }
     my $OptsRef = { %Opts };
 
     while (my ($lang, $entry) = each %entries) {
-	my $export = caller;
+        my $export = caller;
 
-	if (length $lang) {
-	    # normalize language tag to Maketext's subclass convention
-	    $lang = lc($lang);
-	    $lang =~ s/-/_/g;
-	    $export .= "::$lang";
-	}
+        if (length $lang) {
+            # normalize language tag to Maketext's subclass convention
+            $lang = lc($lang);
+            $lang =~ s/-/_/g;
+            $export .= "::$lang";
+        }
 
-	my @pairs = @{$entry||[]} or die "no format specified";
+        my @pairs = @{$entry||[]} or die "no format specified";
 
-	while (my ($format, $src) = splice(@pairs, 0, 2)) {
-	    if (defined($src) and !ref($src) and $src =~ /\*/) {
-		unshift(@pairs, $format => $_) for File::Glob::bsd_glob($src);
-		next;
-	    }
+        while (my ($format, $src) = splice(@pairs, 0, 2)) {
+            if (defined($src) and !ref($src) and $src =~ /\*/) {
+                unshift(@pairs, $format => $_) for File::Glob::bsd_glob($src);
+                next;
+            }
 
-	    my @content = $class->lexicon_get($src, scalar caller, $lang);
+            my @content = $class->lexicon_get($src, scalar caller, $lang);
 
-	    no strict 'refs';
-	    eval "use $class\::$format; 1" or die $@;
+            no strict 'refs';
+            eval "use $class\::$format; 1" or die $@;
 
-	    if (defined %{"$export\::Lexicon"}) {
+            if (defined %{"$export\::Lexicon"}) {
                 if (ref(tied %{"$export\::Lexicon"}) eq __PACKAGE__) {
-		    tied(%{"$export\::Lexicon"})->_force;
+                    tied(%{"$export\::Lexicon"})->_force;
                 }
-		# be very careful not to pollute the possibly tied lexicon
-		*{"$export\::Lexicon"} = {
-		    %{"$export\::Lexicon"},
-		    %{"$class\::$format"->parse(@content)},
-		};
-	    }
-	    else {
+                # be very careful not to pollute the possibly tied lexicon
+                *{"$export\::Lexicon"} = {
+                    %{"$export\::Lexicon"},
+                    %{"$class\::$format"->parse(@content)},
+                };
+            }
+            else {
                 my $promise;
                 tie %{"$export\::Lexicon"}, __PACKAGE__, {
                     Opts => $OptsRef,
@@ -290,10 +290,10 @@ sub import {
                     Class => "$class\::$format",
                     Content => \@content,
                 };
-	    }
+            }
 
-	    push(@{"$export\::ISA"}, scalar caller) if length $lang;
-	}
+            push(@{"$export\::ISA"}, scalar caller) if length $lang;
+        }
     }
 }
 
@@ -332,13 +332,13 @@ sub lexicon_get {
     return unless defined $src;
 
     foreach my $type (qw(ARRAY HASH SCALAR GLOB), ref($src)) {
-	next unless UNIVERSAL::isa($src, $type);
+        next unless UNIVERSAL::isa($src, $type);
 
-	my $method = 'lexicon_get_' . lc($type);
-	die "cannot handle source $type for $src: no $method defined"
-	    unless $class->can($method);
+        my $method = 'lexicon_get_' . lc($type);
+        die "cannot handle source $type for $src: no $method defined"
+            unless $class->can($method);
 
-	return $class->$method($src, $caller, $lang);
+        return $class->$method($src, $caller, $lang);
     }
 
     # default handler
@@ -361,27 +361,33 @@ sub lexicon_get_glob   {
 
     # be extra magical and check for DATA section
     if (eof($src) and $src eq \*{"$caller\::DATA"} or $src eq \*{"main\::DATA"}) {
-	# okay, the *DATA isn't initiated yet. let's read.
-	#
-	my $level = 1;
-	my $fh;
+        # okay, the *DATA isn't initiated yet. let's read.
+        #
+        require FileHandle;
+        my $fh = FileHandle->new;
+        my $package = ( ($src eq \*{"main\::DATA"}) ? 'main' : $caller );
 
-	while (my($pkg, $filename) = caller($level++)) {
-	    next unless $pkg eq $caller or $pkg eq 'main';
-	    next unless -e $filename;
+        if ( $package eq 'main' and -e $0 ) {
+            $fh->open($0) or die "Can't open $0: $!";
+        }
+        else {
+            my $level = 1;
+            while ( my ($pkg, $filename) = caller($level++) ) {
+                next unless $pkg eq $package;
+                next unless -e $filename;
+                next;
 
-	    require FileHandle;
-	    $fh = FileHandle->new;
-	    $fh->open($filename) or die "Can't open $filename: $!";
-	    last;
-	}
+                $fh->open($filename) or die "Can't open $filename: $!";
+                last;
+            }
+        }
 
-	while (<$fh>) {
-	    # okay, this isn't foolproof, but good enough
-	    last if /^__DATA__$/;
-	}
+        while (<$fh>) {
+            # okay, this isn't foolproof, but good enough
+            last if /^__DATA__$/;
+        }
 
-	return <$fh>;
+        return <$fh>;
     }
 
     # fh containing the lines
@@ -403,8 +409,8 @@ sub lexicon_get_ {
     push @path, $lang if length $lang;
 
     $src = (grep { -e } map {
-	my @subpath = @path[0..$_];
-	map { File::Spec->catfile($_, @subpath, $src) } @INC;
+        my @subpath = @path[0..$_];
+        map { File::Spec->catfile($_, @subpath, $src) } @INC;
     } -1 .. $#path)[-1] unless -e $src;
 
     die "cannot find $_[1] (called by $_[2]) in \@INC" unless -e $src;

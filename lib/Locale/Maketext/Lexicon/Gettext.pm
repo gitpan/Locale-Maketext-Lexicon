@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.12';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.13';
 
 use strict;
 
@@ -14,7 +14,7 @@ Called via B<Locale::Maketext::Lexicon>:
     package Hello::L10N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
-	de => [Gettext => 'hello/de.mo'],
+        de => [Gettext => 'hello/de.mo'],
     };
 
 Directly calling C<parse()>:
@@ -66,8 +66,8 @@ are silently ignored.  If you wish to use fuzzy entries, specify a true
 value to the C<_use_fuzzy> option: 
 
     use Locale::Maketext::Lexicon {
-	de => [Gettext => 'hello/de.mo'],
-	_use_fuzzy => 1,
+        de => [Gettext => 'hello/de.mo'],
+        _use_fuzzy => 1,
     };
 
 =cut
@@ -89,67 +89,67 @@ sub parse {
 
     # Check for magic string of MO files
     return parse_mo(join('', @_))
-	if ($_[0] =~ /^\x95\x04\x12\xde/ or $_[0] =~ /^\xde\x12\x04\x95/);
+        if ($_[0] =~ /^\x95\x04\x12\xde/ or $_[0] =~ /^\xde\x12\x04\x95/);
 
-    local $^W;	# no 'uninitialized' warnings, please.
+    local $^W;  # no 'uninitialized' warnings, please.
 
     require Locale::Maketext::Lexicon;
     my $UseFuzzy = Locale::Maketext::Lexicon::option('use_fuzzy');
 
     # Parse PO files
     foreach (@_) {
-	s/[\015\012]*\z//; # fix CRLF issues
+        s/[\015\012]*\z//; # fix CRLF issues
 
-	/^(msgid|msgstr) +"(.*)" *$/	? do {	# leading strings
-	    $var{$1} = $2;
-	    $key = $1;
-	} :
+        /^(msgid|msgstr) +"(.*)" *$/    ? do {  # leading strings
+            $var{$1} = $2;
+            $key = $1;
+        } :
 
-	/^"(.*)" *$/			? do {	# continued strings
-	    $var{$key} .= $1;
-	} :
+        /^"(.*)" *$/                    ? do {  # continued strings
+            $var{$key} .= $1;
+        } :
 
-	/^#, +(.*) *$/			? do {	# control variables
-	    $var{$_} = 1 for split(/,\s+/, $1);
-	} :
+        /^#, +(.*) *$/                  ? do {  # control variables
+            $var{$_} = 1 for split(/,\s+/, $1);
+        } :
 
-	/^ *$/ && %var			? do {	# interpolate string escapes
-	    push @ret, (map transform($_), @var{'msgid', 'msgstr'})
-		if length $var{msgstr} and !$var{fuzzy} or $UseFuzzy;
-	    push @metadata, parse_metadata($var{msgstr})
-		if $var{msgid} eq '';
-	    %var = ();
-	} : ();
+        /^ *$/ && %var                  ? do {  # interpolate string escapes
+            push @ret, (map transform($_), @var{'msgid', 'msgstr'})
+                if length $var{msgstr} and !$var{fuzzy} or $UseFuzzy;
+            push @metadata, parse_metadata($var{msgstr})
+                if $var{msgid} eq '';
+            %var = ();
+        } : ();
     }
 
     push @ret, map { transform($_) } @var{'msgid', 'msgstr'}
-	if length $var{msgstr};
+        if length $var{msgstr};
     push @metadata, parse_metadata($var{msgstr})
-	if $var{msgid} eq '';
+        if $var{msgid} eq '';
 
     return {@metadata, @ret};
 }
 
 sub parse_metadata {
     return map {
-	(/^([^\x00-\x1f\x80-\xff :=]+):\s*(.*)$/) ?
-	    ($1 eq 'Content-Type') ? do {
-		my $enc = $2;
-		if ($enc =~ /\bcharset=\s*([-\w]+)/i) {
-		    $InputEncoding = $1 || '';
-		    $OutputEncoding = Locale::Maketext::Lexicon::encoding() || '';
-		    $InputEncoding = 'utf8' if $InputEncoding =~ /^utf-?8$/i;
-		    $OutputEncoding = 'utf8' if $OutputEncoding =~ /^utf-?8$/i;
-		    if ( Locale::Maketext::Lexicon::option('decode') and
-			(!$OutputEncoding or $InputEncoding ne $OutputEncoding)) {
-			require Encode::compat if $] < 5.007001;
-			require Encode;
-			$DoEncoding = 1;
-		    }
-		}
-		("__Content-Type", $enc);
-	    } : ("__$1", $2)
-	: ();
+        (/^([^\x00-\x1f\x80-\xff :=]+):\s*(.*)$/) ?
+            ($1 eq 'Content-Type') ? do {
+                my $enc = $2;
+                if ($enc =~ /\bcharset=\s*([-\w]+)/i) {
+                    $InputEncoding = $1 || '';
+                    $OutputEncoding = Locale::Maketext::Lexicon::encoding() || '';
+                    $InputEncoding = 'utf8' if $InputEncoding =~ /^utf-?8$/i;
+                    $OutputEncoding = 'utf8' if $OutputEncoding =~ /^utf-?8$/i;
+                    if ( Locale::Maketext::Lexicon::option('decode') and
+                        (!$OutputEncoding or $InputEncoding ne $OutputEncoding)) {
+                        require Encode::compat if $] < 5.007001;
+                        require Encode;
+                        $DoEncoding = 1;
+                    }
+                }
+                ("__Content-Type", $enc);
+            } : ("__$1", $2)
+        : ();
     } split(/\r*\n+\r*/, transform(pop));
 }
 
@@ -163,12 +163,6 @@ sub transform {
     }
 
     $str =~ s/\\([0x]..|c?.)/qq{"\\$1"}/eeg;
-    $str =~ s/([~\[\]])/~$1/g;
-    $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/[$1,~~~$2~~~]/g;
-    $str = join('', map {
-	/^~~~.*~~~$/ ? unescape(substr($_, 3, -3)) : $_
-    } split(/(~~~.*?~~~)/, $str));
-    $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
 
     if ($DoEncoding and $OutputEncoding) {
         $str = ($OutputEncoding eq 'utf8')
@@ -176,12 +170,19 @@ sub transform {
             : Encode::encode($OutputEncoding, $str)
     }
 
+    $str =~ s/([~\[\]])/~$1/g;
+    $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/[$1,~~~$2~~~]/g;
+    $str = join('', map {
+        /^~~~.*~~~$/ ? unescape(substr($_, 3, -3)) : $_
+    } split(/(~~~.*?~~~)/, $str));
+    $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
+
     return $str;
 }
 
 sub unescape {
     join(',', map {
-	/^%(?:\d+|\*)$/ ? ("_" . substr($_, 1)) : $_
+        /^%(?:\d+|\*)$/ ? ("_" . substr($_, 1)) : $_
     } split(/,/, $_[0]));
 }
 
@@ -221,8 +222,8 @@ sub parse_mo {
         $strt = substr($content, $off, $len);
         
         # Hash it
-	push @metadata, parse_metadata($strt) if $stro eq '';
-	push @ret, (map transform($_), $stro, $strt) if length $strt;
+        push @metadata, parse_metadata($strt) if $stro eq '';
+        push @ret, (map transform($_), $stro, $strt) if length $strt;
     }
     
     return {@metadata, @ret};
