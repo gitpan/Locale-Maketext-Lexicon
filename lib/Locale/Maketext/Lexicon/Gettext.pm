@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #7 $ $Change: 1012 $ $DateTime: 2002/09/24 02:04:37 $
+# $Revision: #8 $ $Change: 1157 $ $DateTime: 2002/10/04 02:58:40 $
 
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.03';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.04';
 
 use strict;
 
@@ -72,7 +72,7 @@ sub parse {
     # Check for magic string of MO files
     if ($_[0] =~ /^\x95\x04\x12\xde/ or $_[0] =~ /^\xde\x12\x04\x95/) {
 	my ($tmpfh, $tmpfile);
-	if (eval "use File::Temp; 1") {
+	if (eval { require File::Temp; 1 }) {
 	    ($tmpfh, $tmpfile) = File::Temp::tempfile();
 	}
 	else {

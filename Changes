@@ -1,4 +1,7 @@
 ____________________________________________________________________________
+0.092 - Skip tests where msgunfmt are unavailable. (Wei-Hon Chen)
+      - Bump Locale::Maketext::Lexicon::Gettext version number. (Macpaul Lin)
+
 0.091 - One less warning.
 
 0.09  - Fixed spurious warnings from blank lines in .po files. (Wei-Hon Chen)

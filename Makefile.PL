@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/Makefile.PL $ $Author: autrijus $
-# $Revision: #3 $ $Change: 340 $ $DateTime: 2002/07/16 03:18:58 $
+# $Revision: #4 $ $Change: 1154 $ $DateTime: 2002/10/04 02:45:16 $
 
 require 5.005;
 

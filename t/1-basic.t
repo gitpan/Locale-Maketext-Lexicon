@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # $File: //member/autrijus/Locale-Maketext-Lexicon/t/1-basic.t $ $Author: autrijus $
-# $Revision: #4 $ $Change: 806 $ $DateTime: 2002/08/28 02:14:09 $
+# $Revision: #7 $ $Change: 1156 $ $DateTime: 2002/10/04 02:55:32 $
 
 use strict;
 use Test::More tests => 21;
@@ -69,13 +69,17 @@ is(
 
 ################################################################
 
-ok($lh = Hello::L10N->get_handle('zh_tw'), 'Gettext - get_handle');
+SKIP: {
+    skip("no msgunfmt available", 2) unless `msgunfmt -V` and !$?;
 
-is(
-    $lh->maketext('This is a test'),
-    '這是測試',
-    'Gettext - MO File'
-);
+    ok($lh = Hello::L10N->get_handle('zh_tw'), 'Gettext - get_handle');
+
+    is(
+	$lh->maketext('This is a test'),
+	'這是測試',
+	'Gettext - MO File'
+    );
+}
 
 ################################################################
 

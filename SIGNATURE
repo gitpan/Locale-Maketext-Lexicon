@@ -14,25 +14,25 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 8ebcec8e0cacf3fa4d30b5d3bb9308ff4409e437 AUTHORS
-SHA1 ae2c4871e507c686890d625c1eeece9dc03dcd22 Changes
+SHA1 07269a3a9ad914447b2582c12a051d14c895906d AUTHORS
+SHA1 519ab22d423e7b8ff28a123964410e53cc843a6d Changes
 SHA1 458a59ffd9232ec5ce2b2f0c30cdde265b88fcfe MANIFEST
-SHA1 bf134c633eaa80daec818a3d184cd687659c1eea Makefile.PL
-SHA1 a91116fa3147a65bb75cd4de27a03f34c8a4d4fe README
+SHA1 f71cb5268d758f20db17fdf58edf6a97ad0d9252 Makefile.PL
+SHA1 a189ed42a970c7c7ffc7f55f1bd0cb1b55bb4df2 README
 SHA1 8279c2b3af25e446833d8b4b0f613c3c2157c3bc bin/messages.po
-SHA1 85c9757e9cffd33a5d8beb9a3c7e57c5afc2d6d0 bin/xgettext.pl
-SHA1 d4cd18996a41279650bed94b8650e57157d8d9e4 lib/Locale/Maketext/Lexicon.pm
-SHA1 87fb2f084f6b2d4a380ea1a73573846d135dc2a3 lib/Locale/Maketext/Lexicon/Auto.pm
-SHA1 84411e056393dc1ebee5486f1e13712834603f06 lib/Locale/Maketext/Lexicon/Gettext.pm
+SHA1 22abc71f48afb42c9ab563129c52170a3f82c335 bin/xgettext.pl
+SHA1 af96edf36958a8c6f6f5453ec7f2eaf0bda26020 lib/Locale/Maketext/Lexicon.pm
+SHA1 a8150a9c1ce989d262389442ba54f5f94d7ca615 lib/Locale/Maketext/Lexicon/Auto.pm
+SHA1 c7d954c8304209a732ee47503054e660283e9c4a lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 7721ffd5bfe723c5aeb6609546274ee3dbcf3359 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 971913b86b0a66856ce296e669058454d0e9981c lib/Locale/Maketext/Lexicon/Tie.pm
-SHA1 239b55e6d6f95dd17700592413b81346c6a7f7f4 t/1-basic.t
+SHA1 a6a7667857898ab58d988588e326d9501a4435eb t/1-basic.t
 SHA1 2d43b0eae020f43417d20190172d16885f9f8e8f t/gencat.m
 SHA1 484853d1077b8a765e444024a7c445c6a3a1276c t/messages.mo
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.0.7 (FreeBSD)
 
-iD8DBQE9kYd7tLPdNzw1AaARAkkOAJ9m8Ry5WWZS7KcMOiMFgTDm3fjpTwCgvVee
-W/O3ABinNz6Yzs76CqZxG9g=
-=A8fe
+iD8DBQE9nRQYtLPdNzw1AaARAlsFAJ0ZRBOX9Lf5jrC/JfS5IX5MlfJDkwCfQ3Ka
+Ho9yirJjDENjVQje2KHFEdU=
+=VSdy
 -----END PGP SIGNATURE-----

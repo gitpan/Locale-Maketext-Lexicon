@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/README $ $Author: autrijus $
-# $Revision: #3 $ $Change: 807 $ $DateTime: 2002/08/28 02:15:11 $
+# $Revision: #4 $ $Change: 1154 $ $DateTime: 2002/10/04 02:45:16 $
 
 This is the README file for Locale::Maketext::Lexicon, a module providing
 lexicon-handling backends, for "Locale::Maketext" to read from other

@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #3 $ $Change: 688 $ $DateTime: 2002/08/17 09:01:20 $
+# $Revision: #4 $ $Change: 1154 $ $DateTime: 2002/10/04 02:45:16 $
 
 use strict;
 use Regexp::Common;
