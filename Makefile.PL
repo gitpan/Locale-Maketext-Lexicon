@@ -26,8 +26,15 @@ WriteMakefile(
     },
 
     dist		=> {
+	DIST_DEFAULT	=> 'all metafile sign tardist',
         COMPRESS	=> 'gzip -9',
         SUFFIX		=> '.gz',
     },
 );
 
+sub MY::postamble {
+  q{
+sign ::
+	cpansign -s
+}
+}

@@ -97,8 +97,8 @@ sub _msgcat {
 
 sub unescape {
     my ($qq, $qc, $str) = @_;
-    $str =~ s/\\([ntvbrf\\$qq])/($1 eq $qc) ? $qc : eval qq("$&")/e;
-    $str =~ s/[\~\[\]]/~$&/g;
+    $str =~ s/(\\([ntvbrf\\$qq]))/($2 eq $qc) ? $qc : eval qq("$1")/e;
+    $str =~ s/([\~\[\]])/~$1/g;
     return $str;
 }
 

@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #21 $ $Change: 8407 $ $DateTime: 2003/10/13 20:20:07 $
+# $Revision: #22 $ $Change: 8411 $ $DateTime: 2003/10/14 08:56:43 $
 
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.08';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.09';
 
 use strict;
 
@@ -136,8 +136,10 @@ sub parse_metadata {
 	    ($1 eq 'Content-Type') ? do {
 		my $enc = $2;
 		if ($enc =~ /\bcharset=\s*([-\w]+)/i) {
-		    $InputEncoding = $1;
-		    $OutputEncoding = Locale::Maketext::Lexicon::option('encoding');
+		    $InputEncoding = $1 || '';
+		    $OutputEncoding = Locale::Maketext::Lexicon::option('encoding') || '';
+		    $InputEncoding = 'utf8' if $InputEncoding =~ /^utf-?8$/i;
+		    $OutputEncoding = 'utf8' if $OutputEncoding =~ /^utf-?8$/i;
 		    if ( Locale::Maketext::Lexicon::option('decode') and
 			(!$OutputEncoding or $InputEncoding ne $OutputEncoding)) {
 			require Encode::compat if $] < 5.007001;
@@ -154,15 +156,25 @@ sub parse_metadata {
 sub transform {
     my $str = shift;
 
-    $str = Encode::decode($InputEncoding, $str) if $DoEncoding and $InputEncoding;
+    if ($DoEncoding and $InputEncoding) {
+	$str = ($InputEncoding eq 'utf8')
+	    ? Encode::decode_utf8($str)
+	    : Encode::decode($InputEncoding, $str)
+    }
+
     $str =~ s/\\([0x]..|c?.)/qq{"\\$1"}/eeg;
-    $str =~ s/[~\[\]]/~$&/g;
+    $str =~ s/([~\[\]])/~$1/g;
     $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/[$1,~~~$2~~~]/g;
     $str = join('', map {
 	/^~~~.*~~~$/ ? unescape(substr($_, 3, -3)) : $_
     } split(/(~~~.*?~~~)/, $str));
     $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
-    $str = Encode::encode($OutputEncoding, $str) if $DoEncoding and $OutputEncoding;
+
+    if ($DoEncoding and $OutputEncoding) {
+	$str = ($OutputEncoding eq 'utf8')
+	    ? Encode::encode_utf8($str)
+	    : Encode::encode($OutputEncoding, $str)
+    }
 
     return $str;
 }

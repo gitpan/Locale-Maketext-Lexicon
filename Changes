@@ -1,4 +1,15 @@
 ____________________________________________________________________________
+[  8411] By: autrijus                              on 2003/10/14  08:56:43
+        Log: * This be 0.32.
+             * excise $& from ::Extract, ::Msgcat and ::Gettext.
+             * micro-optimize (encode|decode)_utf8 in the inner loop of
+	       ::Gettext
+             instead of (encode|decode)('utf8', ...).
+	   ! lib/Locale/Maketext/Extract.pm
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+	   ! lib/Locale/Maketext/Lexicon/Msgcat.pm
+____________________________________________________________________________
 [  8407] By: autrijus                              on 2003/10/13  20:20:07
         Log: * This be 0.31.
              * 0.30 still broken on Robert Spiers's darwin box, so

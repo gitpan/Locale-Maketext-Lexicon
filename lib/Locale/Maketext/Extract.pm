@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Extract.pm $ $Author: autrijus $
-# $Revision: #3 $ $Change: 8407 $ $DateTime: 2003/10/13 20:20:07 $ vim: expandtab shiftwidth=4
+# $Revision: #4 $ $Change: 8411 $ $DateTime: 2003/10/14 08:56:43 $ vim: expandtab shiftwidth=4
 
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.01';
+$Locale::Maketext::Extract::VERSION = '0.02';
 
 use strict;
 
@@ -185,9 +185,9 @@ sub extract {
         }   
 
         my $p = MyParser->new;
-        while (m/\G(.*?)^(?:START|END)[A-Z]+$/smg) {
-            my ($str) = ($1);
-            $line += ( () = ($& =~ /\n/g) ); # cryptocontext!
+        while (m/\G((.*?)^(?:START|END)[A-Z]+$)/smg) {
+            my ($str) = ($2);
+            $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
             $p->parse($str); $p->eof; 
         }
         $_ = '';
@@ -195,18 +195,18 @@ sub extract {
 
     # HTML::Mason
     $line = 1; pos($_) = 0;
-    while (m!\G.*?<&\|/l(?:oc)?(.*?)&>(.*?)</&>!sg) {
-        my ($vars, $str) = ($1, $2);
-        $line += ( () = ($& =~ /\n/g) ); # cryptocontext!
+    while (m!\G(.*?<&\|/l(?:oc)?(.*?)&>(.*?)</&>)!sg) {
+        my ($vars, $str) = ($2, $3);
+        $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
         $str =~ s/\\'/\'/g; 
         $self->add_entry($str, [ $file, $line, $vars ]);
     }
 
     # Template Toolkit
     $line = 1; pos($_) = 0;
-    while (m!\G.*?\[%\s*\|l(?:oc)?(.*?)\s*%\](.*?)\[%\s*END\s*%\]!sg) {
-        my ($vars, $str) = ($1, $2);
-        $line += ( () = ($& =~ /\n/g) ); # cryptocontext!
+    while (m!\G(.*?\[%\s*\|l(?:oc)?(.*?)\s*%\](.*?)\[%\s*END\s*%\])!sg) {
+        my ($vars, $str) = ($2, $3);
+        $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
         $str =~ s/\\'/\'/g; 
         $vars =~ s/^\s*\(//;
         $vars =~ s/\)\s*$//;
@@ -215,9 +215,9 @@ sub extract {
 
     # Generic Template:
     $line = 1; pos($_) = 0;
-    while (m/\G.*?(?<!\{)\{\{(?!\{)(.*?)\}\}/sg) {
-        my ($vars, $str) = ('', $1);
-        $line += ( () = ($& =~ /\n/g) ); # cryptocontext!
+    while (m/\G(.*?(?<!\{)\{\{(?!\{)(.*?)\}\})/sg) {
+        my ($vars, $str) = ('', $2);
+        $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
         $str =~ s/\\'/\'/g; 
         $self->add_entry($str, [ $file, $line, $vars ]);
     }
