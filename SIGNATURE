@@ -14,12 +14,12 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 a54057640601d7bc1918addf319d76b2e75d2308 AUTHORS
-SHA1 70c40469624f4ddf988513f33f1883bb84aed9c3 Changes
+SHA1 97f8fc80e93b15ee2112ee6ee70442d6906a3d65 AUTHORS
+SHA1 483bdddf44e2d6e332fe78e804a67971eaef1464 Changes
 SHA1 e1379626193bcca338a2f702ac90cc826294072d MANIFEST
-SHA1 d0b08d80e76558d7f9094d871264a53afe38a83c META.yml
-SHA1 b1c07d96fe3f823b922968c6d8fdbce69faa032c Makefile.PL
-SHA1 5cba9de1e9261ccf49c5bcf017c63f71db136619 README
+SHA1 38b61a3808d15dccc8603d9a2e48b44b2a3ccb92 META.yml
+SHA1 a709d8b569c3fc575d785bfa691998b4d00716d2 Makefile.PL
+SHA1 c8de33b05914584c4dc5983c8ef098bae6292cbf README
 SHA1 b26ac27e5a57677aa210c0e908b28ff3ba28f03b inc/Module/Install.pm
 SHA1 fd56d5c793014bccac2cd1e61926c4da8538ef99 inc/Module/Install/Base.pm
 SHA1 9ce6768a7b8f7032ec89594b773fafd58c6feb1d inc/Module/Install/Can.pm
@@ -29,20 +29,20 @@ SHA1 207dfa13341a374fc78325fbeb99bc36659aef2d inc/Module/Install/Metadata.pm
 SHA1 48ea7ce20a63ff1583036d6c4b8fd8e4c24457e6 inc/Module/Install/Scripts.pm
 SHA1 aff9341a15c04faec47089851e43d9d4061337e7 inc/Module/Install/Win32.pm
 SHA1 8e0d347ca21bc18b380d9d1aa5910b8d078a76b7 inc/Module/Install/WriteAll.pm
-SHA1 789809d85f67984a792ca316fab651c509d7b818 lib/Locale/Maketext/Extract.pm
-SHA1 0e5accfc2325f1b1b8d3efb5449f1c4b95628e4c lib/Locale/Maketext/Extract/Run.pm
-SHA1 fe27bd51346af2c0d061529b1706445213cd48d2 lib/Locale/Maketext/Lexicon.pm
-SHA1 ee905499ac3938c356132f3b5d7f4d808b7b9a74 lib/Locale/Maketext/Lexicon/Auto.pm
-SHA1 6371083a1acc8a1ca894605bc43e2166dcd66d83 lib/Locale/Maketext/Lexicon/Gettext.pm
-SHA1 768cbbfcf90e2813471130beb2c82bf59586e6d5 lib/Locale/Maketext/Lexicon/Msgcat.pm
-SHA1 35e4317f70503ad53743b48a27aa8b6579b10e67 lib/Locale/Maketext/Lexicon/Tie.pm
-SHA1 8c598515029631227f87f8be1ef79a68f7f9d045 script/xgettext.pl
-SHA1 95f3548e0e15ae98c7b6091146e175168ba4fc5f t/0-signature.t
-SHA1 2767a1e6d322dae2ce77062697af59f0000bb329 t/1-basic.t
+SHA1 934ace16517caf50ca6fa2b26513bbf53bcb75f7 lib/Locale/Maketext/Extract.pm
+SHA1 8f77b62534098704e1ebd82a1909543d76e56e6f lib/Locale/Maketext/Extract/Run.pm
+SHA1 301bb09d194a3263771bd64b13217f7d1209898d lib/Locale/Maketext/Lexicon.pm
+SHA1 a78f6060e5e9480ccb3034036dadc1e3a500eb31 lib/Locale/Maketext/Lexicon/Auto.pm
+SHA1 b0b3d397a4c8a4c7eb058a1d495772ad1772561c lib/Locale/Maketext/Lexicon/Gettext.pm
+SHA1 f51398dba7ab5bb6aa7152c2ced03ef5f0c47608 lib/Locale/Maketext/Lexicon/Msgcat.pm
+SHA1 fa39ad1cf80d414798911543ba1b37e1226c5c1c lib/Locale/Maketext/Lexicon/Tie.pm
+SHA1 58cbd83336ed1d2be11f540002c1f60e5e14f24c script/xgettext.pl
+SHA1 63c7ea0cfdd7643aa113c260eec9c9bf0a6ee8a0 t/0-signature.t
+SHA1 1aa81f86eaa6c4662d45994c9f0c825dbe06beaa t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
 SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
 SHA1 786af50f71a3299ec40267c74001822602b9b247 t/4-encodings.t
-SHA1 8da5c7e5d2a0a71573cd1f9d0c4c974595e88359 t/5-extract.t
+SHA1 358bb88695b7782e6167a81a33f57c1142fde042 t/5-extract.t
 SHA1 20689d41baa53f44caf0bc8ef8fdefcda77d82f9 t/T_L10N.pm
 SHA1 2d43b0eae020f43417d20190172d16885f9f8e8f t/gencat.m
 SHA1 d5a3581bbbec3df38f7c47dc82edfbdb0964bebd t/locale/en/LC_MESSAGES/test.mo
@@ -59,7 +59,7 @@ SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.3 (FreeBSD)
 
-iD8DBQFBVEHwtLPdNzw1AaARAlopAKCFSLZzay1U8I9iw0VQNAfuap9AJwCeN0Lf
-VmgT+IyHVnDQa/Nxxkp55C4=
-=Y9FT
+iD8DBQFBVOQAtLPdNzw1AaARApYWAJ40okqTcl4ZBCewB5jNnWC2tTtymwCcDs91
+iqgAhP5Yx179oMZuhUPjIzc=
+=v1kg
 -----END PGP SIGNATURE-----

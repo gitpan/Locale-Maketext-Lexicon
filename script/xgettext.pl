@@ -1,7 +1,4 @@
 #!/usr/bin/perl
-# $File: //member/autrijus/Locale-Maketext-Lexicon/script/xgettext.pl $ $Author: autrijus $
-# $Revision: #5 $ $Change: 10520 $ $DateTime: 2004/04/26 18:51:08 $ vim: expandtab shiftwidth=4
-
 use strict;
 use Locale::Maketext::Extract::Run 'xgettext';
 xgettext(@ARGV);

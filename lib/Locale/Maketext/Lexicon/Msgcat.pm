@@ -1,6 +1,3 @@
-# $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #2 $ $Change: 320 $ $DateTime: 2002/07/02 22:32:02 $
-
 package Locale::Maketext::Lexicon::Msgcat;
 $Locale::Maketext::Lexicon::Msgcat::VERSION = '0.02';
 

@@ -1,6 +1,3 @@
-# $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #2 $ $Change: 320 $ $DateTime: 2002/07/02 22:32:02 $
-
 package Locale::Maketext::Lexicon::Tie;
 $Locale::Maketext::Lexicon::Tie::VERSION = '0.03';
 

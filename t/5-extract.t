@@ -1,7 +1,4 @@
 #! /usr/bin/perl -w
-# $File: //member/autrijus/Locale-Maketext-Lexicon/t/5-extract.t $ $Author: autrijus $
-# $Revision: #2 $ $Change: 8407 $ $DateTime: 2003/10/13 22:20:07 $
-
 use lib '../lib';
 use strict;
 use Test::More tests => 21;

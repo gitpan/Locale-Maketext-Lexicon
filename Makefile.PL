@@ -1,8 +1,6 @@
 #!/usr/bin/perl
-# $File: //member/autrijus/Locale-Maketext-Lexicon/Makefile.PL $ $Author: autrijus $
-# $Revision: #11 $ $Change: 10139 $ $DateTime: 2004/02/19 19:25:46 $
 
-require 5.005;
+use 5.005;
 use inc::Module::Install;
 
 author		('Autrijus Tang <autrijus@autrijus.org>');

@@ -1,6 +1,3 @@
-# $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Extract.pm $ $Author: autrijus $
-# $Revision: #11 $ $Change: 10520 $ $DateTime: 2004/04/26 18:51:08 $ vim: expandtab shiftwidth=4
-
 package Locale::Maketext::Extract;
 $Locale::Maketext::Extract::VERSION = '0.07';
 
