@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.06.
+signed via the Module::Signature module, version 0.13.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,24 +15,26 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 07269a3a9ad914447b2582c12a051d14c895906d AUTHORS
-SHA1 519ab22d423e7b8ff28a123964410e53cc843a6d Changes
-SHA1 458a59ffd9232ec5ce2b2f0c30cdde265b88fcfe MANIFEST
-SHA1 f71cb5268d758f20db17fdf58edf6a97ad0d9252 Makefile.PL
+SHA1 f165337c5d66daa27310b43275e5891882b2f8b6 Changes
+SHA1 6be8235b8e38eed90aba9a8e114b6cbd029dae39 MANIFEST
+SHA1 71cedc0275b495f407e92cbf805f2bdf46dcc35f Makefile.PL
 SHA1 a189ed42a970c7c7ffc7f55f1bd0cb1b55bb4df2 README
 SHA1 8279c2b3af25e446833d8b4b0f613c3c2157c3bc bin/messages.po
-SHA1 22abc71f48afb42c9ab563129c52170a3f82c335 bin/xgettext.pl
-SHA1 af96edf36958a8c6f6f5453ec7f2eaf0bda26020 lib/Locale/Maketext/Lexicon.pm
+SHA1 5aa75a8ba83980816fbf4d22048024d837173b8d bin/xgettext.pl
+SHA1 4d3cc05172eb013d65e3aa5c83b7e9efe00c493c lib/Locale/Maketext/Lexicon.pm
 SHA1 a8150a9c1ce989d262389442ba54f5f94d7ca615 lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 c7d954c8304209a732ee47503054e660283e9c4a lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 7721ffd5bfe723c5aeb6609546274ee3dbcf3359 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 971913b86b0a66856ce296e669058454d0e9981c lib/Locale/Maketext/Lexicon/Tie.pm
-SHA1 a6a7667857898ab58d988588e326d9501a4435eb t/1-basic.t
+SHA1 33654a8e3773f2cd6c254ada1afb6825f5e1b054 t/0-signature.t
+SHA1 e4aa6644d1c5ffe5c176ecd957615ecbbe238bb2 t/1-basic.t
 SHA1 2d43b0eae020f43417d20190172d16885f9f8e8f t/gencat.m
 SHA1 484853d1077b8a765e444024a7c445c6a3a1276c t/messages.mo
+SHA1 1b806d9de59e4b2961507313c73db3c5d3562b85 t/messages.po
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.0.7 (FreeBSD)
+Version: GnuPG v1.2.0 (FreeBSD)
 
-iD8DBQE9nRQYtLPdNzw1AaARAlsFAJ0ZRBOX9Lf5jrC/JfS5IX5MlfJDkwCfQ3Ka
-Ho9yirJjDENjVQje2KHFEdU=
-=VSdy
+iD8DBQE9rcXqtLPdNzw1AaARAoykAJ94vu+FUqPE1zXQonZpBYqeci+5JACfXAoH
+iSrA8gJjhiQ9bxs0l0FJ9u8=
+=Ilgc
 -----END PGP SIGNATURE-----

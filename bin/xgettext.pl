@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #4 $ $Change: 1154 $ $DateTime: 2002/10/04 02:45:16 $
+# $Revision: #5 $ $Change: 1375 $ $DateTime: 2002/10/12 22:06:40 $
 
 use strict;
 use Regexp::Common;
@@ -12,7 +12,7 @@ xgettext.pl - Extract gettext strings from source
 
 =head1 SYNOPSIS
 
-B<xgettext.pl> S<[ B<-o> I<FILE> ]> S<[ I<INPUTFILE>... ]>
+B<xgettext.pl> S<[ B<-u> ]> S<[ B<-o> I<FILE> ]> S<[ I<INPUTFILE>... ]>
 
 =head1 OPTIONS
 
@@ -35,7 +35,7 @@ F<messages.po> is used.
 my (%file, %Lexicon, %opts);
 my ($PO, $out);
 
-getopts('o:', \%opts);  # options as above. Values in %opts
+getopts('uo:', \%opts);  # options as above. Values in %opts
 $PO = $opts{o} || "messages.po";
 
 @ARGV = ('-') unless @ARGV;
@@ -125,15 +125,18 @@ foreach my $file (@ARGV) {
 }
 
 foreach my $str (sort keys %file) {
-    my $entry = $file{$str};
+    unless ($opts{u}) {
+	my $entry = $file{$str};
 
-    $str =~ s/\\/\\\\/g;
-    $str =~ s/\"/\\"/g;
-    $str =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
-    $str =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
-    $str =~ s/~([\~\[\]])/$1/g;
+	$str =~ s/\\/\\\\/g;
+	$str =~ s/\"/\\"/g;
+	$str =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
+	$str =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
+	$str =~ s/~([\~\[\]])/$1/g;
 
-    $file{$str} = $entry;
+	$file{$str} = $entry;
+    }
+
     $Lexicon{$str} ||= '';
 }
 
@@ -177,7 +180,20 @@ foreach (sort keys %Lexicon) {
     }
 
     print "#, maketext-format" if $::interop and /%(?:\d|\w+\([^\)]*\))/;
-    print "msgid \"$_\"\nmsgstr \"$Lexicon{$_}\"\n";
+    print "msgid "; output($_);
+    print "msgstr "; output($Lexicon{$_});
+}
+
+sub output {
+    my $str = shift;
+
+    if ($str =~ /\n/) {
+	print "\"\"\n";
+	print "\"$_\"\n" foreach split(/\n/, $str);
+    }
+    else {
+	print "\"$str\"\n"
+    }
 }
 
 sub escape {

@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 # $File: //member/autrijus/Locale-Maketext-Lexicon/t/1-basic.t $ $Author: autrijus $
-# $Revision: #7 $ $Change: 1156 $ $DateTime: 2002/10/04 02:55:32 $
+# $Revision: #8 $ $Change: 1453 $ $DateTime: 2002/10/16 17:59:39 $
 
 use strict;
-use Test::More tests => 21;
+use Test::More tests => 24;
 
 package Hello::L10N;
 use Test::More;
@@ -20,6 +20,10 @@ use_ok(
 	de	=> ['Gettext'	=> \*::DATA],
 	zh_tw	=> ['Gettext'	=> 't/messages.mo'],
 	zh_cn	=> ['Msgcat'	=> 't/gencat.m'],
+	zh_hk   => [
+	    'Msgcat'	=> 't/gencat.m',
+	    'Gettext'   => 't/messages.po',
+	],
     }
 );
 
@@ -124,6 +128,21 @@ is(
 );
 
 ################################################################
+
+ok($lh = Hello::L10N->get_handle('zh_hk'), 'Multiple lexicons - get_handle');
+
+is(
+    $lh->maketext(1, 1),
+    'First string',
+    'Multiple lexicons - first'
+);
+
+is(
+    $lh->maketext('This is a test'),
+    '³o¬O´ú¸Õ',
+    'Multiple lexicons - second'
+);
+
 
 __DATA__
 msgid ""

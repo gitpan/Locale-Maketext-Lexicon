@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #9 $ $Change: 1157 $ $DateTime: 2002/10/04 02:58:40 $
+# $Revision: #10 $ $Change: 1453 $ $DateTime: 2002/10/16 17:59:39 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.092';
+$Locale::Maketext::Lexicon::VERSION = '0.10';
 
 use strict;
 
@@ -12,7 +12,7 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.092 of Locale::Maketext::Lexicon.
+This document describes version 0.10 of Locale::Maketext::Lexicon.
 
 =head1 SYNOPSIS
 
@@ -20,7 +20,13 @@ As part of a localization class:
 
     package Hello::L10N;
     use base 'Locale::Maketext';
-    use Locale::Maketext::Lexicon {de => [Gettext => 'hello_de.po']};
+    use Locale::Maketext::Lexicon {
+	de => [Gettext => 'hello_de.po'],
+	fr => [
+	    Gettext => 'hello_fr.po',
+	    Gettext => 'local/hello/fr.po',
+	],
+    };
 
 Alternatively, as part of a localization subclass:
 
@@ -49,18 +55,24 @@ Alternatively, as part of a localization subclass:
 This module provides lexicon-handling modules to read from other
 localization formats, such as I<Gettext>, I<Msgcat>, and so on.
 
+=head2 The C<import> function
+
 The C<import()> function accepts two forms of arguments:
 
 =over 4
 
-=item (I<format>, I<[ filehandle | filename | arrayref ]>)
+=item (I<format> => I<[ filehandle | filename | arrayref ]> ... )
 
-This form pass the contents specified by the second argument to
-B<Locale::Maketext::Lexicon::I<format>>->parse as a plain list,
-and export its return value as the C<%Lexicon> hash in the calling
-package.
+This form takes any number of argument pairs (usually one).
+For each such pair, it pass the contents specified by the second
+argument to B<Locale::Maketext::Lexicon::I<format>>->parse as a
+plain list, and export its return value as the C<%Lexicon> hash
+in the calling package.
 
-=item { I<language> => [ I<format>, I<[ filehandle | filename | arrayref ]> ] ... }
+In the case that there are multiple such pairs, the lexicon
+defined by latter ones overrides earlier ones.
+
+=item { I<language> => [ I<format>, I<[ filehandle | filename | arrayref ]> ... ] ... }
 
 This form accepts a hash reference.  It will export a C<%Lexicon>
 into the subclasses specified by each I<language>, using the process
@@ -69,6 +81,13 @@ separate subclass for each localized language, and just use the catalog
 files.
 
 =back
+
+=head2 Subclassing format handlers
+
+If you wish to override how sources specified in different types
+are handled, please use a subclass that overrides C<lexicon_get_I<TYPE>>.
+
+XXX: not documented well enough yet.  Patches welcome.
 
 =head1 NOTES
 
@@ -81,7 +100,8 @@ any newline characters.
 The C<parse()> function should return a hash reference, which will be
 assigned to the I<typeglob> (C<*Lexicon>) of the language module.  All
 it amounts to is that if the returned reference points to a tied hash,
-the C<%Lexicon> will be aliased to the same tied hash.
+the C<%Lexicon> will be aliased to the same tied hash if it was not
+initialized previously.
 
 =cut
 
@@ -91,82 +111,111 @@ sub import {
 
     my %entries;
     if (UNIVERSAL::isa($_[0], 'HASH')) {
-	# a hashref with $lang as keys, [$format, $src] as values
+	# a hashref with $lang as keys, [$format, $src ...] as values
 	%entries = %{$_[0]};
     }
-    else {
+    elsif (@_ % 2) {
 	%entries = ( '' => [ @_ ] );
     }
 
-	if (@_ == 2) {
-	# an array consisting of $format and $src
-    }
-    else {
-	# incorrect number of arguments
-    }
-
     while (my ($lang, $entry) = each %entries) {
-	my ($format, $src) = @{$entries{$lang}}
-	    or die "no format specified";
-
 	my $export = caller;
 	$export .= "::$lang" if length($lang);
 
-	my @content;
-	if (!defined($src)) {
-	    # nothing happens
-	}
-	elsif (UNIVERSAL::isa($src, 'ARRAY')) {
-	    # arrayref of lines
-	    @content = @{$src};
-	}
-	elsif (UNIVERSAL::isa($src, 'GLOB')) {
+	my @pairs = @{$entries{$lang}} or die "no format specified";
+
+	while (my ($format, $src) = splice(@pairs, 0, 2)) {
+	    my @content = $class->lexicon_get($src, scalar caller, $lang);
+
 	    no strict 'refs';
+	    eval "use $class\::$format; 1" or die $@;
 
-	    # be extra magical and check for DATA section
-	    if (eof($src) and $src eq \*{caller()."::DATA"}) {
-		# okay, the *DATA isn't initiated yet. let's read.
-		require FileHandle;
-		my $fh = FileHandle->new;
-		$fh->open((caller())[1]) or die $!;
-
-		while (<$fh>) {
-		    # okay, this isn't foolproof, but good enough
-		    last if /^__DATA__$/;
-		}
-
-		@content = <$fh>;
+	    if (defined %{"$export\::Lexicon"}) {
+		# be very careful not to pollute the possibly tied lexicon
+		*{"$export\::Lexicon"} = {
+		    %{"$export\::Lexicon"},
+		    %{"$class\::$format"->parse(@content)},
+		};
 	    }
 	    else {
-		# fh containing the lines
-		@content = <$src>;
+		*{"$export\::Lexicon"} = "$class\::$format"->parse(@content);
 	    }
+
+	    push(@{"$export\::ISA"}, scalar caller) if length $lang;
 	}
-	elsif (ref($src)) {
-	    die "Can't handle source reference: $src";
-	}
-	else {
-	    # filename - open and return its handle
-	    require FileHandle;
-	    require File::Spec;
-
-	    my $fh = FileHandle->new;
-	    my @path = split('::', $export);
-
-	    $src = (grep { -e } map {
-		my @subpath = @path[0..$_];
-		map { File::Spec->catfile($_, @subpath, $src) } @INC;
-	    } -1 .. $#path)[-1] unless -e $src;
-
-	    $fh->open($src) or die $!;
-	    @content = <$fh>;
-	}
-
-	no strict 'refs';
-	eval "use $class\::$format; 1" or die $@;
-	*{"$export\::Lexicon"} = "$class\::$format"->parse(@content);
-	push(@{"$export\::ISA"}, scalar caller) if $lang;
     }
+}
+
+sub lexicon_get {
+    my ($class, $src, $caller, $lang) = @_;
+    return unless defined $src;
+
+    foreach my $type (qw(ARRAY HASH SCALAR GLOB), ref($src)) {
+	next unless UNIVERSAL::isa($src, $type);
+
+	my $method = 'lexicon_get_' . lc($type);
+	die "cannot handle source $type for $src: no $method defined"
+	    unless $class->can($method);
+
+	return $class->$method($src, $caller, $lang);
+    }
+
+    # default handler
+    return $class->lexicon_get_($src, $caller, $lang);
+}
+
+# for scalarrefs and arrayrefs we just dereference the $src
+sub lexicon_get_scalar { ${$_[1]} }
+sub lexicon_get_array  { @{$_[1]} }
+
+sub lexicon_get_hash   {
+    my ($class, $src, $caller, $lang) = @_;
+    return map { $_ => $src->{$_} } sort keys %$src;
+}
+
+sub lexicon_get_glob   {
+    my ($class, $src, $caller, $lang) = @_;
+
+    no strict 'refs';
+
+    # be extra magical and check for DATA section
+    if (eof($src) and $src eq \*{"$caller\::DATA"}) {
+	# okay, the *DATA isn't initiated yet. let's read.
+	require FileHandle;
+	my $fh = FileHandle->new;
+	$fh->open((caller())[1]) or die $!;
+
+	while (<$fh>) {
+	    # okay, this isn't foolproof, but good enough
+	    last if /^__DATA__$/;
+	}
+
+	return <$fh>;
+    }
+
+    # fh containing the lines
+    return <$src>;
+}
+
+# assume filename - search path, open and return its contents
+sub lexicon_get_ {
+    my ($class, $src, $caller, $lang) = @_;
+
+    require FileHandle;
+    require File::Spec;
+
+    my $fh = FileHandle->new;
+    my @path = split('::', $caller);
+    push @path, $lang if length $lang;
+
+    $src = (grep { -e } map {
+	my @subpath = @path[0..$_];
+	map { File::Spec->catfile($_, @subpath, $src) } @INC;
+    } -1 .. $#path)[-1] unless -e $src;
+
+    die "cannot find $_[2] in \@INC" unless -e $src;
+    $fh->open($src) or die $!;
+    return <$fh>;
 }
 
 1;

@@ -1,10 +1,13 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/Makefile.PL $ $Author: autrijus $
-# $Revision: #4 $ $Change: 1154 $ $DateTime: 2002/10/04 02:45:16 $
+# $Revision: #5 $ $Change: 1453 $ $DateTime: 2002/10/16 17:59:39 $
 
 require 5.005;
 
 use ExtUtils::MakeMaker;
+
+# workaround weird bug that prevents R::C from being detected by MM.
+eval { require Regexp::Common };
 
 WriteMakefile(
     AUTHOR		=> 'Autrijus Tang (autrijus@autrijus.org)',

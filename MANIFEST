@@ -11,6 +11,8 @@ lib/Locale/Maketext/Lexicon/Auto.pm
 lib/Locale/Maketext/Lexicon/Gettext.pm
 lib/Locale/Maketext/Lexicon/Msgcat.pm
 lib/Locale/Maketext/Lexicon/Tie.pm
+t/0-signature.t
 t/1-basic.t
 t/gencat.m
 t/messages.mo
+t/messages.po

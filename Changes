@@ -1,4 +1,8 @@
 ____________________________________________________________________________
+0.10  - Support for multiple lexicons, as well as incremental lexicons
+        by calling import() repeatedly
+      - Subclassable handlers for difference source types.
+
 0.092 - Skip tests where msgunfmt are unavailable. (Wei-Hon Chen)
       - Bump Locale::Maketext::Lexicon::Gettext version number. (Macpaul Lin)
 
