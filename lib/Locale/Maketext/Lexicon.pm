@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #35 $ $Change: 7748 $ $DateTime: 2003/08/28 10:19:40 $
+# $Revision: #36 $ $Change: 8357 $ $DateTime: 2003/10/09 18:03:07 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.28';
+$Locale::Maketext::Lexicon::VERSION = '0.29';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.28 of Locale::Maketext::Lexicon,
-released August 28, 2003.
+This document describes version 0.29 of Locale::Maketext::Lexicon,
+released October 10, 2003.
 
 =head1 SYNOPSIS
 
@@ -73,6 +73,9 @@ localization formats, such as I<Gettext>, I<Msgcat>, and so on.
 If you are unfamiliar with the concept of lexicon modules, please
 consult L<Locale::Maketext> and L<http://www.autrijus.org/webl10n/>
 first.
+
+A command-line utility L<xgettext.pl> is also installed with this
+module, for extracting translatable strings from source files.
 
 =head2 The C<import> function
 
@@ -339,7 +342,8 @@ have sent helpful patches, ideas or comments.
 
 =head1 SEE ALSO
 
-L<xgettext.pl>
+L<xgettext.pl> for extracting translatable strings from common template
+systems and perl source files.
 
 L<Locale::Maketext>, L<Locale::Maketext::Lexicon::Auto>,
 L<Locale::Maketext::Lexicon::Gettext>, L<Locale::Maketext::Lexicon::Msgcat>,

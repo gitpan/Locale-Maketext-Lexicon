@@ -15,22 +15,24 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 e29dc069f8a4eaef5a8987fbc6c6d13224a3a717 AUTHORS
-SHA1 a3e4fe7c041207e9cd7dd764b6211d8ef409de35 Changes
-SHA1 e219eb7f1b3fc70f88228cf36cd234bda27da1ab MANIFEST
-SHA1 fc32233542b091d677e5cc0b0fbce0898434c933 META.yml
-SHA1 03e98d0e6b02fb2e72342482e460ea806d1632b4 Makefile.PL
-SHA1 7a32a5ba6a9961cc09547cb864e98b5397ed80b0 README
-SHA1 432307d18df1c062bf4c08cfe22e954c74972387 bin/xgettext.pl
-SHA1 72ac973e51ebe2ed0fc3c073f4345e95180adf95 lib/Locale/Maketext/Lexicon.pm
+SHA1 9749261625bac4dc5393d65c29253cb3e38d1eb6 Changes
+SHA1 a765fce2d3e3e60d7f9c3da01ea79463c2c43c4d MANIFEST
+SHA1 cd41b685d5d77fd3490c75369f16a7bfd5c305c6 META.yml
+SHA1 13e6b952ec42114b617a85a6cffb181583b5659f Makefile.PL
+SHA1 2827f314f6758d96b6547dce11a296c8678bf229 README
+SHA1 44fc0b0e743f4a221c2145c8bcecf136df2a7db1 lib/Locale/Maketext/Extract.pm
+SHA1 3fea04ae1cd2dd7af5933815e3a98d86b022e1d2 lib/Locale/Maketext/Lexicon.pm
 SHA1 548ef5ac0f447ef02c7b0eb199a5f3d437840b02 lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 8bc24623a0eb36a41497363f77cb938850223784 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 7721ffd5bfe723c5aeb6609546274ee3dbcf3359 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 5a17028258c93ba6de24dad2870899e8801176a3 lib/Locale/Maketext/Lexicon/Tie.pm
+SHA1 77935728d99128c98ad98e0eabae31da71deced6 script/xgettext.pl
 SHA1 5fca2bfebae7666664e73f9f064ffa9dd3334a6f t/0-signature.t
 SHA1 31f8ca782175ec81c6781cdca7cb71c805601b29 t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
 SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
 SHA1 786af50f71a3299ec40267c74001822602b9b247 t/4-encodings.t
+SHA1 2cf3db8c97875678f86a58eb1de28c03c5b4fedd t/5-extract.t
 SHA1 20689d41baa53f44caf0bc8ef8fdefcda77d82f9 t/T_L10N.pm
 SHA1 2d43b0eae020f43417d20190172d16885f9f8e8f t/gencat.m
 SHA1 d5a3581bbbec3df38f7c47dc82edfbdb0964bebd t/locale/en/LC_MESSAGES/test.mo
@@ -45,9 +47,9 @@ SHA1 ce40b0a4b57820b7104df00049d69b6653a55c64 t/locale/zh_TW/LC_MESSAGES/test_ut
 SHA1 6910777b47e5f73042aa40d210a5f9485510f52d t/messages.mo
 SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.2.2 (FreeBSD)
+Version: GnuPG v1.2.3 (FreeBSD)
 
-iD8DBQE/TdhItLPdNzw1AaARAimpAJ9mmWh0bwR91lazMPs0ZxyWKyxmbwCdGQMt
-gDbBXR1ZrTMsvtY8nwUjwjM=
-=YOk2
+iD8DBQE/haRbtLPdNzw1AaARAsObAJ0dFFna1fQ88OSUehOl0/coOH9RYQCgsh/r
+tAwoWKI1FUnhY50bZWRpcyo=
+=bjAn
 -----END PGP SIGNATURE-----

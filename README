@@ -1,10 +1,13 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/README $ $Author: autrijus $
-# $Revision: #5 $ $Change: 4415 $ $DateTime: 2003/02/22 01:33:27 $
+# $Revision: #6 $ $Change: 8357 $ $DateTime: 2003/10/09 18:03:07 $
 
 This is the README file for Locale::Maketext::Lexicon, a module providing
 lexicon-handling backends, for "Locale::Maketext" to read from other
 localization formats, such as PO files, MO files, or from databases via
 the "Tie" interface.
+
+For extracting translatable strings from source files, a "xgettext.pl"
+utility is also installed by default.
 
 You can also read my presentation "Web Localization in Perl" online at
 http://www.autrijus.org/webl10n/.  It gives an overview for the localization

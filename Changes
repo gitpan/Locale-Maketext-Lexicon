@@ -1,4 +1,21 @@
 ____________________________________________________________________________
+[  8357] By: autrijus                              on 2003/10/09  18:03:07
+        Log: * This be 0.29.
+             * update readme and pods to mention ::Extract.
+	   ! README lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  8356] By: autrijus                              on 2003/10/09  18:02:52
+        Log: * add test for extraction
+	   + t/5-extract.t
+____________________________________________________________________________
+[  8355] By: autrijus                              on 2003/10/09  18:01:40
+        Log: * Refactor xgettext.pl out into Locale::Maketext::Extract.
+             * Move bin/ into script/.
+	   + lib/Locale/Maketext/Extract.pm
+	   + script/xgettext.pl
+	   - bin/xgettext.pl
+	   ! MANIFEST Makefile.PL
+____________________________________________________________________________
 [  7748] By: autrijus                              on 2003/08/28  10:19:40
         Log: * This be 0.28.
 	   ! lib/Locale/Maketext/Lexicon.pm

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/Makefile.PL $ $Author: autrijus $
-# $Revision: #6 $ $Change: 2107 $ $DateTime: 2002/11/13 11:11:01 $
+# $Revision: #7 $ $Change: 8355 $ $DateTime: 2003/10/09 18:01:40 $
 
 require 5.005;
 
@@ -17,7 +17,7 @@ WriteMakefile(
     DISTNAME		=> 'Locale-Maketext-Lexicon',
     BINARY_LOCATION	=> 'x86/Locale-Maketext-Lexicon.tar.gz',
 
-    EXE_FILES		=> [ 'bin/xgettext.pl' ],
+    EXE_FILES		=> [ 'script/xgettext.pl' ],
     PREREQ_PM		=> {
 	'Test::More'		=> '0.01',
 	'Locale::Maketext'	=> '0.01',
