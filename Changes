@@ -1,4 +1,18 @@
 ____________________________________________________________________________
+[ 10139] By: autrijus                              on 2004/02/19  18:25:46
+        Log: * This be 0.35.
+             * We no longer depend on Regexp::Common and Pod::Usage.
+	   ! Makefile.PL lib/Locale/Maketext/Extract.pm
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! script/xgettext.pl
+____________________________________________________________________________
+[ 10138] By: autrijus                              on 2004/02/19  18:14:56
+        Log: * extract strings inside functions that has spaces inside
+	       the
+             parens, like 'loc( "test" )', as suggested by Helmut
+	     Lichtenberg.
+	   ! AUTHORS lib/Locale/Maketext/Extract.pm
+____________________________________________________________________________
 [  9506] By: autrijus                              on 2003/12/31  08:28:21
         Log: * This be 0.34.
              * Update years to 2004.

@@ -1,11 +1,10 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/script/xgettext.pl $ $Author: autrijus $
-# $Revision: #3 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $ vim: expandtab shiftwidth=4
+# $Revision: #4 $ $Change: 10139 $ $DateTime: 2004/02/19 18:25:46 $ vim: expandtab shiftwidth=4
 
 use strict;
 use Cwd;
 use Getopt::Std;
-use Pod::Usage;
 use Locale::Maketext::Extract;
 
 =head1 NAME
@@ -16,21 +15,6 @@ xgettext.pl - Extract translatable strings from source
 
 B<xgettext.pl> [ B<-u> ] [ B<-g> ] [ B<-o> I<outputfile> ] [ I<inputfile>... ]
 
-=head1 OPTIONS
-
-[ B<-u> ] Disables conversion from B<Maketext> format to B<Gettext>
-format -- i.e. it leaves all brackets alone.  This is useful if you are
-also using the B<Gettext> syntax in your program.
-
-[ B<-g> ] Enables GNU gettext interoperability by printing C<#,
-perl-maketext-format> before each entry that has C<%> variables.
-
-[ B<-o> I<outputfile> ] PO file name to be written or incrementally
-updated C<-> means writing to F<STDOUT>.  If not specified,
-F<messages.po> is used.
-
-[ I<inputfile>... ] are the files to extract messages from.
-
 =head1 DESCRIPTION
 
 This program extracts translatable strings from given input files, or
@@ -39,11 +23,37 @@ from STDIN if none are given.
 Please see L<Locale::Maketext::Extract> for a list of supported
 input file formats.
 
+=head1 OPTIONS
+
+=over 4
+
+=item B<-u>
+
+Disables conversion from B<Maketext> format to B<Gettext> format -- i.e.
+leave all brackets alone.  This is useful if you are also using the
+B<Gettext> syntax in your program.
+
+=item B<-g>
+
+Enables GNU gettext interoperability by printing C<#, perl-maketext-format>
+before each entry that has C<%> variables.
+
+=item B<-o> I<outputfile>
+
+PO file name to be written or incrementally updated; C<-> means writing to
+B<STDOUT>.  If not specified, F<messages.po> is used.
+
+=item I<inputfile>...
+
+The files to extract messages from.  If not specified, B<STDIN> is assumed.
+
+=back
+
 =cut
 
 my %opts;
-getopts('hugo:', \%opts) or pod2usage( -verbose => 1, -exitval => 1 );
-pod2usage( -verbose => 2, -exitval => 0 ) if $opts{h};
+getopts('hugo:', \%opts) or help();
+help() if $opts{h};
 
 my $PO = Cwd::abs_path($opts{o} || "messages.po");
 @ARGV = ('-') unless @ARGV;
@@ -54,6 +64,12 @@ $Ext->read_po($PO, $opts{u}) if -r $PO;
 $Ext->extract_file($_) for grep !/\.po$/i, @ARGV;
 $Ext->compile($opts{u}) or exit;
 $Ext->write_po($PO);
+
+sub help {
+    local $SIG{__WARN__} = sub {};
+    exec "perldoc $0";
+    exec "pod2text $0";
+}
 
 1;
 

@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #41 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $
+# $Revision: #42 $ $Change: 10139 $ $DateTime: 2004/02/19 18:25:46 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.34';
+$Locale::Maketext::Lexicon::VERSION = '0.35';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.34 of Locale::Maketext::Lexicon,
-released January 1, 2004.
+This document describes version 0.35 of Locale::Maketext::Lexicon,
+released February 20, 2004.
 
 =head1 SYNOPSIS
 

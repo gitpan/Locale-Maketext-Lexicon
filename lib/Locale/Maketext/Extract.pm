@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Extract.pm $ $Author: autrijus $
-# $Revision: #6 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $ vim: expandtab shiftwidth=4
+# $Revision: #8 $ $Change: 10139 $ $DateTime: 2004/02/19 18:25:46 $ vim: expandtab shiftwidth=4
 
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.04';
+$Locale::Maketext::Extract::VERSION = '0.05';
 
 use strict;
 
@@ -238,7 +238,7 @@ sub extract {
         $state == BEG && m/^([\s\t\n]*)/gc && redo;
 
         # begin ()
-        $state == BEG && m/^([\S\(])/gc
+        $state == BEG && m/^([\S\(])\s*/gc
                       && do { $state = ( ($1 eq '(') ? PAR : NUL); redo };
 
         # begin or end of string
@@ -255,7 +255,7 @@ sub extract {
         $state == QUO3 && m/^\`/gc        && do { $state = PAR;           redo };
 
         # end ()
-        $state == PAR && m/^[\)]/gc && do {
+        $state == PAR && m/^\s*[\)]/gc && do {
             $state = NUL; 
             $vars =~ s/[\n\r]//g if ($vars);
             if ($quo == QUO1) {

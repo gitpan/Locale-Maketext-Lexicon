@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.37.
+signed via the Module::Signature module, version 0.38.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,28 +14,28 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 2c276a0e53760617ead6fe33c03da602e44de23a AUTHORS
-SHA1 6ae40c9670792343059abe148c13fbc1d6ef7f06 Changes
+SHA1 3de34f6cebd0b06b5fbfdf032bdf6b69157cfa7e AUTHORS
+SHA1 2ef6d8abf74d6ce5db95116fc9c06115a870cf1d Changes
 SHA1 355d23ddb4a3fb2a6025072bbe12561534f53856 MANIFEST
-SHA1 079797566369f9227ac7903344c44952bf91f186 META.yml
-SHA1 600ac9193ebbcfd9fc88514b966e2d395cb5331f Makefile.PL
+SHA1 7f51fda37132b9f0401936270ca9340d4923ac88 META.yml
+SHA1 95bc2d922a9abfc584b7fd64494b793ce20a9ea4 Makefile.PL
 SHA1 e1a8c286d32cc99bcb7b95b76f952364958f84d1 README
-SHA1 056a35f53855c73fb98ada291ca70f5ce8332b4c inc/Module/Install.pm
-SHA1 afe7ca05acf9028246e70aa6cdbc4f238b12acdd inc/Module/Install/Base.pm
+SHA1 d78c824a321715b390518287a8929623d7a55050 inc/Module/Install.pm
+SHA1 adfc45c82642d3726cc2c871c49062c000ccb0e4 inc/Module/Install/Base.pm
 SHA1 ba881ecfb8e8b9c4ebbc409b8025cac973511197 inc/Module/Install/Can.pm
 SHA1 c03e641fcc136de2fbdd62ce4e82e2dfa8410962 inc/Module/Install/Fetch.pm
-SHA1 4a93dcd87c242ca46f47517501d34c5cf352686a inc/Module/Install/Makefile.pm
+SHA1 876226cc896a285b2409db88d9033071c68cec50 inc/Module/Install/Makefile.pm
 SHA1 2a0dd241db019def435fde8537e600a182750824 inc/Module/Install/Metadata.pm
-SHA1 04d629dd71239bb9c4d79415fd7c932ce5be1bf6 inc/Module/Install/Scripts.pm
+SHA1 bdb2dd398b88c8fef2875704d164be750a142cd3 inc/Module/Install/Scripts.pm
 SHA1 1915204e46fcee6faf528f8d86aec215e332cc7b inc/Module/Install/Win32.pm
 SHA1 acf1fd355f805442c195dc9dc4e764ad742862e1 inc/Module/Install/WriteAll.pm
-SHA1 1fcd2c14ad8a274c4ee83c10f74e08cce92e8e99 lib/Locale/Maketext/Extract.pm
-SHA1 034b54af6dfdaba10ce6fb5b6d6db6d3594ea3b2 lib/Locale/Maketext/Lexicon.pm
+SHA1 21734e164f4de65f6b63e8d2297280206cc6d0df lib/Locale/Maketext/Extract.pm
+SHA1 eccdf63d0acdc48c0219264278d83f9e0e3c859b lib/Locale/Maketext/Lexicon.pm
 SHA1 b400a9c4b748fe6bf3977f12793cd711da3760ad lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 6abfca30029094df4d89379ff0f578487f1a9934 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 768cbbfcf90e2813471130beb2c82bf59586e6d5 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 35e4317f70503ad53743b48a27aa8b6579b10e67 lib/Locale/Maketext/Lexicon/Tie.pm
-SHA1 3a3e5d017c91520e603e8eadf89f0a75e1150ee0 script/xgettext.pl
+SHA1 70222089b3b5a0fcf77802c4fe83e33d4a8f937f script/xgettext.pl
 SHA1 5fca2bfebae7666664e73f9f064ffa9dd3334a6f t/0-signature.t
 SHA1 31f8ca782175ec81c6781cdca7cb71c805601b29 t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
@@ -58,7 +58,7 @@ SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.3 (FreeBSD)
 
-iD8DBQE/8onTtLPdNzw1AaARAjZaAJ46D4+DjB3TIvra4KBAm4/YtlIacwCgjVjv
-/i6PYcuLhMdPJRJ0DGVZZyk=
-=C+j2
+iD8DBQFANP/0tLPdNzw1AaARAghVAJ9ImxfGSsMvaMZKdhsbFGMKkKOMNwCeOsK4
+08h/ZJbpZ2RJYFwL8vgeh20=
+=fa3u
 -----END PGP SIGNATURE-----
