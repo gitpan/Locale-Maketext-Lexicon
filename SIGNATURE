@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.19.
+signed via the Module::Signature module, version 0.21.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,14 +15,14 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 4fee7a153597349c60c15554d6da9e513144b1a1 AUTHORS
-SHA1 b1e998933a65c60cd42389ff99f2b973e9fb421b Changes
+SHA1 e95bb3d9a3445ee2c3fc9e86c96532b04b74bbf2 Changes
 SHA1 6be8235b8e38eed90aba9a8e114b6cbd029dae39 MANIFEST
 SHA1 03e98d0e6b02fb2e72342482e460ea806d1632b4 Makefile.PL
 SHA1 a189ed42a970c7c7ffc7f55f1bd0cb1b55bb4df2 README
 SHA1 8279c2b3af25e446833d8b4b0f613c3c2157c3bc bin/messages.po
-SHA1 d8fa75009a1430130805e818dd2d643475c784ca bin/xgettext.pl
-SHA1 17b2bb7c5525ae8b9c5d5a7c934a3a66e7b16ca1 lib/Locale/Maketext/Lexicon.pm
-SHA1 cee8dc5b59ebe3f09ef3e64fd8ca8b4f722e717e lib/Locale/Maketext/Lexicon/Auto.pm
+SHA1 aa52e4c9cfe51ee9f959821a6e6f90f8e177d860 bin/xgettext.pl
+SHA1 34a56351c27e70b28252cee3c73946af9d329036 lib/Locale/Maketext/Lexicon.pm
+SHA1 548ef5ac0f447ef02c7b0eb199a5f3d437840b02 lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 4d07ad5b3e8f0dc469075707821cae00e91bed74 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 7721ffd5bfe723c5aeb6609546274ee3dbcf3359 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 5a17028258c93ba6de24dad2870899e8801176a3 lib/Locale/Maketext/Lexicon/Tie.pm
@@ -34,7 +34,7 @@ SHA1 1b806d9de59e4b2961507313c73db3c5d3562b85 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.0 (FreeBSD)
 
-iD8DBQE90kNztLPdNzw1AaARAkE3AKC4Yju0d/lt2jt42a+GJZjHLVsB9gCgpcwu
-/Ch5LNBkA9ItqSpGDS8fJAs=
-=UCjT
+iD8DBQE95xdKtLPdNzw1AaARAqA7AJ97Gxlrv+53CNFZnA7ip21C6RylDQCgj8tD
+Y5rpudo2V80Oy2MVDtlJXbM=
+=pTJA
 -----END PGP SIGNATURE-----

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #8 $ $Change: 2112 $ $DateTime: 2002/11/13 11:54:39 $
+# $Revision: #12 $ $Change: 2454 $ $DateTime: 2002/11/29 07:11:54 $
 
 use strict;
 use Getopt::Std;
@@ -65,18 +65,32 @@ if (-r $PO) {
     open LEXICON, $PO or die $!;
     while (<LEXICON>) {
 	if (1 .. /^$/) { $out .= $_; next }
+	last;
     }
-    close LEXICON;
+
+    1 while chomp $out;
 
     require Locale::Maketext::Lexicon::Gettext;
-    %Lexicon = %{ Locale::Maketext::Lexicon::Gettext->parse($PO) };
+    %Lexicon = map {
+	if ($opts{u}) {
+	    s/\\/\\\\/g;
+	    s/\"/\\"/g;
+	    s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
+	    s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*),([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
+	    s/~([\~\[\]])/$1/g;
+	}
+	$_;
+    } %{ Locale::Maketext::Lexicon::Gettext->parse(<LEXICON>) };
+    close LEXICON;
+    delete $Lexicon{''};
 }
 
-open PO, ">$PO";
+open PO, ">$PO" or die "Can't write to $PO:$!\n";
 select PO;
 
 undef $/;
 foreach my $file (@ARGV) {
+    next if ($file=~/\.po$/i); # Don't parse po files
     my $filename = $file;
     open _, $file or die $!; $_ = <_>; $filename =~ s!^./!!;
 
@@ -169,20 +183,30 @@ foreach my $file (@ARGV) {
 }
 
 foreach my $str (sort keys %file) {
+    my $ostr = $str;
+    my $entry = $file{$str};
+    my $lexi = $Lexicon{$ostr};
+
     $str =~ s/\\/\\\\/g;
     $str =~ s/\"/\\"/g;
+    $lexi =~ s/\\/\\\\/g;
+    $lexi =~ s/\"/\\"/g;
 
     unless ($opts{u}) {
-	my $entry = $file{$str};
-
-	$str =~ s/((?<!~)(?:~~)+)\[_(\d+)\]/$1%$2/g;
-	$str =~ s/((?<!~)(?:~~)+)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
+	$str =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
+	$str =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
 	$str =~ s/~([\~\[\]])/$1/g;
-
-	$file{$str} = $entry;
+	$lexi =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
+	$lexi =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
+	$lexi =~ s/~([\~\[\]])/$1/g;
     }
 
     $Lexicon{$str} ||= '';
+    next if $ostr eq $str;
+
+    $Lexicon{$str} ||= $lexi;
+    delete $file{$ostr}; delete $Lexicon{$ostr};
+    $file{$str} = $entry;
 }
 
 exit unless %Lexicon;
@@ -221,7 +245,7 @@ foreach (sort keys %Lexicon) {
     foreach my $entry ( grep { $_->[2] } @{$file{$_}} ) {
 	my ($file, $line, $var) = @{$entry};
 	$var =~ s/^\s*,\s*//; $var =~ s/\s*$//;
-	print "#. ($var)\n" unless $seen{$var}++;
+	print "#. ($var)\n" unless !length($var) or $seen{$var}++;
     }
 
     print "#, maketext-format" if $::interop and /%(?:\d|\w+\([^\)]*\))/;
@@ -234,7 +258,7 @@ sub output {
 
     if ($str =~ /\n/) {
 	print "\"\"\n";
-	print "\"$_\"\n" foreach split(/\n/, $str);
+	print "\"$_\"\n" foreach split(/\n/, $str, -1);
     }
     else {
 	print "\"$str\"\n"
