@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #19 $ $Change: 7747 $ $DateTime: 2003/08/28 10:18:47 $
+# $Revision: #20 $ $Change: 8404 $ $DateTime: 2003/10/13 18:51:09 $
 
 package Locale::Maketext::Lexicon::Gettext;
 $Locale::Maketext::Lexicon::Gettext::VERSION = '0.08';
@@ -87,6 +87,8 @@ sub parse {
 
     $InputEncoding = $OutputEncoding = $DoEncoding = undef;
 
+    use Carp;
+    Carp::cluck " is happy\n" unless defined $_[0];
     # Check for magic string of MO files
     return parse_mo(join('', @_))
 	if ($_[0] =~ /^\x95\x04\x12\xde/ or $_[0] =~ /^\xde\x12\x04\x95/);
@@ -154,8 +156,11 @@ sub transform {
 
     $str = Encode::decode($InputEncoding, $str) if $DoEncoding and $InputEncoding;
     $str =~ s/\\([0x]..|c?.)/qq{"\\$1"}/eeg;
-    $str =~ s/[\~\[\]]/~$&/g;
-    $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/"\[$1,".unescape($2)."]"/eg;
+    $str =~ s/[~\[\]]/~$&/g;
+    $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/[$1,~~~$2~~~]/g;
+    $str = join('', map {
+	/~~~(.*?)~~~/ ? unescape($1) : $_
+    } split(/(~~~.*?~~~)/, $str));
     $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
     $str = Encode::encode($OutputEncoding, $str) if $DoEncoding and $OutputEncoding;
 

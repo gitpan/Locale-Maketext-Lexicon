@@ -1,4 +1,20 @@
 ____________________________________________________________________________
+[  8406] By: autrijus                              on 2003/10/13  19:05:06
+        Log: * also modify Extract.pm to be not reentrant.
+	   ! lib/Locale/Maketext/Extract.pm
+____________________________________________________________________________
+[  8405] By: autrijus                              on 2003/10/13  18:53:11
+        Log: * This be 0.30.
+             * '*' in sources will now get properlly expanded by
+	       globbing.
+	   ! AUTHORS lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  8404] By: autrijus                              on 2003/10/13  18:51:09
+        Log: * the reentrant-regex transformation used in ::Gettext was
+             breaking 5.8.0 in subtle ways.	recoded to use a two-pass
+             approach.
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
 [  8357] By: autrijus                              on 2003/10/09  18:03:07
         Log: * This be 0.29.
              * update readme and pods to mention ::Extract.

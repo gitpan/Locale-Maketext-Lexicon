@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #36 $ $Change: 8357 $ $DateTime: 2003/10/09 18:03:07 $
+# $Revision: #37 $ $Change: 8405 $ $DateTime: 2003/10/13 18:53:11 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.29';
+$Locale::Maketext::Lexicon::VERSION = '0.30';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.29 of Locale::Maketext::Lexicon,
-released October 10, 2003.
+This document describes version 0.30 of Locale::Maketext::Lexicon,
+released October 14, 2003.
 
 =head1 SYNOPSIS
 
@@ -216,6 +216,11 @@ sub import {
 	my @pairs = @{$entry||[]} or die "no format specified";
 
 	while (my ($format, $src) = splice(@pairs, 0, 2)) {
+	    if (defined($src) and !ref($src) and $src =~ /\*/) {
+		unshift(@pairs, $format => $_) for File::Glob::bsd_glob($src);
+		next;
+	    }
+
 	    my @content = $class->lexicon_get($src, scalar caller, $lang);
 
 	    no strict 'refs';
