@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 # $File: //member/autrijus/Locale-Maketext-Lexicon/t/1-basic.t $ $Author: autrijus $
-# $Revision: #9 $ $Change: 1710 $ $DateTime: 2002/10/27 22:07:45 $
+# $Revision: #10 $ $Change: 5470 $ $DateTime: 2003/04/27 14:22:30 $
 
 use strict;
-use Test::More tests => 25;
+use Test::More tests => 30;
 
 package Hello::L10N;
 use Test::More;
@@ -28,6 +28,11 @@ use_ok(
 );
 
 ok(!$warned, 'no warnings on blank lines');
+
+Locale::Maketext::Lexicon->import({
+    de_de => ['Gettext'	=> \*::DATA],
+    _use_fuzzy => 1,
+});
 
 package main;
 
@@ -74,6 +79,31 @@ is(
     $lh->maketext('__Content-Type'),
     'text/plain; charset=ISO-8859-1',
     'Gettext - metadata'
+);
+is(
+    $lh->maketext('[_1]()', 10),
+    '10()',
+    'Gettext - correct parens'
+);
+is(
+    $lh->maketext('KnowledgeAndNature'),
+"Ich wuenschte recht gelehrt zu werden,".
+"Und moechte gern, was auf der Erden".
+"Und in dem Himmel ist, erfassen,".
+"Die Wissenschaft und die Natur.",
+    'Gettext - multiline'
+);
+is(
+    eval { $lh->maketext("The Hitchhiker's Guide to the Galaxy") },
+    undef,
+    'Gettext - fuzzy entries are ignored'
+);
+
+ok($lh = Hello::L10N->get_handle('de_de'), 'Gettext - get_handle on DATA again');
+is(
+    eval { $lh->maketext("The Hitchhiker's Guide to the Galaxy") },
+    'Der Fuehrer des Trampers zur Galaxie',
+    'Gettext - fuzzy entries are recognized with _use_fuzzy'
 );
 
 ################################################################
@@ -180,3 +210,19 @@ msgstr "%* %2 %1"
 #: Hello.pm:14
 msgid "%1%2%*"
 msgstr "%*%2%1"
+
+#: Hello.pm:15
+msgid "Knowledge"
+"And"
+"Nature"
+msgstr ""
+"Ich wuenschte recht gelehrt zu werden,"
+"Und moechte gern, was auf der Erden"
+"Und in dem Himmel ist, erfassen,"
+"Die Wissenschaft und die Natur."
+
+#: Hello.pm:16
+#, big, furry, fuzzy
+msgid "The Hitchhiker's Guide to the Galaxy"
+msgstr "Der Fuehrer des Trampers zur Galaxie"
+

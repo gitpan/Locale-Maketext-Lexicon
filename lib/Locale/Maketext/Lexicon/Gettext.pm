@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #16 $ $Change: 5463 $ $DateTime: 2003/04/26 17:41:08 $
+# $Revision: #17 $ $Change: 5470 $ $DateTime: 2003/04/27 14:22:30 $
 
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.07';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.08';
 
 use strict;
 
@@ -62,6 +62,17 @@ Any normal entry that duplicates a metadata entry takes precedence.
 Hence, a C<msgid "__Content-Type"> line occurs anywhere should override
 the above value.
 
+=head1 NOTES
+
+When parsing PO files, fuzzy entries (entries marked with C<#, fuzzy>)
+are silently ignored.  If you wish to use fuzzy entries, specify a true
+value to the C<_use_fuzzy> option: 
+
+    use Locale::Maketext::Lexicon {
+	de => [Gettext => 'hello/de.mo'],
+	_use_fuzzy => 1,
+    };
+
 =cut
 
 my ($InputEncoding, $OutputEncoding, $DoEncoding);
@@ -82,7 +93,9 @@ sub parse {
 
     local $^W;	# no 'uninitialized' warnings, please.
 
-    # Parse PO files; Locale::gettext objects are not yet supported.
+    my $UseFuzzy = Locale::Maketext::Lexicon::option('use_fuzzy');
+
+    # Parse PO files
     foreach (@_) {
 	/^(msgid|msgstr) +"(.*)" *$/	? do {	# leading strings
 	    $var{$1} = $2;
@@ -90,16 +103,16 @@ sub parse {
 	} :
 
 	/^"(.*)" *$/			? do {	# continued strings
-	    $var{$key} .= $1."\n";
+	    $var{$key} .= $1;
 	} :
 
 	/^#, +(.*) *$/			? do {	# control variables
-	    $var{$1} = 1;
+	    $var{$_} = 1 for split(/,\s+/, $1);
 	} :
 
 	/^ *$/ && %var			? do {	# interpolate string escapes
 	    push @ret, (map transform($_), @var{'msgid', 'msgstr'})
-		if length $var{msgstr};
+		if length $var{msgstr} and !$var{fuzzy} or $UseFuzzy;
 	    push @metadata, parse_metadata($var{msgstr})
 		if $var{msgid} eq '';
 	    %var = ();

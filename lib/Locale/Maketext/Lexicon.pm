@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #20 $ $Change: 5463 $ $DateTime: 2003/04/26 17:41:08 $
+# $Revision: #21 $ $Change: 5469 $ $DateTime: 2003/04/27 14:18:09 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.20';
+$Locale::Maketext::Lexicon::VERSION = '0.21';
 
 use strict;
 
@@ -12,7 +12,7 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.20 of Locale::Maketext::Lexicon,
+This document describes version 0.21 of Locale::Maketext::Lexicon,
 released April 27, 2003.
 
 =head1 SYNOPSIS
@@ -80,9 +80,11 @@ The C<import()> function accepts two forms of arguments:
 
 =over 4
 
-=item (I<format> => I<[ filehandle | filename | arrayref ]> ... )
+=item (I<format> => I<source> ... )
 
-This form takes any number of argument pairs (usually one).
+This form takes any number of argument pairs (usually one);
+I<source> may be a file name, a filehandle, or an array reference.
+
 For each such pair, it pass the contents specified by the second
 argument to B<Locale::Maketext::Lexicon::I<format>>->parse as a
 plain list, and export its return value as the C<%Lexicon> hash
@@ -91,7 +93,7 @@ in the calling package.
 In the case that there are multiple such pairs, the lexicon
 defined by latter ones overrides earlier ones.
 
-=item { I<language> => [ I<format>, I<[ filehandle | filename | arrayref ]> ... ] ... }
+=item { I<language> => [ I<format>, I<source> ... ] ... }
 
 This form accepts a hash reference.  It will export a C<%Lexicon>
 into the subclasses specified by each I<language>, using the process
@@ -274,7 +276,10 @@ sub lexicon_get_glob   {
     }
 
     # fh containing the lines
-    return <$src>;
+    my $pos = tell($src);
+    my @lines = <$src>;
+    seek($src, $pos, 0);
+    return @lines;
 }
 
 # assume filename - search path, open and return its contents

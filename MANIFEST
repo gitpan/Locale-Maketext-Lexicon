@@ -17,17 +17,13 @@ t/3-big-endian.t
 t/4-encodings.t
 t/TestPkg/L10N.pm
 t/gencat.m
-t/locale/en/LC_MESSAGES/bad.mo
 t/locale/en/LC_MESSAGES/test.mo
-t/locale/en/LC_MESSAGES/test2.mo
 t/locale/en/LC_MESSAGES/test_be.mo
-t/locale/en/LC_MESSAGES/test_reload.mo
 t/locale/en/LC_MESSAGES/test_utf8.mo
 t/locale/zh_CN/LC_MESSAGES/test.mo
 t/locale/zh_CN/LC_MESSAGES/test_be.mo
 t/locale/zh_CN/LC_MESSAGES/test_utf8.mo
 t/locale/zh_TW/LC_MESSAGES/test.mo
-t/locale/zh_TW/LC_MESSAGES/test2.mo
 t/locale/zh_TW/LC_MESSAGES/test_be.mo
 t/locale/zh_TW/LC_MESSAGES/test_utf8.mo
 t/messages.mo

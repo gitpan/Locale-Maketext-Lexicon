@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #15 $ $Change: 4414 $ $DateTime: 2003/02/22 01:33:00 $
+# $Revision: #16 $ $Change: 5471 $ $DateTime: 2003/04/27 14:34:02 $
 
 use strict;
 use Getopt::Std;
@@ -312,7 +312,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

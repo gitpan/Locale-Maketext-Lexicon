@@ -1,4 +1,37 @@
 ____________________________________________________________________________
+[  5471] By: autrijus                              on 2003/04/27  14:34:02
+        Log: * This be 0.21.
+             * remove unneccessary MO files.
+             * updates copyright to 2003.
+	   - t/locale/en/LC_MESSAGES/bad.mo
+	   - t/locale/en/LC_MESSAGES/test2.mo
+	   - t/locale/en/LC_MESSAGES/test_reload.mo
+	   - t/locale/zh_TW/LC_MESSAGES/test2.mo
+	   ! MANIFEST bin/xgettext.pl
+____________________________________________________________________________
+[  5470] By: autrijus                              on 2003/04/27  14:22:30
+        Log: * Mathieu Arnold pointed out that multiline handling was
+	       incorrect.
+             * implemented correct parsing of multiple "#, flag1, flag2"
+             * "#, fuzzy" entries are now ignored, unless _use_fuzzy is
+	       set to true.
+             * tests that covers those changes.
+	   ! AUTHORS lib/Locale/Maketext/Lexicon/Gettext.pm
+	   ! t/1-basic.t
+____________________________________________________________________________
+[  5469] By: autrijus                              on 2003/04/27  14:18:09
+        Log: * documentation fix: removed the ambiguous [ ... ] by
+	       request of imacat.
+             * filehandle sources are now seek()ed back to the original
+             position after reading; this allows using the same handle
+	     for
+             two language subclasses.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5464] By: autrijus                              on 2003/04/26  17:44:34
+        Log: * changes and signatures.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
 [  5463] By: autrijus                              on 2003/04/26  17:41:08
         Log: * This be 0.20.
              * add a note that we now turns 'zh-tw' into 'zh_tw' during
