@@ -2,7 +2,7 @@
 # $Revision: #9 $ $Change: 3586 $ $DateTime: 2002/03/29 13:55:17 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.01';
+$Locale::Maketext::Lexicon::VERSION = '0.02';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.01 of Locale::Maketext::Lexicon, released
-May  8, 2002.
+This document describes version 0.02 of Locale::Maketext::Lexicon, released
+May 13, 2002.
 
 =head1 SYNOPSIS
 
@@ -30,6 +30,14 @@ Alternatively, as part of a localization subclass:
     use Locale::Maketext::Lexicon;
     Locale::Maketext::Lexicon->import(Gettext => \*DATA);
     __DATA__
+    # Some sample data
+    msgid ""
+    msgstr ""
+    "Project-Id-Version: Hello 1.3.22.1\n"
+    "MIME-Version: 1.0\n"
+    "Content-Type: text/plain; charset=iso8859-1\n"
+    "Content-Transfer-Encoding: 8bit\n"
+
     #: Hello.pm:10
     msgid "Hello, World!"
     msgstr "Hallo, Welt!"
