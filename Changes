@@ -1,4 +1,30 @@
 ____________________________________________________________________________
+[  5540] By: autrijus                              on 2003/04/30  10:10:02
+        Log: * This be 0.25.
+             * change t/TestPkg/L10N.pm to t/T_L10N.pm in accord with
+             imacat's arrangement.
+	   + t/T_L10N.pm
+	   - t/TestPkg/L10N.pm
+	   ! MANIFEST t/2-lmg.t t/3-big-endian.t
+	   ! t/4-encodings.t
+____________________________________________________________________________
+[  5539] By: autrijus                              on 2003/04/30  10:07:30
+        Log: * fixes cases where there are multiple '*'s in the glob
+	       entry.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5493] By: autrijus                              on 2003/04/28  09:22:05
+        Log: signature.
+	   ! SIGNATURE
+____________________________________________________________________________
+[  5492] By: autrijus                              on 2003/04/28  09:20:51
+        Log: * 0.24, to combat PAUSE indexer silliness.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5488] By: autrijus                              on 2003/04/28  08:26:53
+        Log: * changes and signatures.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
 [  5487] By: autrijus                              on 2003/04/28  08:18:28
         Log: * 0.23 -- PAUSE wrecked 0.22.
 	   ! lib/Locale/Maketext/Lexicon.pm

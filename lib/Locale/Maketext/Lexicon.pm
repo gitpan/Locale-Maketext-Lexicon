@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #26 $ $Change: 5492 $ $DateTime: 2003/04/28 09:20:51 $
+# $Revision: #27 $ $Change: 5539 $ $DateTime: 2003/04/30 10:07:30 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.24';
+$Locale::Maketext::Lexicon::VERSION = '0.25';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.24 of Locale::Maketext::Lexicon,
-released April 28, 2003.
+This document describes version 0.25 of Locale::Maketext::Lexicon,
+released April 30, 2003.
 
 =head1 SYNOPSIS
 
@@ -179,8 +179,10 @@ sub import {
     if (my $wild_entry = delete $entries{'*'}) {
 	while (my ($format, $src) = splice(@$wild_entry, 0, 2)) {
 	    next if ref($src); # XXX: implement globbing for the 'Tie' backend
+
 	    my $pattern = $src;
-	    $pattern =~ s/\*/\([-\\w]+\)/g or next;
+            $pattern =~ s/\*(?=[^*]+$)/\([-\\w]+\)/g or next;
+	    $pattern =~ s/\*/.*?/g;
 
 	    require File::Glob;
 	    foreach my $file (File::Glob::bsd_glob($src)) {

@@ -22,8 +22,8 @@ use Encode qw(decode);
 
 # bindtextdomain
 eval {
-    require TestPkg::L10N;
-    $_ = TestPkg::L10N->get_handle("en");
+    require T_L10N;
+    $_ = T_L10N->get_handle("en");
     $_->bindtextdomain("test", $LOCALEDIR);
     $_ = $_->bindtextdomain("test");
 };
@@ -34,8 +34,8 @@ ok($_, "$LOCALEDIR");
 
 # textdomain
 eval {
-    require TestPkg::L10N;
-    $_ = TestPkg::L10N->get_handle("en");
+    require T_L10N;
+    $_ = T_L10N->get_handle("en");
     $_->bindtextdomain("test", $LOCALEDIR);
     $_->textdomain("test");
     $_ = $_->textdomain;
@@ -48,7 +48,7 @@ ok($_, "test");
 # readmo
 eval {
     $_ = catfile($LOCALEDIR, "zh_TW", "LC_MESSAGES", "test.mo");
-    ($_, %_) = TestPkg::L10N->readmo($_);
+    ($_, %_) = T_L10N->readmo($_);
 };
 # 5
 ok($@, "");
@@ -61,8 +61,8 @@ ok($_{"Hello, world!"}, decode("Big5", "大家好。"));
 
 # English
 eval {
-    require TestPkg::L10N;
-    $_ = TestPkg::L10N->get_handle("en");
+    require T_L10N;
+    $_ = T_L10N->get_handle("en");
     $_->bindtextdomain("test", $LOCALEDIR);
     $_->textdomain("test");
     $_ = $_->maketext("Hello, world!");
@@ -74,8 +74,8 @@ ok($_, "Hiya :)");
 
 # Traditional Chinese
 eval {
-    require TestPkg::L10N;
-    $_ = TestPkg::L10N->get_handle("zh-tw");
+    require T_L10N;
+    $_ = T_L10N->get_handle("zh-tw");
     $_->bindtextdomain("test", $LOCALEDIR);
     $_->textdomain("test");
     $_ = $_->maketext("Hello, world!");
@@ -87,8 +87,8 @@ ok($_, "大家好。");
 
 # Simplified Chinese
 eval {
-    require TestPkg::L10N;
-    $_ = TestPkg::L10N->get_handle("zh-cn");
+    require T_L10N;
+    $_ = T_L10N->get_handle("zh-cn");
     $_->bindtextdomain("test", $LOCALEDIR);
     $_->textdomain("test");
     $_ = $_->maketext("Hello, world!");
