@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Auto.pm $ $Author: autrijus $
-# $Revision: #3 $ $Change: 1154 $ $DateTime: 2002/10/04 02:45:16 $
+# $Revision: #4 $ $Change: 1710 $ $DateTime: 2002/10/27 22:07:45 $
 
 package Locale::Maketext::Lexicon::Auto;
-$Locale::Maketext::Lexicon::Auto::VERSION = '0.01';
+$Locale::Maketext::Lexicon::Auto::VERSION = '0.02';
 
 use strict;
 
@@ -22,22 +22,22 @@ Locale::Maketext::Lexicon::Auto - Auto fallback lexicon for Maketext
 =head1 DESCRIPTION
 
 This module builds a simple Lexicon hash that contains nothing but
-C<( '_AUTO' => 1)>, which tells C<Locale::Maketext> that no localizing
-is needed -- just use the lookup key as the returned string.
+C<( '_AUTO' =E<gt>> 1)>, which tells C<Locale::Maketext> that no
+localizing is needed -- just use the lookup key as the returned string.
 
-It is especially useful if you're starting to prototype a program,
-and does not want deal with the localization files yet.
+It is especially useful if you're starting to prototype a program, and
+do not want deal with the localization files yet.
 
 =head1 CAVEATS
 
-If the key to C<->maketext> begins with a C<_>, C<Locale::Maketext> will
-still throw an exception.  See <Locale::Maketext/CONTROLLING LOOKUP FAILURE>
-for how to prevent it.
+If the key to C<-E<gt>maketext> begins with a C<_>, C<Locale::Maketext>
+will still throw an exception.  See <Locale::Maketext/CONTROLLING LOOKUP
+FAILURE> for how to prevent it.
 
 =cut
 
 sub parse {
-    return {'_AUTO' => 1};
+    return { '_AUTO' => 1 };
 }
 
 1;

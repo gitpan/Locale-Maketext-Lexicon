@@ -2,10 +2,10 @@
 # $Revision: #2 $ $Change: 320 $ $DateTime: 2002/07/02 22:32:02 $
 
 package Locale::Maketext::Lexicon::Tie;
-$Locale::Maketext::Lexicon::Tie::VERSION = '0.01';
+$Locale::Maketext::Lexicon::Tie::VERSION = '0.02';
 
 use strict;
-use Symbol;
+use Symbol ();
 
 =head1 NAME
 
@@ -33,11 +33,14 @@ cache them.
 sub parse {
     my $self = shift;
     my $mod  = shift;
-    my $sym  = gensym;
+    my $sym  = Symbol::gensym();
 
     # Load the target module into memory
-    { no strict 'refs';
-      eval "use $mod; 1" or die $@ unless defined %{"$mod\::"}; }
+    {
+	no strict 'refs';
+	eval "use $mod; 1" or die $@
+	    unless defined %{"$mod\::"};
+    }
 
     # Perform the actual tie 
     tie %{*$sym}, $mod, @_;

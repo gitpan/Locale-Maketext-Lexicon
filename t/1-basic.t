@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 # $File: //member/autrijus/Locale-Maketext-Lexicon/t/1-basic.t $ $Author: autrijus $
-# $Revision: #8 $ $Change: 1453 $ $DateTime: 2002/10/16 17:59:39 $
+# $Revision: #9 $ $Change: 1710 $ $DateTime: 2002/10/27 22:07:45 $
 
 use strict;
-use Test::More tests => 24;
+use Test::More tests => 25;
 
 package Hello::L10N;
 use Test::More;
@@ -58,7 +58,12 @@ is(
 is(
     $lh->maketext('[_1] [_2] [_*]', 1, 2, 3),
     '123 2 1',
-    'Gettext - asterisk interpoliation'
+    'Gettext - asterisk interpolation'
+);
+is(
+    $lh->maketext('[_1][_2][_*]', 1, 2, 3),
+    '12321',
+    'Gettext - concatenated variables'
 );
 is(
     $lh->maketext('[_1]()', 10),
@@ -156,22 +161,22 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-
 #: Hello.pm:10
 msgid "Hello, World!"
 msgstr "Hallo, Welt!"
-
 
 #: Hello.pm:11
 msgid "You have %*(%1,piece) of mail."
 msgstr "Sie haben %*(%1,Poststueck,Poststuecken)."
 
-
 #: Hello.pm:12
 msgid "%1()"
 msgstr "%1()"
 
-
 #: Hello.pm:13
 msgid "%1 %2 %*"
 msgstr "%* %2 %1"
+
+#: Hello.pm:14
+msgid "%1%2%*"
+msgstr "%*%2%1"

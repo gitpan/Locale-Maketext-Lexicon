@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #5 $ $Change: 1375 $ $DateTime: 2002/10/12 22:06:40 $
+# $Revision: #6 $ $Change: 1711 $ $DateTime: 2002/10/27 22:10:19 $
 
 use strict;
 use Regexp::Common;
@@ -21,7 +21,7 @@ B<xgettext.pl> S<[ B<-u> ]> S<[ B<-o> I<FILE> ]> S<[ I<INPUTFILE>... ]>
 Extract translatable strings from given input files.
 
 Currently accepts Perl source files (valid localization function
-names include C<maketext>, C<loc>, C<x> and C<_>), HTML::Mason
+names include C<maketext>, C<loc>, C<x> and C<_>), B<HTML::Mason>
 templates (C<E<lt>&|/lE<gt>...E<lt>/&E<gt>> or
 C<E<lt>&|/locE<gt>...E<lt>/&E<gt>>), and Template Toolkit files
 (C<[%|l%]...[%END%]> or C<[%|loc%]...[%END%]>).
@@ -29,6 +29,10 @@ C<E<lt>&|/locE<gt>...E<lt>/&E<gt>>), and Template Toolkit files
 The B<-o> flag specifies a PO file name to be written or incrementally
 updated; C<-> means writing to F<STDOUT>.  If not specified,
 F<messages.po> is used.
+
+The B<-u> flag disables conversion from B<Maketext> format to
+B<Gettext> format -- i.e. it leaves all brackets alone.  This is
+useful if you are also using the B<Gettext> syntax in your program.
 
 =cut
 

@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #8 $ $Change: 1157 $ $DateTime: 2002/10/04 02:58:40 $
+# $Revision: #9 $ $Change: 1710 $ $DateTime: 2002/10/27 22:07:45 $
 
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.04';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.05';
 
 use strict;
 
@@ -133,10 +133,11 @@ sub parse_metadata {
 
 sub transform {
     my $str = shift;
+
     $str =~ s/\\([0x]..|c?.)/qq{"\\$1"}/eeg;
     $str =~ s/[\~\[\]]/~$&/g;
-    $str =~ s/(^|[^%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/"$1\[$2,".unescape($3)."]"/eg;
-    $str =~ s/(^|[^%\\])%(\d+|\*)/$1\[_$2]/g;
+    $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/"\[$1,".unescape($2)."]"/eg;
+    $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
 
     chomp $str;
     return $str;

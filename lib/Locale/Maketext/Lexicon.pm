@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #10 $ $Change: 1453 $ $DateTime: 2002/10/16 17:59:39 $
+# $Revision: #11 $ $Change: 1710 $ $DateTime: 2002/10/27 22:07:45 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.10';
+$Locale::Maketext::Lexicon::VERSION = '0.11';
 
 use strict;
 
@@ -12,7 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.10 of Locale::Maketext::Lexicon.
+This document describes version 0.11 of Locale::Maketext::Lexicon,
+released October 28, 2002.
 
 =head1 SYNOPSIS
 
@@ -55,6 +56,10 @@ Alternatively, as part of a localization subclass:
 This module provides lexicon-handling modules to read from other
 localization formats, such as I<Gettext>, I<Msgcat>, and so on.
 
+If you are unfamiliar with the concept of lexicon modules, please
+consult L<Locale::Maketext> and L<http://www.autrijus.org/webl10n/>
+first.
+
 =head2 The C<import> function
 
 The C<import()> function accepts two forms of arguments:
@@ -84,7 +89,7 @@ files.
 
 =head2 Subclassing format handlers
 
-If you wish to override how sources specified in different types
+If you wish to override how sources specified in different data types
 are handled, please use a subclass that overrides C<lexicon_get_I<TYPE>>.
 
 XXX: not documented well enough yet.  Patches welcome.
@@ -95,7 +100,7 @@ If you want to implement a new C<Lexicon::*> backend module, please note
 that C<parse()> takes an array containing the B<source strings> from the
 specified filehandle or filename, which are I<not> C<chomp>ed.  Although
 if the source is an array reference, its elements will probably not contain
-any newline characters.
+any newline characters anyway.
 
 The C<parse()> function should return a hash reference, which will be
 assigned to the I<typeglob> (C<*Lexicon>) of the language module.  All
@@ -227,6 +232,9 @@ Thanks to Jesse Vincent for suggesting this module to be written.
 Thanks also to Sean M. Burke for coming up with B<Locale::Maketext>
 in the first place, and encouraging me to experiment with alternative
 Lexicon syntaxes.
+
+See the F<AUTHORS> file in the distribution for a list of people who
+have sent helpful patches, ideas or comments.
 
 =head1 SEE ALSO
 
