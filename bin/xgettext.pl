@@ -1,10 +1,18 @@
-#!/usr/bin/env perl
+#!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #6 $ $Change: 1711 $ $DateTime: 2002/10/27 22:10:19 $
+# $Revision: #7 $ $Change: 2107 $ $DateTime: 2002/11/13 11:11:01 $
 
 use strict;
-use Regexp::Common;
 use Getopt::Std;
+use Pod::Usage;
+use constant NUL  => 0;
+use constant BEG  => 1;
+use constant PAR  => 2;
+use constant QUO1 => 3;
+use constant QUO2 => 4;
+use constant QUO3 => 5;
+
+$::interop = 0; # whether to interoperate with GNU gettext
 
 =head1 NAME
 
@@ -12,9 +20,22 @@ xgettext.pl - Extract gettext strings from source
 
 =head1 SYNOPSIS
 
-B<xgettext.pl> S<[ B<-u> ]> S<[ B<-o> I<FILE> ]> S<[ I<INPUTFILE>... ]>
+B<xgettext.pl> 
 
 =head1 OPTIONS
+
+Options supported at this moment:
+
+     [ B<-u> ] Disables conversion from B<Maketext> format to
+               B<Gettext> format -- i.e. it leaves all brackets alone.
+               This is useful if you are also using the B<Gettext> syntax 
+               in your program.
+
+     [ B<-o> I<FILE> ] PO file name to be written or incrementally updated
+                       C<-> means writing to F<STDOUT>.  If not specified,
+                       F<messages.po> is used.
+
+     [ I<INPUTFILE>... ]
 
 =head1 DESCRIPTION
 
@@ -26,20 +47,16 @@ templates (C<E<lt>&|/lE<gt>...E<lt>/&E<gt>> or
 C<E<lt>&|/locE<gt>...E<lt>/&E<gt>>), and Template Toolkit files
 (C<[%|l%]...[%END%]> or C<[%|loc%]...[%END%]>).
 
-The B<-o> flag specifies a PO file name to be written or incrementally
-updated; C<-> means writing to F<STDOUT>.  If not specified,
-F<messages.po> is used.
-
-The B<-u> flag disables conversion from B<Maketext> format to
-B<Gettext> format -- i.e. it leaves all brackets alone.  This is
-useful if you are also using the B<Gettext> syntax in your program.
-
 =cut
 
 my (%file, %Lexicon, %opts);
 my ($PO, $out);
 
-getopts('uo:', \%opts);  # options as above. Values in %opts
+# options as above. Values in %opts
+getopts('huo:', \%opts)
+  or pod2usage( -verbose => 1, -exitval => 1 );
+$opts{h} and pod2usage( -verbose => 2, -exitval => 0 );
+
 $PO = $opts{o} || "messages.po";
 
 @ARGV = ('-') unless @ARGV;
@@ -61,7 +78,7 @@ select PO;
 undef $/;
 foreach my $file (@ARGV) {
     my $filename = $file;
-    open _, $file or die $!; $_ = <_>; $filename =~ s'^./'';
+    open _, $file or die $!; $_ = <_>; $filename =~ s!^./!!;
 
     my $line = 1; pos($_) = 0;
     # Text::Template
@@ -108,23 +125,46 @@ foreach my $file (@ARGV) {
     }
 
     # Perl source file
-    $line = 1; pos($_) = 0;
-    while (m/\G.*?\b(?:maketext|_|loc|x)$RE{balanced}{-parens=>'()'}{-keep}/sg) {
-	my $match = $1;
-	$line += ( () = ($& =~ /\n/g) ); # cryptocontext!
-	my ($vars, $str);
-	if ($match =~ /\(($RE{delimited}{-delim=>'"'}{-esc}{-keep})(.*?)\)$/) {
-	    ($vars, $str) = ($9, substr($1, 1, -1)); # reversed
-	}
-	elsif ($match =~ /\(($RE{delimited}{-delim=>"'"}{-esc}{-keep})(.*?)\)$/) {
-	    ($vars, $str) = ($9, substr($1, 1, -1)); # reversed
-	}
-	else {
-	    next;
-	}
-	$vars =~ s/[\n\r]//g;
-	$str =~ s/\\'/\'/g; 
-	push @{$file{$str}}, [ $filename, $line, $vars ];
+    my ($state,$str,$vars)=(0);
+    pos($_) = 0;
+    my $orig = 1 + (() = ((my $__ = $_) =~ /\n/g));
+  PARSER: {
+      $_ = substr($_, pos($_)) if (pos($_));
+      my $line = $orig - (() = ((my $__ = $_) =~ /\n/g));
+      # maketext or loc or _
+      $state == NUL &&
+        m/\b(maketext|_|loc|x)/gcx && do { $state = BEG;  redo; };
+      $state == BEG && m/^([\s\t\n]*)/gcx && do { redo; };
+      # begin ()
+      $state == BEG && m/^([\S\(]) /gcx && do {
+	$state = ( ($1 eq '(') ? PAR : NUL) ;
+	redo;
+      };
+      # begin or end of string
+      $state == PAR  && m/^(\')  /gcx     && do { $state = QUO1; redo; };
+      $state == QUO1 && m/^([^\']+)/gcx && do { $str.=$1; redo; };
+      $state == QUO1 && m/^\'  /gcx     && do { $state = PAR;  redo; };
+
+      $state == PAR  && m/^\"  /gcx     && do { $state = QUO2; redo; };
+      $state == QUO2 && m/^([^\"]+)/gcx && do { $str.=$1; redo; };
+      $state == QUO2 && m/^\"  /gcx     && do { $state = PAR;  redo; };
+
+      $state == PAR  && m/^\`  /gcx     && do { $state = QUO3; redo; };
+      $state == QUO3 && m/^([^\`]*)/gcx && do { $str.=$1; redo; };
+      $state == QUO3 && m/^\`  /gcx     && do { $state = PAR;  redo; };
+
+      # end ()
+      $state == PAR && m/^[\)]/gcx
+	&& do {
+	  $state = NUL;	
+	  $vars =~ s/[\n\r]//g if ($vars);
+	  push @{$file{$str}}, [ $filename, $line - (() = $str =~ /\n/g), $vars] if ($str);
+	  undef $str; undef $vars;
+	  redo;
+	};
+
+      # a line of vars
+      $state == PAR && m/^([^\)]*)/gcx && do { 	$vars.=$1."\n"; redo; };
     }
 }
 
@@ -134,8 +174,8 @@ foreach my $str (sort keys %file) {
 
 	$str =~ s/\\/\\\\/g;
 	$str =~ s/\"/\\"/g;
-	$str =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
-	$str =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
+	$str =~ s/((?<!~)(?:~~)+)\[_(\d+)\]/$1%$2/g;
+	$str =~ s/((?<!~)(?:~~)+)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
 	$str =~ s/~([\~\[\]])/$1/g;
 
 	$file{$str} = $entry;
@@ -210,8 +250,11 @@ sub escape {
 
 =head1 ACKNOWLEDGMENTS
 
-Thanks to Jesse Vincent for contributing to the early version of this
+Thanks to Jesse Vincent for contributing to an early version of this
 utility.
+
+Also to Alain Barbet, who effectively re-wrote the source parser with a
+flex-like algorithm.
 
 =head1 SEE ALSO
 

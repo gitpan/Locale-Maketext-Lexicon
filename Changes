@@ -1,4 +1,17 @@
 ____________________________________________________________________________
+[  2108] By: autrijus                              on 2002/11/13  11:11:36
+        Log: * 0.13.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  2107] By: autrijus                              on 2002/11/13  11:11:01
+        Log: * Alain's parser patch.  This makes multi-line handling a
+	       breeze.
+	   ! Makefile.PL bin/xgettext.pl
+____________________________________________________________________________
+[  2042] By: autrijus                              on 2002/11/07  14:21:23
+        Log: * changes and signatures.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
 [  2040] By: autrijus                              on 2002/11/07  14:16:28
         Log: * This be 0.12.
 	   ! lib/Locale/Maketext/Lexicon.pm

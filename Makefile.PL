@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/Makefile.PL $ $Author: autrijus $
-# $Revision: #5 $ $Change: 1453 $ $DateTime: 2002/10/16 17:59:39 $
+# $Revision: #6 $ $Change: 2107 $ $DateTime: 2002/11/13 11:11:01 $
 
 require 5.005;
 
@@ -22,10 +22,11 @@ WriteMakefile(
 	'Test::More'		=> '0.01',
 	'Locale::Maketext'	=> '0.01',
 	'Regexp::Common'	=> '0.01',
+	'Pod::Usage'		=> '0.01',
     },
 
     dist		=> {
-        COMPRESS	=> 'gzip',
+        COMPRESS	=> 'gzip -9',
         SUFFIX		=> '.gz',
     },
 );
