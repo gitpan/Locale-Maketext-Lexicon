@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #12 $ $Change: 2454 $ $DateTime: 2002/11/29 07:11:54 $
+# $Revision: #15 $ $Change: 4414 $ $DateTime: 2003/02/22 01:33:00 $
 
 use strict;
 use Getopt::Std;
@@ -20,32 +20,51 @@ xgettext.pl - Extract gettext strings from source
 
 =head1 SYNOPSIS
 
-B<xgettext.pl> 
+B<xgettext.pl> [ B<-u> ] [ B<-g> ] [ B<-o> I<outputfile> ] [ I<inputfile>... ]
 
 =head1 OPTIONS
 
-Options supported at this moment:
+[ B<-u> ] Disables conversion from B<Maketext> format to B<Gettext>
+format -- i.e. it leaves all brackets alone.  This is useful if you are
+also using the B<Gettext> syntax in your program.
 
-     [ B<-u> ] Disables conversion from B<Maketext> format to
-               B<Gettext> format -- i.e. it leaves all brackets alone.
-               This is useful if you are also using the B<Gettext> syntax 
-               in your program.
+[ B<-g> ] Enables GNU gettext interoperability by printing C<#,
+maketext-format> before each entry that has C<%> variables.
 
-     [ B<-o> I<FILE> ] PO file name to be written or incrementally updated
-                       C<-> means writing to F<STDOUT>.  If not specified,
-                       F<messages.po> is used.
+[ B<-o> I<outputfile> ] PO file name to be written or incrementally
+updated C<-> means writing to F<STDOUT>.  If not specified,
+F<messages.po> is used.
 
-     [ I<INPUTFILE>... ]
+[ I<inputfile>... ] is the files to extract messages from.
 
 =head1 DESCRIPTION
 
-Extract translatable strings from given input files.
+This program extracts translatable strings from given input files, or
+STDIN if none are given.
 
-Currently accepts Perl source files (valid localization function
-names include C<maketext>, C<loc>, C<x> and C<_>), B<HTML::Mason>
-templates (C<E<lt>&|/lE<gt>...E<lt>/&E<gt>> or
-C<E<lt>&|/locE<gt>...E<lt>/&E<gt>>), and Template Toolkit files
-(C<[%|l%]...[%END%]> or C<[%|loc%]...[%END%]>).
+Currently the following formats of input files are supported:
+
+=over 4
+
+=item Perl source files
+
+Valid localization function names are: C<translate>, C<maketext>,
+C<loc>, C<x>, C<_> and C<__>.
+
+=item HTML::Mason
+
+The text inside C<E<lt>&|/lE<gt>I<...>E<lt>/&E<gt>> or
+C<E<lt>&|/locE<gt>I<...>E<lt>/&E<gt>> will be extracted.
+
+=item Template Toolkit
+
+Texts inside C<[%|l%]...[%END%]> or C<[%|loc%]...[%END%]>
+are extracted.
+
+=item Text::Template
+
+Sentences of texts between C<STARTxxx> and C<ENDxxx> are
+extracted.
 
 =cut
 
@@ -147,7 +166,7 @@ foreach my $file (@ARGV) {
       my $line = $orig - (() = ((my $__ = $_) =~ /\n/g));
       # maketext or loc or _
       $state == NUL &&
-        m/\b(maketext|_|loc|x)/gcx && do { $state = BEG;  redo; };
+        m/\b(translate|maketext|__?|loc|x)/gcx && do { $state = BEG;  redo; };
       $state == BEG && m/^([\s\t\n]*)/gcx && do { redo; };
       # begin ()
       $state == BEG && m/^([\S\(]) /gcx && do {
@@ -230,27 +249,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 .
 
-foreach (sort keys %Lexicon) {
-    my $f = join(' ', sort map "$_->[0]:$_->[1]", @{$file{$_}});
+foreach my $entry (sort keys %Lexicon) {
+    my %f = (map { ( "$_->[0]:$_->[1]" => 1 ) } @{$file{$entry}});
+    my $f = join(' ', sort keys %f);
     $f = " $f" if length $f;
-    my $nospace = $_;
+
+    my $nospace = $entry;
     $nospace =~ s/ +$//;
 
-    if (!$Lexicon{$_} and $Lexicon{$nospace}) {
-	$Lexicon{$_} = $Lexicon{$nospace} . (' ' x (length($_) - length($nospace)));
+    if (!$Lexicon{$entry} and $Lexicon{$nospace}) {
+	$Lexicon{$entry} = $Lexicon{$nospace} . (' ' x (length($entry) - length($nospace)));
     }
 
     my %seen;
     print "\n#:$f\n";
-    foreach my $entry ( grep { $_->[2] } @{$file{$_}} ) {
+    foreach my $entry ( grep { $_->[2] } @{$file{$entry}} ) {
 	my ($file, $line, $var) = @{$entry};
 	$var =~ s/^\s*,\s*//; $var =~ s/\s*$//;
 	print "#. ($var)\n" unless !length($var) or $seen{$var}++;
     }
 
     print "#, maketext-format" if $::interop and /%(?:\d|\w+\([^\)]*\))/;
-    print "msgid "; output($_);
-    print "msgstr "; output($Lexicon{$_});
+    print "msgid "; output($entry);
+    print "msgstr "; output($Lexicon{$entry});
 }
 
 sub output {

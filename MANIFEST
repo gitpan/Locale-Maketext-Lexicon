@@ -4,7 +4,6 @@ MANIFEST			This list of files
 Makefile.PL
 README
 SIGNATURE
-bin/messages.po
 bin/xgettext.pl
 lib/Locale/Maketext/Lexicon.pm
 lib/Locale/Maketext/Lexicon/Auto.pm

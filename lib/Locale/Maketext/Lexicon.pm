@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #15 $ $Change: 2455 $ $DateTime: 2002/11/29 07:13:09 $
+# $Revision: #16 $ $Change: 4415 $ $DateTime: 2003/02/22 01:33:27 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.15';
+$Locale::Maketext::Lexicon::VERSION = '0.16';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.15 of Locale::Maketext::Lexicon,
-released November 29, 2002.
+This document describes version 0.16 of Locale::Maketext::Lexicon,
+released February 22, 2003.
 
 =head1 SYNOPSIS
 
@@ -238,6 +238,8 @@ have sent helpful patches, ideas or comments.
 
 =head1 SEE ALSO
 
+L<xgettext.pl>
+
 L<Locale::Maketext>, L<Locale::Maketext::Lexicon::Auto>,
 L<Locale::Maketext::Lexicon::Gettext>, L<Locale::Maketext::Lexicon::Msgcat>,
 L<Locale::Maketext::Lexicon::Tie>
@@ -248,7 +250,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

@@ -1,4 +1,22 @@
 ____________________________________________________________________________
+[  4415] By: autrijus                              on 2003/02/22  01:33:27
+        Log: * This be 0.16.
+	   - bin/messages.po
+	   ! AUTHORS MANIFEST README
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  4414] By: autrijus                              on 2003/02/22  01:33:00
+        Log: * Gaal Yahas's patch to recognize __ in addition of _.
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[  3747] By: autrijus                              on 2003/01/22  15:19:36
+        Log: * plasmabal pointed out pod errors.
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[  2456] By: autrijus                              on 2002/11/29  07:13:55
+        Log: * changes and signatures.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
 [  2455] By: autrijus                              on 2002/11/29  07:13:09
         Log: * 0.15.
 	   ! lib/Locale/Maketext/Lexicon.pm
