@@ -1,4 +1,13 @@
 ____________________________________________________________________________
+[  8407] By: autrijus                              on 2003/10/13  20:20:07
+        Log: * This be 0.31.
+             * 0.30 still broken on Robert Spiers's darwin box, so
+             rewrote them to totally avoid capturing parenthesis.
+	   ! lib/Locale/Maketext/Extract.pm
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+	   ! t/5-extract.t
+____________________________________________________________________________
 [  8406] By: autrijus                              on 2003/10/13  19:05:06
         Log: * also modify Extract.pm to be not reentrant.
 	   ! lib/Locale/Maketext/Extract.pm

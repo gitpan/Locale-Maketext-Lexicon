@@ -15,15 +15,15 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 2c276a0e53760617ead6fe33c03da602e44de23a AUTHORS
-SHA1 593b050bd9d87c8eeadf0c16641afd2dd0861148 Changes
+SHA1 ae6d707d6db10f87ec617972a8972b959606a475 Changes
 SHA1 a765fce2d3e3e60d7f9c3da01ea79463c2c43c4d MANIFEST
-SHA1 33bdf430ca3aa0a6f847c70ad581903934a22400 META.yml
+SHA1 5d1ebaaee8fad9c079745267ec84efc02ab6f844 META.yml
 SHA1 13e6b952ec42114b617a85a6cffb181583b5659f Makefile.PL
 SHA1 2827f314f6758d96b6547dce11a296c8678bf229 README
-SHA1 9cbba1dfe1501f7a08801f8ffab214c45d67bd4d lib/Locale/Maketext/Extract.pm
-SHA1 565016ce0175c31884b063f88b5dda2f36d5e3c7 lib/Locale/Maketext/Lexicon.pm
+SHA1 d0983609dd984c90a418a86ed4182a51c2bd07f1 lib/Locale/Maketext/Extract.pm
+SHA1 affcdd52c9260e5811435bf0a616c8c2a7596cf0 lib/Locale/Maketext/Lexicon.pm
 SHA1 548ef5ac0f447ef02c7b0eb199a5f3d437840b02 lib/Locale/Maketext/Lexicon/Auto.pm
-SHA1 12832183d57f084b63187f08402d7d4be90dd8dc lib/Locale/Maketext/Lexicon/Gettext.pm
+SHA1 207009f0cc5a6a86533a17982ded3fedac27cd45 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 7721ffd5bfe723c5aeb6609546274ee3dbcf3359 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 5a17028258c93ba6de24dad2870899e8801176a3 lib/Locale/Maketext/Lexicon/Tie.pm
 SHA1 77935728d99128c98ad98e0eabae31da71deced6 script/xgettext.pl
@@ -32,7 +32,7 @@ SHA1 31f8ca782175ec81c6781cdca7cb71c805601b29 t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
 SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
 SHA1 786af50f71a3299ec40267c74001822602b9b247 t/4-encodings.t
-SHA1 2cf3db8c97875678f86a58eb1de28c03c5b4fedd t/5-extract.t
+SHA1 b626dc415ed4a5675cdff37553a0f5d227f57cb1 t/5-extract.t
 SHA1 20689d41baa53f44caf0bc8ef8fdefcda77d82f9 t/T_L10N.pm
 SHA1 2d43b0eae020f43417d20190172d16885f9f8e8f t/gencat.m
 SHA1 d5a3581bbbec3df38f7c47dc82edfbdb0964bebd t/locale/en/LC_MESSAGES/test.mo
@@ -49,7 +49,7 @@ SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.3 (FreeBSD)
 
-iD8DBQE/ivfitLPdNzw1AaARAkWlAKCOgHOwS+7RmW15rvv2u75c5mNECQCfXGS2
-b8YShJDS/cc6kbts99oN738=
-=9lsL
+iD8DBQE/iwmFtLPdNzw1AaARArR2AJ9UiDIygC57a46G5v1MOfF6RlntegCdHnsr
+8cyLAY2gFpiYcW25u4GcDTY=
+=40tO
 -----END PGP SIGNATURE-----

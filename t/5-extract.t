@@ -1,10 +1,10 @@
 #! /usr/bin/perl -w
 # $File: //member/autrijus/Locale-Maketext-Lexicon/t/5-extract.t $ $Author: autrijus $
-# $Revision: #1 $ $Change: 8356 $ $DateTime: 2003/10/09 18:02:52 $
+# $Revision: #2 $ $Change: 8407 $ $DateTime: 2003/10/13 20:20:07 $
 
 use lib '../lib';
 use strict;
-use Test::More tests => 19;
+use Test::More tests => 21;
 
 use_ok('Locale::Maketext::Extract');
 my $Ext = Locale::Maketext::Extract->new;
@@ -17,6 +17,11 @@ extract_ok('_("[_1] is happy")' => '[_1] is happy', '[_1] verbatim', 1);
 
 extract_ok('_("[*,_1] counts")'	=> '%*(%1) counts', '[*,_1] to %*(%1)');
 extract_ok('_("[*,_1] counts")'	=> '[*,_1] counts', '[*,_1] verbatim', 1);
+
+extract_ok('_("[*,_1,_2] counts")' => '%*(%1,%2) counts',
+    '[*,_1,_2] to %*(%1,%2)');
+extract_ok('_("[*,_1,_2] counts")' => '[*,_1,_2] counts',
+    '[*,_1,_2] verbatim', 1);
 
 extract_ok(q(_('foo\$bar'))	=> 'foo\\\\$bar',   'Escaped \$ in q');
 extract_ok(q(_("foo\$bar"))	=> 'foo$bar',	    'Normalized \$ in qq');

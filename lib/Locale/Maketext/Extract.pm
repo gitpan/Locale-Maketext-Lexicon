@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Extract.pm $ $Author: autrijus $
-# $Revision: #2 $ $Change: 8406 $ $DateTime: 2003/10/13 19:05:06 $ vim: expandtab shiftwidth=4
+# $Revision: #3 $ $Change: 8407 $ $DateTime: 2003/10/13 20:20:07 $ vim: expandtab shiftwidth=4
 
 package Locale::Maketext::Extract;
 $Locale::Maketext::Extract::VERSION = '0.01';
@@ -416,7 +416,7 @@ sub _to_gettext {
     $text =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
     $text =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*),([^\]]+)\]/$1%$2("""$3""")/g;
     $text = join('', map {
-	/"""(.*?)"""/ ? _escape($1) : $_
+	/^""".*"""$/ ? _escape(substr($_, 3, -3)) : $_
     } split(/(""".*?""")/, $text));
 
     $text =~ s/~([\~\[\]])/$1/g;
@@ -425,7 +425,7 @@ sub _to_gettext {
 
 sub _escape {
     my $text = shift;
-    $text =~ s/\b_(\d+)/%$1/;
+    $text =~ s/\b_(\d+)/%$1/g;
     return $text;
 }
 

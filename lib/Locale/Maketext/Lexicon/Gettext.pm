@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #20 $ $Change: 8404 $ $DateTime: 2003/10/13 18:51:09 $
+# $Revision: #21 $ $Change: 8407 $ $DateTime: 2003/10/13 20:20:07 $
 
 package Locale::Maketext::Lexicon::Gettext;
 $Locale::Maketext::Lexicon::Gettext::VERSION = '0.08';
@@ -159,7 +159,7 @@ sub transform {
     $str =~ s/[~\[\]]/~$&/g;
     $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/[$1,~~~$2~~~]/g;
     $str = join('', map {
-	/~~~(.*?)~~~/ ? unescape($1) : $_
+	/^~~~.*~~~$/ ? unescape(substr($_, 3, -3)) : $_
     } split(/(~~~.*?~~~)/, $str));
     $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
     $str = Encode::encode($OutputEncoding, $str) if $DoEncoding and $OutputEncoding;
@@ -168,9 +168,9 @@ sub transform {
 }
 
 sub unescape {
-    my $str = shift;
-    $str =~ s/(^|,)%(\d+|\*)(,|$)/$1_$2$3/g;
-    return $str;
+    join(',', map {
+	/^%(?:\d+|\*)$/ ? ("_" . substr($_, 1)) : $_
+    } split(/,/, $_[0]));
 }
 
 # This subroutine was derived from Locale::Maketext::Gettext::readmo()
