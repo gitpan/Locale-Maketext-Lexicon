@@ -1,12 +1,12 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.41.
+signed via the Module::Signature module, version 0.44.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
 
     % cpansign -v
 
-It would check each file's integrity, as well as the signature's
+It will check each file's integrity, as well as the signature's
 validity.  If "==> Signature verified OK! <==" is not displayed,
 the distribution may already have been compromised, and you should
 not run its Makefile.PL or Build.PL.
@@ -15,9 +15,9 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 a0ebbb47fcf331862e155da768629b4718f4116f AUTHORS
-SHA1 a75f4e83aa691e534b4bd8edf0633b626b33fa9c Changes
+SHA1 34bb9e5cd40b30d1a12efee757d76db2ba38a255 Changes
 SHA1 e1379626193bcca338a2f702ac90cc826294072d MANIFEST
-SHA1 ce8261b56d66d983b1db6a332c3693a12c403f48 META.yml
+SHA1 0f012491c101017dec4a1bb645ecaa424578ccbe META.yml
 SHA1 a709d8b569c3fc575d785bfa691998b4d00716d2 Makefile.PL
 SHA1 c8de33b05914584c4dc5983c8ef098bae6292cbf README
 SHA1 06d883487127fa0026311904e7c4867e850c505c inc/Module/Install.pm
@@ -31,7 +31,7 @@ SHA1 6b051a6d3ed824df40343a7ff09b66282e1783c3 inc/Module/Install/Win32.pm
 SHA1 77f82ce7c623e05304ac9aae05bcd1a5558fadbb inc/Module/Install/WriteAll.pm
 SHA1 95b4f8c3e94a1704a20d8d6a99027146777e188f lib/Locale/Maketext/Extract.pm
 SHA1 8f77b62534098704e1ebd82a1909543d76e56e6f lib/Locale/Maketext/Extract/Run.pm
-SHA1 1aef2bc7922a8a32c478393a3eeba0d0e0c2f0ca lib/Locale/Maketext/Lexicon.pm
+SHA1 fcbc854a3a9895f8a4506d270431a69d7caa1852 lib/Locale/Maketext/Lexicon.pm
 SHA1 ecd3f4fa6b71c62b61420bdf4f175c351edee301 lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 0936a5706a7b3e39750fd88fb0a289d014a17922 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 e87b5fe4995756623fc1296368f01e2d8441dda2 lib/Locale/Maketext/Lexicon/Msgcat.pm
@@ -59,7 +59,7 @@ SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.6 (FreeBSD)
 
-iD8DBQFBwSnVtLPdNzw1AaARAtEdAJ40k5WkVucINudirvvJ7IEbbm3P0gCfafQa
-ea7xBt0iyEcUMB4pK4J1MWo=
-=Dy1/
+iD8DBQFCAcYRtLPdNzw1AaARArnaAJ0UTd90AAWod/4FsPkEGPero8v6jwCfS/qc
+MrxTA/Ax4sVP+s0GOASefJ0=
+=19JC
 -----END PGP SIGNATURE-----

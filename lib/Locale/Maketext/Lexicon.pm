@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.46';
+$Locale::Maketext::Lexicon::VERSION = '0.47';
 
 use strict;
 
@@ -9,8 +9,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.46 of Locale::Maketext::Lexicon,
-released December 16, 2004.
+This document describes version 0.47 of Locale::Maketext::Lexicon,
+released February 3, 2004.
 
 =head1 SYNOPSIS
 
@@ -320,7 +320,7 @@ sub TIEHASH {
         return \%{$args->{Export}};
     }
     sub FETCH { _force($_[0])->{$_[1]} }
-    sub EXISTS { exists _force($_[0])->{$_[1]} }
+    sub EXISTS { _force($_[0])->{$_[1]} }
     sub DELETE { delete _force($_[0])->{$_[1]} }
     sub SCALAR { scalar %{_force($_[0])} }
     sub STORE { _force($_[0])->{$_[1]} = $_[2] }
@@ -457,7 +457,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002, 2003, 2004 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003, 2004, 2005 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

@@ -1,3 +1,8 @@
+[Changes for 0.47 - 2005-02-03]
+
+* EXISTS in Locale::Maketext::Lexicon has the potential to trigger deep
+  recursion.  Reported by Wei-Hon Chen.
+
 [Changes for 0.46 - 2004-12-16]
 
 * Patch from Thierry Vignaud: Add a "_allow_empty" option to the
