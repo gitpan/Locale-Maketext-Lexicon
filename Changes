@@ -1,4 +1,25 @@
 ____________________________________________________________________________
+[ 10407] By: autrijus                              on 2004/03/17  13:01:43
+        Log: * This be 0.36.
+             * "_encoding" now takes a special "locale" value,
+             which will get the encoding from user's locale.
+             * Gettext used to break when the re-encoded lexicon
+	       contains
+             Maketext's escape characters like "[" and "~".
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[ 10406] By: autrijus                              on 2004/03/17  12:51:00
+        Log: * Extract.pm should not prepend an empty "" before a
+	       single-line
+             "string\n".  Such treatments are meant for multiline
+	     strings.
+	   ! lib/Locale/Maketext/Extract.pm
+____________________________________________________________________________
+[ 10265] By: autrijus                              on 2004/03/01  13:59:25
+        Log: * proper escaping of \ and " in _format.
+	   ! lib/Locale/Maketext/Extract.pm
+____________________________________________________________________________
 [ 10139] By: autrijus                              on 2004/02/19  18:25:46
         Log: * This be 0.35.
              * We no longer depend on Regexp::Common and Pod::Usage.

@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #42 $ $Change: 10139 $ $DateTime: 2004/02/19 18:25:46 $
+# $Revision: #43 $ $Change: 10407 $ $DateTime: 2004/03/17 13:01:43 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.35';
+$Locale::Maketext::Lexicon::VERSION = '0.36';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.35 of Locale::Maketext::Lexicon,
-released February 20, 2004.
+This document describes version 0.36 of Locale::Maketext::Lexicon,
+released March 17, 2004.
 
 =head1 SYNOPSIS
 
@@ -138,6 +138,9 @@ This option only has effect when C<_decode> is set to true.
 It specifies an encoding to store lexicon entries, instead of
 utf8-strings.
 
+If C<_encoding> is set to C<locale>, the encoding from the
+current locale setting is used.
+
 =head2 Subclassing format handlers
 
 If you wish to override how sources specified in different data types
@@ -164,6 +167,42 @@ initialized previously.
 my %Opts;
 sub option { shift if ref($_[0]); $Opts{lc $_[0]} }
 sub set_option { shift if ref($_[0]); $Opts{lc $_[0]} = $_[1] }
+
+sub encoding {
+    my $encoding = option(@_, 'encoding') or return;
+    return $encoding unless lc($encoding) eq 'locale';
+
+    no warnings 'uninitialized';
+    my ($country_language, $locale_encoding);
+
+    eval {
+	require I18N::Langinfo;
+	I18N::Langinfo->import(qw(langinfo CODESET));
+	$locale_encoding = langinfo(CODESET());
+    };
+    if (!$locale_encoding) {
+	if ($ENV{LC_ALL} =~ /^([^.]+)\.([^.]+)$/) {
+	    ($country_language, $locale_encoding) = ($1, $2);
+	} elsif ($ENV{LANG} =~ /^([^.]+)\.([^.]+)$/) {
+	    ($country_language, $locale_encoding) = ($1, $2);
+	}
+    }
+    if (defined $locale_encoding &&
+	lc($locale_encoding) eq 'euc' &&
+	defined $country_language) {
+	if ($country_language =~ /^ja_JP|japan(?:ese)?$/i) {
+	    $locale_encoding = 'euc-jp';
+	} elsif ($country_language =~ /^ko_KR|korean?$/i) {
+	    $locale_encoding = 'euc-kr';
+	} elsif ($country_language =~ /^zh_CN|chin(?:a|ese)?$/i) {
+	    $locale_encoding = 'euc-cn';
+	} elsif ($country_language =~ /^zh_TW|taiwan(?:ese)?$/i) {
+	    $locale_encoding = 'euc-tw';
+	}
+    }
+
+    return $locale_encoding;
+}
 
 sub import {
     my $class = shift;

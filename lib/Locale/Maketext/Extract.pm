@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Extract.pm $ $Author: autrijus $
-# $Revision: #8 $ $Change: 10139 $ $DateTime: 2004/02/19 18:25:46 $ vim: expandtab shiftwidth=4
+# $Revision: #10 $ $Change: 10406 $ $DateTime: 2004/03/17 12:51:00 $ vim: expandtab shiftwidth=4
 
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.05';
+$Locale::Maketext::Extract::VERSION = '0.06';
 
 use strict;
 
@@ -432,7 +432,10 @@ sub _escape {
 
 sub _format {
     my $str = shift;
+    $str =~ s/\\/\\\\/g;
+    $str =~ s/"/\\"/g;
     return "\"$str\"\n" unless $str =~ /\n/;
+    my $multi_line = ($str =~ /\n(?!\z)/);
     $str =~ s/\n/\\n"\n"/g;
     if ($str =~ /\n"$/) {
         chop $str;
@@ -440,7 +443,7 @@ sub _format {
     else {
         $str .= "\"\n";
     }
-    return qq(""\n"$str);
+    return $multi_line ? qq(""\n"$str) : qq("$str);
 }
 
 1;

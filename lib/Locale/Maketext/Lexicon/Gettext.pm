@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #25 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $
+# $Revision: #26 $ $Change: 10407 $ $DateTime: 2004/03/17 13:01:43 $
 
 package Locale::Maketext::Lexicon::Gettext;
 $Locale::Maketext::Lexicon::Gettext::VERSION = '0.11';
@@ -140,7 +140,7 @@ sub parse_metadata {
 		my $enc = $2;
 		if ($enc =~ /\bcharset=\s*([-\w]+)/i) {
 		    $InputEncoding = $1 || '';
-		    $OutputEncoding = Locale::Maketext::Lexicon::option('encoding') || '';
+		    $OutputEncoding = Locale::Maketext::Lexicon::encoding() || '';
 		    $InputEncoding = 'utf8' if $InputEncoding =~ /^utf-?8$/i;
 		    $OutputEncoding = 'utf8' if $OutputEncoding =~ /^utf-?8$/i;
 		    if ( Locale::Maketext::Lexicon::option('decode') and
@@ -159,10 +159,17 @@ sub parse_metadata {
 sub transform {
     my $str = shift;
 
-    if ($DoEncoding and $InputEncoding) {
-	$str = ($InputEncoding eq 'utf8')
-	    ? Encode::decode_utf8($str)
-	    : Encode::decode($InputEncoding, $str)
+    if ($DoEncoding) {
+	if ($InputEncoding) {
+	    $str = ($InputEncoding eq 'utf8')
+		? Encode::decode_utf8($str)
+		: Encode::decode($InputEncoding, $str)
+	}
+	if ($OutputEncoding) {
+	    $str = ($OutputEncoding eq 'utf8')
+		? Encode::encode_utf8($str)
+		: Encode::encode($OutputEncoding, $str)
+	}
     }
 
     $str =~ s/\\([0x]..|c?.)/qq{"\\$1"}/eeg;
@@ -172,12 +179,6 @@ sub transform {
 	/^~~~.*~~~$/ ? unescape(substr($_, 3, -3)) : $_
     } split(/(~~~.*?~~~)/, $str));
     $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
-
-    if ($DoEncoding and $OutputEncoding) {
-	$str = ($OutputEncoding eq 'utf8')
-	    ? Encode::encode_utf8($str)
-	    : Encode::encode($OutputEncoding, $str)
-    }
 
     return $str;
 }
