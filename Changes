@@ -1,4 +1,16 @@
 ____________________________________________________________________________
+[  2114] By: autrijus                              on 2002/11/13  12:01:00
+        Log: * This be 0.14 -- thirteen is really unlucky...
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  2112] By: autrijus                              on 2002/11/13  11:54:39
+        Log: * escapes are applicable even with -u.
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[  2109] By: autrijus                              on 2002/11/13  11:14:16
+        Log: * changes and signatures.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
 [  2108] By: autrijus                              on 2002/11/13  11:11:36
         Log: * 0.13.
 	   ! lib/Locale/Maketext/Lexicon.pm

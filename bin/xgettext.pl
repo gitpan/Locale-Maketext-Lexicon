@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #7 $ $Change: 2107 $ $DateTime: 2002/11/13 11:11:01 $
+# $Revision: #8 $ $Change: 2112 $ $DateTime: 2002/11/13 11:54:39 $
 
 use strict;
 use Getopt::Std;
@@ -169,11 +169,12 @@ foreach my $file (@ARGV) {
 }
 
 foreach my $str (sort keys %file) {
+    $str =~ s/\\/\\\\/g;
+    $str =~ s/\"/\\"/g;
+
     unless ($opts{u}) {
 	my $entry = $file{$str};
 
-	$str =~ s/\\/\\\\/g;
-	$str =~ s/\"/\\"/g;
 	$str =~ s/((?<!~)(?:~~)+)\[_(\d+)\]/$1%$2/g;
 	$str =~ s/((?<!~)(?:~~)+)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
 	$str =~ s/~([\~\[\]])/$1/g;
