@@ -1,4 +1,21 @@
 ____________________________________________________________________________
+[  7748] By: autrijus                              on 2003/08/28  10:19:40
+        Log: * This be 0.28.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  7747] By: autrijus                              on 2003/08/28  10:18:47
+        Log: * Gettext was chomping everything. bad.
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+	   ! t/1-basic.t
+____________________________________________________________________________
+[  7746] By: autrijus                              on 2003/08/28  10:18:18
+        Log: * support Kwiki-style generic loc string: {{...}}
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[  7745] By: autrijus                              on 2003/08/28  10:16:08
+        Log: * readd.
+	   + t/gencat.m
+____________________________________________________________________________
 [  6875] By: autrijus                              on 2003/07/07  12:10:08
         Log: * This be 0.27.
              * Change tests to use utf8, not big5, for perl 5.6.1
@@ -53,10 +70,6 @@ ____________________________________________________________________________
         Log: * TT2 regex was wrong. thanks clkao for pointing out.
 	   ! bin/xgettext.pl
 ____________________________________________________________________________
-[  5584] By: autrijus                              on 2003/05/03  11:04:44
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
-____________________________________________________________________________
 [  5583] By: autrijus                              on 2003/05/03  10:59:46
         Log: * This be 0.26.
              * incoporated a modified version of Matthieu Arnold's patch
@@ -64,10 +77,6 @@ ____________________________________________________________________________
 	     Encode::compat.
 	   ! lib/Locale/Maketext/Lexicon.pm t/2-lmg.t
 	   ! t/3-big-endian.t t/4-encodings.t t/T_L10N.pm
-____________________________________________________________________________
-[  5541] By: autrijus                              on 2003/04/30  10:12:02
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
 ____________________________________________________________________________
 [  5540] By: autrijus                              on 2003/04/30  10:10:02
         Log: * This be 0.25.
@@ -83,25 +92,13 @@ ____________________________________________________________________________
 	       entry.
 	   ! lib/Locale/Maketext/Lexicon.pm
 ____________________________________________________________________________
-[  5493] By: autrijus                              on 2003/04/28  09:22:05
-        Log: signature.
-	   ! SIGNATURE
-____________________________________________________________________________
 [  5492] By: autrijus                              on 2003/04/28  09:20:51
         Log: * 0.24, to combat PAUSE indexer silliness.
 	   ! lib/Locale/Maketext/Lexicon.pm
 ____________________________________________________________________________
-[  5488] By: autrijus                              on 2003/04/28  08:26:53
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
-____________________________________________________________________________
 [  5487] By: autrijus                              on 2003/04/28  08:18:28
         Log: * 0.23 -- PAUSE wrecked 0.22.
 	   ! lib/Locale/Maketext/Lexicon.pm
-____________________________________________________________________________
-[  5486] By: autrijus                              on 2003/04/28  07:58:37
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
 ____________________________________________________________________________
 [  5485] By: autrijus                              on 2003/04/28  07:53:10
         Log: * This be 0.22.
@@ -116,10 +113,6 @@ ____________________________________________________________________________
 [  5475] By: autrijus                              on 2003/04/27  15:56:48
         Log: * prefer the last * for globbing languages.
 	   ! lib/Locale/Maketext/Lexicon.pm
-____________________________________________________________________________
-[  5472] By: autrijus                              on 2003/04/27  14:37:38
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
 ____________________________________________________________________________
 [  5471] By: autrijus                              on 2003/04/27  14:34:02
         Log: * This be 0.21.
@@ -149,10 +142,6 @@ ____________________________________________________________________________
 	     for
              two language subclasses.
 	   ! lib/Locale/Maketext/Lexicon.pm
-____________________________________________________________________________
-[  5464] By: autrijus                              on 2003/04/26  17:44:34
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
 ____________________________________________________________________________
 [  5463] By: autrijus                              on 2003/04/26  17:41:08
         Log: * This be 0.20.
@@ -208,10 +197,6 @@ ____________________________________________________________________________
 	   ! lib/Locale/Maketext/Lexicon.pm
 	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
 ____________________________________________________________________________
-[  4416] By: autrijus                              on 2003/02/22  01:35:19
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
-____________________________________________________________________________
 [  4415] By: autrijus                              on 2003/02/22  01:33:27
         Log: * This be 0.16.
 	   - bin/messages.po
@@ -225,10 +210,6 @@ ____________________________________________________________________________
 [  3747] By: autrijus                              on 2003/01/22  15:19:36
         Log: * plasmabal pointed out pod errors.
 	   ! bin/xgettext.pl
-____________________________________________________________________________
-[  2456] By: autrijus                              on 2002/11/29  07:13:55
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
 ____________________________________________________________________________
 [  2455] By: autrijus                              on 2002/11/29  07:13:09
         Log: * 0.15.
@@ -256,10 +237,6 @@ ____________________________________________________________________________
 	       without -u.
 	   ! bin/xgettext.pl
 ____________________________________________________________________________
-[  2115] By: autrijus                              on 2002/11/13  12:03:07
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
-____________________________________________________________________________
 [  2114] By: autrijus                              on 2002/11/13  12:01:00
         Log: * This be 0.14 -- thirteen is really unlucky...
 	   ! lib/Locale/Maketext/Lexicon.pm
@@ -267,10 +244,6 @@ ____________________________________________________________________________
 [  2112] By: autrijus                              on 2002/11/13  11:54:39
         Log: * escapes are applicable even with -u.
 	   ! bin/xgettext.pl
-____________________________________________________________________________
-[  2109] By: autrijus                              on 2002/11/13  11:14:16
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
 ____________________________________________________________________________
 [  2108] By: autrijus                              on 2002/11/13  11:11:36
         Log: * 0.13.
@@ -280,10 +253,6 @@ ____________________________________________________________________________
         Log: * Alain's parser patch.  This makes multi-line handling a
 	       breeze.
 	   ! Makefile.PL bin/xgettext.pl
-____________________________________________________________________________
-[  2042] By: autrijus                              on 2002/11/07  14:21:23
-        Log: * changes and signatures.
-	   ! Changes SIGNATURE
 ____________________________________________________________________________
 [  2040] By: autrijus                              on 2002/11/07  14:16:28
         Log: * This be 0.12.
@@ -298,10 +267,6 @@ ____________________________________________________________________________
         Log: * patch from Alain Barbett: Fix multiline gettext strings.
 	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
 ____________________________________________________________________________
-[  1712] By: autrijus                              on 2002/10/27  23:25:54
-        Log: * signature.
-	   ! SIGNATURE
-____________________________________________________________________________
 [  1711] By: autrijus                              on 2002/10/27  22:10:19
         Log: * document -u before i forget.
 	   ! bin/xgettext.pl
@@ -312,10 +277,6 @@ ____________________________________________________________________________
 	   ! lib/Locale/Maketext/Lexicon/Auto.pm
 	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
 	   ! lib/Locale/Maketext/Lexicon/Tie.pm t/1-basic.t
-____________________________________________________________________________
-[  1460] By: autrijus                              on 2002/10/16  19:37:25
-        Log: * changes and signature.
-	   ! Changes SIGNATURE
 ____________________________________________________________________________
 [  1459] By: autrijus                              on 2002/10/16  19:36:13
         Log: * This be 0.10.
@@ -337,10 +298,6 @@ ____________________________________________________________________________
         Log: * add -u to avoid escape (currently undocumented.) 
              * multiline support.
 	   ! bin/xgettext.pl
-____________________________________________________________________________
-[  1162] By: autrijus                              on 2002/10/04  03:44:57
-        Log: * changes and signature.
-	   ! Changes SIGNATURE
 ____________________________________________________________________________
 [  1157] By: autrijus                              on 2002/10/04  02:58:40
         Log: * This be 0.092.
@@ -368,10 +325,6 @@ ____________________________________________________________________________
 	   + lib/Locale/Maketext/Lexicon/Msgcat.pm
 	   + t/messages.mo
 ____________________________________________________________________________
-[  1048] By: autrijus                              on 2002/09/25  09:32:24
-        Log: * changes and signature.
-	   ! Changes SIGNATURE
-____________________________________________________________________________
 [  1047] By: autrijus                              on 2002/09/25  09:31:55
         Log: * 0.91.
 	   ! lib/Locale/Maketext/Lexicon.pm
@@ -379,11 +332,6 @@ ____________________________________________________________________________
 [  1012] By: autrijus                              on 2002/09/24  02:04:37
         Log: * fix extra warnings
 	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
-____________________________________________________________________________
-[   808] By: autrijus                              on 2002/08/28  09:15:35
-        Log: * changes and signature.
-	   + SIGNATURE
-	   ! Changes
 ____________________________________________________________________________
 [   807] By: autrijus                              on 2002/08/28  09:15:11
         Log: * this be 0.09.
@@ -408,7 +356,6 @@ ____________________________________________________________________________
 ____________________________________________________________________________
 [   345] By: autrijus                              on 2002/07/17  03:07:35
         Log: * 0.07.
-	   + t/gencat.m
 	   ! Changes MANIFEST
 	   ! lib/Locale/Maketext/Lexicon.pm
 	   ! lib/Locale/Maketext/Lexicon/Auto.pm

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # $File: //member/autrijus/Locale-Maketext-Lexicon/t/1-basic.t $ $Author: autrijus $
-# $Revision: #11 $ $Change: 6875 $ $DateTime: 2003/07/07 12:10:08 $
+# $Revision: #12 $ $Change: 7747 $ $DateTime: 2003/08/28 10:18:47 $
 
 use strict;
 use Test::More tests => 30;
@@ -38,7 +38,7 @@ package main;
 
 ################################################################
 
-ok(my $lh = Hello::L10N->get_handle('en'), 'Auto - get_handle');
+ok(my $lh = Hello::L10N->get_handle('en-us'), 'Auto - get_handle');
 
 is(
     $lh->maketext('Heute die Welt'),
@@ -86,11 +86,12 @@ is(
     'Gettext - correct parens'
 );
 is(
-    $lh->maketext('KnowledgeAndNature'),
-"Ich wuenschte recht gelehrt zu werden,".
-"Und moechte gern, was auf der Erden".
-"Und in dem Himmel ist, erfassen,".
-"Die Wissenschaft und die Natur.",
+    $lh->maketext("\n\nKnowledge\nAnd\nNature\n\n"),
+"\n\n".
+"Ich wuenschte recht gelehrt zu werden,\n".
+"Und moechte gern, was auf der Erden\n".
+"Und in dem Himmel ist, erfassen,\n".
+"Die Wissenschaft und die Natur.\n\n",
     'Gettext - multiline'
 );
 is(
@@ -212,14 +213,21 @@ msgid "%1%2%*"
 msgstr "%*%2%1"
 
 #: Hello.pm:15
-msgid "Knowledge"
-"And"
-"Nature"
+msgid ""
+"\n"
+"\n"
+"Knowledge\n"
+"And\n"
+"Nature\n"
+"\n"
 msgstr ""
-"Ich wuenschte recht gelehrt zu werden,"
-"Und moechte gern, was auf der Erden"
-"Und in dem Himmel ist, erfassen,"
-"Die Wissenschaft und die Natur."
+"\n"
+"\n"
+"Ich wuenschte recht gelehrt zu werden,\n"
+"Und moechte gern, was auf der Erden\n"
+"Und in dem Himmel ist, erfassen,\n"
+"Die Wissenschaft und die Natur.\n"
+"\n"
 
 #: Hello.pm:16
 #, big, furry, fuzzy

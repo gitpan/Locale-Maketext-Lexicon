@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #18 $ $Change: 5986 $ $DateTime: 2003/05/19 16:21:13 $
+# $Revision: #19 $ $Change: 7747 $ $DateTime: 2003/08/28 10:18:47 $
 
 package Locale::Maketext::Lexicon::Gettext;
 $Locale::Maketext::Lexicon::Gettext::VERSION = '0.08';
@@ -157,7 +157,6 @@ sub transform {
     $str =~ s/[\~\[\]]/~$&/g;
     $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/"\[$1,".unescape($2)."]"/eg;
     $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
-    $str =~ s/\r*\n+\r*$//;
     $str = Encode::encode($OutputEncoding, $str) if $DoEncoding and $OutputEncoding;
 
     return $str;

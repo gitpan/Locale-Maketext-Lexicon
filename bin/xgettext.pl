@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #21 $ $Change: 5999 $ $DateTime: 2003/05/20 07:50:59 $
+# $Revision: #22 $ $Change: 7746 $ $DateTime: 2003/08/28 10:18:18 $
 
 use strict;
 use Getopt::Std;
@@ -63,6 +63,10 @@ are extracted.
 
 Sentences of texts between C<STARTxxx> and C<ENDxxx> are
 extracted.
+
+=item Generic Template
+
+Texts inside {{...}} are extracted.
 
 =cut
 
@@ -154,6 +158,15 @@ foreach my $file (@ARGV) {
 	$str =~ s/\\'/\'/g; 
 	$vars =~ s/^\s*\(//;
 	$vars =~ s/\)\s*$//;
+	push @{$file{$str}}, [ $filename, $line, $vars ];
+    }
+
+    # Generic Template:
+    $line = 1; pos($_) = 0;
+    while (m!\G.*?{{(.*?)}}!sg) {
+	my ($vars, $str) = ('', $1);
+	$line += ( () = ($& =~ /\n/g) ); # cryptocontext!
+	$str =~ s/\\'/\'/g; 
 	push @{$file{$str}}, [ $filename, $line, $vars ];
     }
 
