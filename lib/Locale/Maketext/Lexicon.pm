@@ -2,7 +2,7 @@
 # $Revision: #49 $ $Change: 11058 $ $DateTime: 2004/08/22 19:23:52 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.40';
+$Locale::Maketext::Lexicon::VERSION = '0.41';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.40 of Locale::Maketext::Lexicon,
-released August 23, 2004.
+This document describes version 0.41 of Locale::Maketext::Lexicon,
+released August 25, 2004.
 
 =head1 SYNOPSIS
 
@@ -164,7 +164,7 @@ initialized previously.
 
 =cut
 
-my %Opts;
+our %Opts;
 sub option { shift if ref($_[0]); $Opts{lc $_[0]} }
 sub set_option { shift if ref($_[0]); $Opts{lc $_[0]} = $_[1] }
 
@@ -250,6 +250,7 @@ sub import {
     foreach my $key (grep /^_/, keys %entries) {
 	set_option(lc(substr($key, 1)) => delete($entries{$key}));
     }
+    my $OptsRef = { %Opts };
 
     while (my ($lang, $entry) = each %entries) {
 	my $export = caller;
@@ -275,6 +276,9 @@ sub import {
 	    eval "use $class\::$format; 1" or die $@;
 
 	    if (defined %{"$export\::Lexicon"}) {
+                if (ref(tied %{"$export\::Lexicon"}) eq __PACKAGE__) {
+		    tied(%{"$export\::Lexicon"})->();
+                }
 		# be very careful not to pollute the possibly tied lexicon
 		*{"$export\::Lexicon"} = {
 		    %{"$export\::Lexicon"},
@@ -282,11 +286,42 @@ sub import {
 		};
 	    }
 	    else {
-		*{"$export\::Lexicon"} = "$class\::$format"->parse(@content);
+                my $promise;
+                bless($promise = sub {
+                    $_[0] = $promise;
+                    return "$export\::Lexicon";
+                }, __PACKAGE__);
+                tie %{"$export\::Lexicon"}, __PACKAGE__, sub {
+                    local %Opts = %$OptsRef;
+                    *{"$export\::Lexicon"} = "$class\::$format"->parse(@content);
+                    return $promise->($_[0]);
+                };
 	    }
 
 	    push(@{"$export\::ISA"}, scalar caller) if length $lang;
 	}
+    }
+}
+
+sub TIEHASH {
+    my ($class, $promise) = @_;
+    return bless($promise, $class);
+}
+
+{
+    no strict 'refs';
+    sub _force { $_[0]->($_[0]) }
+    sub FETCH { _force($_[0])->{$_[1]} }
+    sub EXISTS { exists _force($_[0])->{$_[1]} }
+    sub DELETE { delete _force($_[0])->{$_[1]} }
+    sub SCALAR { scalar %{_force($_[0])} }
+    sub STORE { _force($_[0])->{$_[1]} = $_[2] }
+    sub CLEAR { %{_force($_[0])->{$_[1]}} = () }
+    sub NEXTKEY { each %{_force($_[0])} }
+    sub FIRSTKEY {
+        my $hash = _force($_[0]);
+        my $a = scalar keys %$hash;
+        each %$hash;
     }
 }
 
