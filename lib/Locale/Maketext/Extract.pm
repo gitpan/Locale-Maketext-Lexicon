@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Extract.pm $ $Author: autrijus $
-# $Revision: #10 $ $Change: 10406 $ $DateTime: 2004/03/17 12:51:00 $ vim: expandtab shiftwidth=4
+# $Revision: #11 $ $Change: 10520 $ $DateTime: 2004/04/26 16:51:08 $ vim: expandtab shiftwidth=4
 
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.06';
+$Locale::Maketext::Extract::VERSION = '0.07';
 
 use strict;
 
@@ -199,7 +199,6 @@ sub extract {
     while (m!\G(.*?<&\|/l(?:oc)?(.*?)&>(.*?)</&>)!sg) {
         my ($vars, $str) = ($2, $3);
         $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
-        $str =~ s/\\'/\'/g; 
         $self->add_entry($str, [ $file, $line, $vars ]);
     }
 
@@ -208,7 +207,6 @@ sub extract {
     while (m!\G(.*?\[%\s*\|l(?:oc)?(.*?)\s*%\](.*?)\[%\s*END\s*%\])!sg) {
         my ($vars, $str) = ($2, $3);
         $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
-        $str =~ s/\\'/\'/g; 
         $vars =~ s/^\s*\(//;
         $vars =~ s/\)\s*$//;
         $self->add_entry($str, [ $file, $line, $vars ]);
@@ -219,8 +217,30 @@ sub extract {
     while (m/\G(.*?(?<!\{)\{\{(?!\{)(.*?)\}\})/sg) {
         my ($vars, $str) = ('', $2);
         $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
-        $str =~ s/\\'/\'/g; 
         $self->add_entry($str, [ $file, $line, $vars ]);
+    }
+
+    my $quoted = '(\')([^\\\']*(?:\\.[^\\\']*)*)(\')|(\")([^\\\"]*(?:\\.[^\\\"]*)*)(\")';
+
+    # Comment-based mark: "..." # loc
+    $line = 1; pos($_) = 0;
+    while (m/\G(.*?($quoted)[\}\)\],]*\s*\#\s*loc\s*$)/smog) {
+	my $str = substr($2, 1, -1);
+	$line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
+	$str  =~ s/\\(["'])/$1/g;
+        $self->add_entry($str, [ $file, $line, '' ]);
+    }
+
+    # Comment-based pair mark: "..." => "..." # loc_pair
+    $line = 1; pos($_) = 0;
+    while (m/\G(.*?(\w+)\s*=>\s*($quoted)[\}\)\],]*\s*\#\s*loc_pair\s*$)/smg) {
+	my $key = $2;
+	my $val = substr($3, 1, -1);
+	$line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
+	$key  =~ s/\\(["'])/$1/g;
+	$val  =~ s/\\(["'])/$1/g;
+        $self->add_entry($key, [ $file, $line, '' ]);
+        $self->add_entry($val, [ $file, $line, '' ]);
     }
 
     # Perl code:

@@ -1,11 +1,10 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/script/xgettext.pl $ $Author: autrijus $
-# $Revision: #4 $ $Change: 10139 $ $DateTime: 2004/02/19 18:25:46 $ vim: expandtab shiftwidth=4
+# $Revision: #5 $ $Change: 10520 $ $DateTime: 2004/04/26 16:51:08 $ vim: expandtab shiftwidth=4
 
 use strict;
-use Cwd;
-use Getopt::Std;
-use Locale::Maketext::Extract;
+use Locale::Maketext::Extract::Run 'xgettext';
+xgettext(@ARGV);
 
 =head1 NAME
 
@@ -13,65 +12,74 @@ xgettext.pl - Extract translatable strings from source
 
 =head1 SYNOPSIS
 
-B<xgettext.pl> [ B<-u> ] [ B<-g> ] [ B<-o> I<outputfile> ] [ I<inputfile>... ]
+B<xgettext.pl> [I<OPTION>] [I<INPUTFILE>]...
 
 =head1 DESCRIPTION
 
 This program extracts translatable strings from given input files, or
-from STDIN if none are given.
+from B<STDIN> if none are given.
 
-Please see L<Locale::Maketext::Extract> for a list of supported
-input file formats.
+Please see L<Locale::Maketext::Extract> for a list of supported input file
+formats.
 
 =head1 OPTIONS
 
+Mandatory arguments to long options are mandatory for short options too.
+Similarly for optional arguments.
+
+=head2 Input file location:
+
 =over 4
 
-=item B<-u>
+=item I<INPUTFILE>...
+
+Files to extract messages from.  If not specified, B<STDIN> is assumed.
+
+=item B<-f>, B<--files-from>=I<FILE>
+
+Get list of input files from I<FILE>.
+
+=item B<-D>, B<--directory>=I<DIRECTORY>
+
+Add I<DIRECTORY> to list for input files search.
+
+=back
+
+=head2 Output file location:
+
+=over 4
+
+=item B<-d>, B<--default-domain>=I<NAME>
+
+Use I<NAME>.po for output, instead of C<messages.po>.
+
+=item B<-o>, B<--output>=I<FILE>
+
+PO file name to be written or incrementally updated; C<-> means writing
+to B<STDOUT>.
+
+=item B<-p>, B<--output-dir>=I<DIR>
+
+Output files will be placed in directory I<DIR>.
+
+=back
+
+=head2 Output details:
+
+=over 4
+
+=item B<-u>, B<--unescaped>
 
 Disables conversion from B<Maketext> format to B<Gettext> format -- i.e.
 leave all brackets alone.  This is useful if you are also using the
 B<Gettext> syntax in your program.
 
-=item B<-g>
+=item B<-g>, B<--gnu-gettext>
 
 Enables GNU gettext interoperability by printing C<#, perl-maketext-format>
 before each entry that has C<%> variables.
 
-=item B<-o> I<outputfile>
-
-PO file name to be written or incrementally updated; C<-> means writing to
-B<STDOUT>.  If not specified, F<messages.po> is used.
-
-=item I<inputfile>...
-
-The files to extract messages from.  If not specified, B<STDIN> is assumed.
-
 =back
-
-=cut
-
-my %opts;
-getopts('hugo:', \%opts) or help();
-help() if $opts{h};
-
-my $PO = Cwd::abs_path($opts{o} || "messages.po");
-@ARGV = ('-') unless @ARGV;
-s!^.[/\\]!! for @ARGV;
-
-my $Ext = Locale::Maketext::Extract->new;
-$Ext->read_po($PO, $opts{u}) if -r $PO;
-$Ext->extract_file($_) for grep !/\.po$/i, @ARGV;
-$Ext->compile($opts{u}) or exit;
-$Ext->write_po($PO);
-
-sub help {
-    local $SIG{__WARN__} = sub {};
-    exec "perldoc $0";
-    exec "pod2text $0";
-}
-
-1;
 
 =head1 SEE ALSO
 

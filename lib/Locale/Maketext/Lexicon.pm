@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #46 $ $Change: 10506 $ $DateTime: 2004/04/21 12:23:27 $
+# $Revision: #48 $ $Change: 10521 $ $DateTime: 2004/04/26 17:55:57 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.37';
+$Locale::Maketext::Lexicon::VERSION = '0.38';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.37 of Locale::Maketext::Lexicon,
-released April 21, 2004.
+This document describes version 0.38 of Locale::Maketext::Lexicon,
+released April 27, 2004.
 
 =head1 SYNOPSIS
 
@@ -225,6 +225,12 @@ sub import {
 	    my $pattern = quotemeta($src);
             $pattern =~ s/\\\*(?=[^*]+$)/\([-\\w]+\)/g or next;
 	    $pattern =~ s/\\\*/.*?/g;
+	    $pattern =~ s/\\\?/./g;
+	    $pattern =~ s/\\\[/[/g;
+	    $pattern =~ s/\\\]/]/g;
+	    $pattern =~ s[\\\{(.*?)\\\\}][
+		'(?:'.join('|', split(/,/, $1)).')'
+	    ]eg;
 
 	    require File::Glob;
 	    foreach my $file (File::Glob::bsd_glob($src)) {

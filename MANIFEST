@@ -10,6 +10,7 @@ inc/Module/Install/Scripts.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Locale/Maketext/Extract.pm
+lib/Locale/Maketext/Extract/Run.pm
 lib/Locale/Maketext/Lexicon.pm
 lib/Locale/Maketext/Lexicon/Auto.pm
 lib/Locale/Maketext/Lexicon/Gettext.pm
