@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/t/0-signature.t $ $Author: autrijus $
-# $Revision: #3 $ $Change: 1871 $ $DateTime: 2002/11/03 19:22:02 $
+# $Revision: #3 $ $Change: 1871 $ $DateTime: 2002/11/03 20:22:02 $
 
 use strict;
 use Test::More tests => 1;

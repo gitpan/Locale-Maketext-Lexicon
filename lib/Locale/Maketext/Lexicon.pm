@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #48 $ $Change: 10521 $ $DateTime: 2004/04/26 17:55:57 $
+# $Revision: #49 $ $Change: 11058 $ $DateTime: 2004/08/22 19:23:52 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.38';
+$Locale::Maketext::Lexicon::VERSION = '0.40';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.38 of Locale::Maketext::Lexicon,
-released April 27, 2004.
+This document describes version 0.40 of Locale::Maketext::Lexicon,
+released August 23, 2004.
 
 =head1 SYNOPSIS
 
@@ -175,10 +175,13 @@ sub encoding {
     no warnings 'uninitialized';
     my ($country_language, $locale_encoding);
 
+    local $@;
     eval {
 	require I18N::Langinfo;
-	I18N::Langinfo->import(qw(langinfo CODESET));
-	$locale_encoding = langinfo(CODESET());
+	$locale_encoding = I18N::Langinfo::langinfo(I18N::Langinfo::CODESET());
+    } or eval {
+	require Win32::Console;
+	$locale_encoding = 'cp'.Win32::Console::OutputCP();
     };
     if (!$locale_encoding) {
 	foreach my $key (qw( LANGUAGE LC_ALL LC_MESSAGES LANG )) {

@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #26 $ $Change: 10407 $ $DateTime: 2004/03/17 13:01:43 $
+# $Revision: #26 $ $Change: 10407 $ $DateTime: 2004/03/17 14:01:43 $
 
 package Locale::Maketext::Lexicon::Gettext;
 $Locale::Maketext::Lexicon::Gettext::VERSION = '0.11';
