@@ -6,7 +6,7 @@ Module::Signature installed, then type:
 
     % cpansign -v
 
-It will check each file's integrity, as well as the signature's
+It would check each file's integrity, as well as the signature's
 validity.  If "==> Signature verified OK! <==" is not displayed,
 the distribution may already have been compromised, and you should
 not run its Makefile.PL or Build.PL.
@@ -14,31 +14,31 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 13efe6b19a3faf6058aae2103441b2c8ae2f6684 AUTHORS
-SHA1 274fe45875f8002a9d859cdacf56f7b1ec279cca Changes
+SHA1 a0ebbb47fcf331862e155da768629b4718f4116f AUTHORS
+SHA1 a75f4e83aa691e534b4bd8edf0633b626b33fa9c Changes
 SHA1 e1379626193bcca338a2f702ac90cc826294072d MANIFEST
-SHA1 aac577461beb92af3b56c348c1b11bf023c4fd85 META.yml
+SHA1 ce8261b56d66d983b1db6a332c3693a12c403f48 META.yml
 SHA1 a709d8b569c3fc575d785bfa691998b4d00716d2 Makefile.PL
 SHA1 c8de33b05914584c4dc5983c8ef098bae6292cbf README
-SHA1 02597776ad22aacd2c8e189594fcbf701390b606 inc/Module/Install.pm
-SHA1 7ca8b8f54287c2b5af8062fc9f349275a07e06f3 inc/Module/Install/Base.pm
-SHA1 b6af22816210f8eaab4c2c616e05a8892b2fcfd0 inc/Module/Install/Can.pm
-SHA1 33659c004518e95afb6ffafad41e84f2a6268412 inc/Module/Install/Fetch.pm
-SHA1 c4ed10cd20914c04f3fff3f8aaf8943372cec114 inc/Module/Install/Makefile.pm
-SHA1 ccf9b6267b5c9e7b35ef129f7e974255955c8867 inc/Module/Install/Metadata.pm
-SHA1 a7eaeed7eaafe52c91298b0fe6959371c0b7639a inc/Module/Install/Scripts.pm
-SHA1 1288f4c4e4ba88e19194d7952eacbd6be2a5b916 inc/Module/Install/Win32.pm
-SHA1 1022a7ab797fc0081ea947f102650362ad925d7a inc/Module/Install/WriteAll.pm
+SHA1 06d883487127fa0026311904e7c4867e850c505c inc/Module/Install.pm
+SHA1 2771d5c5033e94c4789c66a0aad4e21c62985ce9 inc/Module/Install/Base.pm
+SHA1 b5e2d5fc07b92d042c97631d2b00f61f974fc164 inc/Module/Install/Can.pm
+SHA1 c3747aa4bd8faa530c974b78f729c67f15c6f928 inc/Module/Install/Fetch.pm
+SHA1 d8bc0d6e0a82d2b7533bdd3de467593094cc8b2c inc/Module/Install/Makefile.pm
+SHA1 6fca1d05c6b9a8f10865de5be4fefb9bfa7a52e9 inc/Module/Install/Metadata.pm
+SHA1 2e6f5004ac895a26c41f043bf8fa5efb4f5b21c4 inc/Module/Install/Scripts.pm
+SHA1 6b051a6d3ed824df40343a7ff09b66282e1783c3 inc/Module/Install/Win32.pm
+SHA1 77f82ce7c623e05304ac9aae05bcd1a5558fadbb inc/Module/Install/WriteAll.pm
 SHA1 95b4f8c3e94a1704a20d8d6a99027146777e188f lib/Locale/Maketext/Extract.pm
 SHA1 8f77b62534098704e1ebd82a1909543d76e56e6f lib/Locale/Maketext/Extract/Run.pm
-SHA1 e83cc978c3d6a27f6c07bc6d2024f23885c75133 lib/Locale/Maketext/Lexicon.pm
-SHA1 206d299e32be03d09cd61e1dfa3ddf247643deb1 lib/Locale/Maketext/Lexicon/Auto.pm
-SHA1 866be4c1cbc68e7d5bfae70a75a8e9dec227e65b lib/Locale/Maketext/Lexicon/Gettext.pm
-SHA1 f082a39b7d925af5783a4b718dfdc0e64a289744 lib/Locale/Maketext/Lexicon/Msgcat.pm
-SHA1 6f47b1009cf730841040115dac95203506264f94 lib/Locale/Maketext/Lexicon/Tie.pm
+SHA1 1aef2bc7922a8a32c478393a3eeba0d0e0c2f0ca lib/Locale/Maketext/Lexicon.pm
+SHA1 ecd3f4fa6b71c62b61420bdf4f175c351edee301 lib/Locale/Maketext/Lexicon/Auto.pm
+SHA1 0936a5706a7b3e39750fd88fb0a289d014a17922 lib/Locale/Maketext/Lexicon/Gettext.pm
+SHA1 e87b5fe4995756623fc1296368f01e2d8441dda2 lib/Locale/Maketext/Lexicon/Msgcat.pm
+SHA1 c4135c8272b323486fc2e343028290d366e16d6f lib/Locale/Maketext/Lexicon/Tie.pm
 SHA1 58cbd83336ed1d2be11f540002c1f60e5e14f24c script/xgettext.pl
 SHA1 63c7ea0cfdd7643aa113c260eec9c9bf0a6ee8a0 t/0-signature.t
-SHA1 1aa81f86eaa6c4662d45994c9f0c825dbe06beaa t/1-basic.t
+SHA1 e3e3f633358d38e285fe2118a2aae85e4e697fa1 t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
 SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
 SHA1 786af50f71a3299ec40267c74001822602b9b247 t/4-encodings.t
@@ -57,9 +57,9 @@ SHA1 ce40b0a4b57820b7104df00049d69b6653a55c64 t/locale/zh_TW/LC_MESSAGES/test_ut
 SHA1 6910777b47e5f73042aa40d210a5f9485510f52d t/messages.mo
 SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.2.3 (FreeBSD)
+Version: GnuPG v1.2.6 (FreeBSD)
 
-iD8DBQFBfW0htLPdNzw1AaARAmx1AJ0WL7mlBKN7l7hJECS75H153cAZ/wCfb6v/
-P8V5Bkje1+g4SKFH4xi4Zp0=
-=SQ1o
+iD8DBQFBwSnVtLPdNzw1AaARAtEdAJ40k5WkVucINudirvvJ7IEbbm3P0gCfafQa
+ea7xBt0iyEcUMB4pK4J1MWo=
+=Dy1/
 -----END PGP SIGNATURE-----

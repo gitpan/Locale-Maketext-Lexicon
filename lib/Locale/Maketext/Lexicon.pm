@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.45';
+$Locale::Maketext::Lexicon::VERSION = '0.46';
 
 use strict;
 
@@ -9,15 +9,15 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.45 of Locale::Maketext::Lexicon,
-released October 26, 2004.
+This document describes version 0.46 of Locale::Maketext::Lexicon,
+released December 16, 2004.
 
 =head1 SYNOPSIS
 
 As part of a localization class, automatically glob for available
 lexicons:
 
-    package Hello::L10N;
+    package Hello::I18N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
         '*' => [Gettext => '/usr/local/share/locale/*/LC_MESSAGES/hello.mo'],
@@ -26,7 +26,7 @@ lexicons:
 
 Explicitly specify languages, during compile- or run-time:
 
-    package Hello::L10N;
+    package Hello::I18N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
         de => [Gettext => 'hello_de.po'],
@@ -42,8 +42,8 @@ Explicitly specify languages, during compile- or run-time:
 
 Alternatively, as part of a localization subclass:
 
-    package Hello::L10N::de;
-    use base 'Hello::L10N';
+    package Hello::I18N::de;
+    use base 'Hello::I18N';
     use Locale::Maketext::Lexicon (Gettext => \*DATA);
     __DATA__
     # Some sample data
@@ -146,6 +146,12 @@ are handled, please use a subclass that overrides C<lexicon_get_I<TYPE>>.
 XXX: not documented well enough yet.  Patches welcome.
 
 =head1 NOTES
+
+When you attempt to localize an entry missing in the lexicon, Maketext
+will throw an exception by default.  To inhibit this behaviour, override
+the C<_AUTO> key in your language subclasses, for example:
+
+    $Hello::I18N::en::Lexicon{_AUTO} = 1; # autocreate missing keys
 
 If you want to implement a new C<Lexicon::*> backend module, please note
 that C<parse()> takes an array containing the B<source strings> from the

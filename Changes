@@ -1,3 +1,14 @@
+[Changes for 0.46 - 2004-12-16]
+
+* Patch from Thierry Vignaud: Add a "_allow_empty" option to the
+  Gettext backend, to allow empty strings with 
+
+* Harmen suggested a doc patch to better document the _AUTO key
+  for allowing empty or missing keys.
+
+* Changed all ::L10N to ::I18N in examples, to agree with the de
+  facto community standard.
+
 [Changes for 0.45 - 2004-10-26]
 
 * Fix decoding problem on Big5 containing "]", as reported by Jiing Deng.

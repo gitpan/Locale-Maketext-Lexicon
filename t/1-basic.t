@@ -2,7 +2,7 @@
 use strict;
 use Test::More tests => 30;
 
-package Hello::L10N;
+package Hello::I18N;
 use Test::More;
 use Tie::Hash;
 
@@ -35,7 +35,7 @@ package main;
 
 ################################################################
 
-ok(my $lh = Hello::L10N->get_handle('en-us'), 'Auto - get_handle');
+ok(my $lh = Hello::I18N->get_handle('en-us'), 'Auto - get_handle');
 
 is(
     $lh->maketext('Heute die Welt'),
@@ -45,7 +45,7 @@ is(
 
 ################################################################
 
-ok($lh = Hello::L10N->get_handle('de'), 'Gettext - get_handle');
+ok($lh = Hello::I18N->get_handle('de'), 'Gettext - get_handle');
 
 is(
     $lh->maketext('Hello, World!'),
@@ -98,7 +98,7 @@ is(
     'Gettext - fuzzy entries are ignored'
 );
 
-ok($lh = Hello::L10N->get_handle('de_de'), 'Gettext - get_handle on DATA again');
+ok($lh = Hello::I18N->get_handle('de_de'), 'Gettext - get_handle on DATA again');
 is(
     eval { $lh->maketext("The Hitchhiker's Guide to the Galaxy") },
     'Der Fuehrer des Trampers zur Galaxie',
@@ -110,7 +110,7 @@ is(
 SKIP: {
     skip("no msgunfmt available", 2) unless `msgunfmt -V` and !$?;
 
-    ok($lh = Hello::L10N->get_handle('zh_tw'), 'Gettext - get_handle');
+    ok($lh = Hello::I18N->get_handle('zh_tw'), 'Gettext - get_handle');
 
     is(
 	$lh->maketext('This is a test'),
@@ -121,9 +121,9 @@ SKIP: {
 
 ################################################################
 
-ok($lh = Hello::L10N->get_handle('fr'), 'Tie - get_handle');
-$Hello::L10N::fr::Lexicon{"Good morning"} = 'Bon jour';
-$Hello::L10N::fr::Lexicon{"Good morning, [_1]"} = 'Bon jour, [_1]';
+ok($lh = Hello::I18N->get_handle('fr'), 'Tie - get_handle');
+$Hello::I18N::fr::Lexicon{"Good morning"} = 'Bon jour';
+$Hello::I18N::fr::Lexicon{"Good morning, [_1]"} = 'Bon jour, [_1]';
 
 is(
     $lh->maketext('Good morning'),
@@ -139,7 +139,7 @@ is(
 
 ################################################################
 
-ok($lh = Hello::L10N->get_handle('zh_cn'), 'Msgcat - get_handle');
+ok($lh = Hello::I18N->get_handle('zh_cn'), 'Msgcat - get_handle');
 is(
     $lh->maketext(1, 1),
     'First string',
@@ -163,7 +163,7 @@ is(
 
 ################################################################
 
-ok($lh = Hello::L10N->get_handle('zh_hk'), 'Multiple lexicons - get_handle');
+ok($lh = Hello::I18N->get_handle('zh_hk'), 'Multiple lexicons - get_handle');
 
 is(
     $lh->maketext(1, 1),

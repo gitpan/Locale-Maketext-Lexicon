@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.13';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.14';
 
 use strict;
 
@@ -11,7 +11,7 @@ Locale::Maketext::Lexicon::Gettext - PO and MO file parser for Maketext
 
 Called via B<Locale::Maketext::Lexicon>:
 
-    package Hello::L10N;
+    package Hello::I18N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
         de => [Gettext => 'hello/de.mo'],
@@ -59,15 +59,28 @@ Any normal entry that duplicates a metadata entry takes precedence.
 Hence, a C<msgid "__Content-Type"> line occurs anywhere should override
 the above value.
 
-=head1 NOTES
+=head1 OPTIONS
+
+=head2 use_fuzzy
 
 When parsing PO files, fuzzy entries (entries marked with C<#, fuzzy>)
 are silently ignored.  If you wish to use fuzzy entries, specify a true
-value to the C<_use_fuzzy> option: 
+value to the C<_use_fuzzy> option:
 
     use Locale::Maketext::Lexicon {
         de => [Gettext => 'hello/de.mo'],
         _use_fuzzy => 1,
+    };
+
+=head2 allow_empty
+
+When parsing PO files, empty entries (entries with C<msgstr "">) are
+silently ignored.  If you wish to allow empty entries, specify a true
+value to the C<_allow_empty> option:
+
+    use Locale::Maketext::Lexicon {
+        de => [Gettext => 'hello/de.mo'],
+        _allow_empty => 1,
     };
 
 =cut
@@ -95,6 +108,7 @@ sub parse {
 
     require Locale::Maketext::Lexicon;
     my $UseFuzzy = Locale::Maketext::Lexicon::option('use_fuzzy');
+    my $AllowEmpty = Locale::Maketext::Lexicon::option('allow_empty');
 
     # Parse PO files
     foreach (@_) {
@@ -114,8 +128,12 @@ sub parse {
         } :
 
         /^ *$/ && %var                  ? do {  # interpolate string escapes
-            push @ret, (map transform($_), @var{'msgid', 'msgstr'})
-                if length $var{msgstr} and !$var{fuzzy} or $UseFuzzy;
+            if ( length($var{msgstr}) and ($UseFuzzy or !$var{fuzzy}) ) {
+                push @ret, (map transform($_), @var{'msgid', 'msgstr'});
+            }
+            elsif ( $AllowEmpty ) {
+                push @ret, (transform($var{msgid}), '');
+            }
             push @metadata, parse_metadata($var{msgstr})
                 if $var{msgid} eq '';
             %var = ();
@@ -191,11 +209,11 @@ sub unescape {
 sub parse_mo {
     my $content = shift;
     my $tmpl = (substr($content, 0, 4) eq "\xde\x12\x04\x95") ? 'V' : 'N';
-    
+
     # Check the MO format revision number
     # There is only one revision now: revision 0.
     return if unpack($tmpl, substr($content, 4, 4)) > 0;
-    
+
     my ($num, $offo, $offt);
     # Number of strings
     $num = unpack $tmpl, substr($content, 8, 4);
@@ -213,19 +231,19 @@ sub parse_mo {
         $off = unpack $tmpl, substr($content, $offo+$_*8+4, 4);
         # Original string
         $stro = substr($content, $off, $len);
-        
+
         # The first word is the length of the string
         $len = unpack $tmpl, substr($content, $offt+$_*8, 4);
         # The second word is the offset of the string
         $off = unpack $tmpl, substr($content, $offt+$_*8+4, 4);
         # Translated string
         $strt = substr($content, $off, $len);
-        
+
         # Hash it
         push @metadata, parse_metadata($strt) if $stro eq '';
         push @ret, (map transform($_), $stro, $strt) if length $strt;
     }
-    
+
     return {@metadata, @ret};
 }
 

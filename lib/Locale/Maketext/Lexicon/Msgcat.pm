@@ -9,14 +9,14 @@ Locale::Maketext::Lexicon::Msgcat - Msgcat catalog parser Maketext
 
 =head1 SYNOPSIS
 
-    package Hello::L10N;
+    package Hello::I18N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
         en => ['Msgcat', 'en_US/hello.pl.m'],
     };
 
     package main;
-    my $lh = Hello::L10N->get_handle('en');
+    my $lh = Hello::I18N->get_handle('en');
     print $lh->maketext(1,2);   # set 1, msg 2
     print $lh->maketext("1,2"); # same thing
 
