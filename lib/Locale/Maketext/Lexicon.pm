@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #16 $ $Change: 4415 $ $DateTime: 2003/02/22 01:33:27 $
+# $Revision: #20 $ $Change: 5463 $ $DateTime: 2003/04/26 17:41:08 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.16';
+$Locale::Maketext::Lexicon::VERSION = '0.20';
 
 use strict;
 
@@ -12,12 +12,22 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.16 of Locale::Maketext::Lexicon,
-released February 22, 2003.
+This document describes version 0.20 of Locale::Maketext::Lexicon,
+released April 27, 2003.
 
 =head1 SYNOPSIS
 
-As part of a localization class:
+As part of a localization class, automatically glob for available
+lexicons:
+
+    package Hello::L10N;
+    use base 'Locale::Maketext';
+    use Locale::Maketext::Lexicon {
+	'*' => [Gettext => '/usr/local/share/locale/*/LC_MESSAGES/hello.mo'],
+	_decode => 1,	# decode lexicon entries into utf8-strings
+    };
+
+Explicitly specify languages, during compile- or run-time:
 
     package Hello::L10N;
     use base 'Locale::Maketext';
@@ -28,6 +38,10 @@ As part of a localization class:
 	    Gettext => 'local/hello/fr.po',
 	],
     };
+    # ... incrementally add new lexicons
+    Locale::Maketext::Lexicon->import({
+	de => [Gettext => 'local/hello/de.po'],
+    })
 
 Alternatively, as part of a localization subclass:
 
@@ -85,7 +99,38 @@ described above.  It is designed to alleviate the need to set up a
 separate subclass for each localized language, and just use the catalog
 files.
 
+Starting from version 0.20, I<language> arguments are converted into
+lowercase and have all C<-> replaced by C<_>, so C<zh_TW> and C<zh-tw>
+will both produce a C<zh_tw> subclass.
+
+If I<language> begins with C<_>, it is taken as an option that
+controls how lexicons are parsed.  See L</Options> for a list
+of available options.
+
+The C<*> language is special; it must be used in conjunction
+with a filename that also contains C<*>; all matched files with
+a valid language code in the place of C<*> will be automatically
+prepared as a lexicon subclass.
+
 =back
+
+=head2 Options
+
+=over 4
+
+=item C<_decode>
+
+If set to a true value, source entries will be converted into
+utf8-strings (available in Perl 5.6.1 or later).  This feature
+needs the B<Encode> or B<Encode::compat> module.
+
+Currently, only the C<Gettext> backend supports this option.
+
+=item C<_encoding>
+
+This option only has effect when C<_decode> is set to true.
+It specifies an encoding to store lexicon entries, instead of
+utf8-strings.
 
 =head2 Subclassing format handlers
 
@@ -110,6 +155,10 @@ initialized previously.
 
 =cut
 
+my %Opts;
+sub option { shift if ref($_[0]); $Opts{lc $_[0]} }
+sub set_option { shift if ref($_[0]); $Opts{lc $_[0]} = $_[1] }
+
 sub import {
     my $class = shift;
     return unless @_;
@@ -123,11 +172,37 @@ sub import {
 	%entries = ( '' => [ @_ ] );
     }
 
+    # expand the wildcard entry
+    if (my $wild_entry = delete $entries{'*'}) {
+	while (my ($format, $src) = splice(@$wild_entry, 0, 2)) {
+	    next if ref($src); # XXX: implement globbing for the 'Tie' backend
+	    my $pattern = $src;
+	    $pattern =~ s/\*/\([-\\w]+\)/g or next;
+
+	    require File::Glob;
+	    foreach my $file (File::Glob::bsd_glob($src)) {
+		$file =~ /$pattern/ or next;
+		push @{$entries{$1}}, ($format => $file) if $1;
+	    }
+	}
+    }
+
+    %Opts = ();
+    foreach my $key (grep /^_/, keys %entries) {
+	set_option(lc(substr($key, 1)) => delete($entries{$key}));
+    }
+
     while (my ($lang, $entry) = each %entries) {
 	my $export = caller;
-	$export .= "::$lang" if length($lang);
 
-	my @pairs = @{$entries{$lang}} or die "no format specified";
+	if (length $lang) {
+	    # normalize language tag to Maketext's subclass convention
+	    $lang = lc($lang);
+	    $lang =~ s/-/_/g;
+	    $export .= "::$lang";
+	}
+
+	my @pairs = @{$entry||[]} or die "no format specified";
 
 	while (my ($format, $src) = splice(@pairs, 0, 2)) {
 	    my @content = $class->lexicon_get($src, scalar caller, $lang);
@@ -220,6 +295,7 @@ sub lexicon_get_ {
 
     die "cannot find $_[2] in \@INC" unless -e $src;
     $fh->open($src) or die $!;
+    binmode($fh);
     return <$fh>;
 }
 
@@ -232,6 +308,10 @@ Thanks to Jesse Vincent for suggesting this module to be written.
 Thanks also to Sean M. Burke for coming up with B<Locale::Maketext>
 in the first place, and encouraging me to experiment with alternative
 Lexicon syntaxes.
+
+Thanks also to Yi Ma Mao for providing the MO file parsing subroutine,
+as well as inspiring me to implement file globbing and transcoding
+support.
 
 See the F<AUTHORS> file in the distribution for a list of people who
 have sent helpful patches, ideas or comments.

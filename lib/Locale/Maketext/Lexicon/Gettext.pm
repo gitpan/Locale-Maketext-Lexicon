@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #11 $ $Change: 2040 $ $DateTime: 2002/11/07 14:16:28 $
+# $Revision: #16 $ $Change: 5463 $ $DateTime: 2003/04/26 17:41:08 $
 
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.06';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.07';
 
 use strict;
 
@@ -38,8 +38,8 @@ Directly calling C<parse()>:
 This module implements a perl-based C<Gettext> parser for
 B<Locale::Maketext>. It transforms all C<%1>, C<%2>, <%*>... sequences
 to C<[_1]>, C<[_2]>, C<[_*]>, and so on.  It accepts either plain PO
-file, or a MO file which will be translated back to PO file via the
-C<msgunfmt> program automatically.
+file, or a MO file which will be handled with a pure-perl parser
+adapted from Imacat's C<Locale::Maketext::Gettext>.
 
 Since version 0.03, this module also looks for C<%I<function>(I<args...>)>
 in the lexicon strings, and transform it to C<[I<function>,I<args...>]>.
@@ -64,32 +64,21 @@ the above value.
 
 =cut
 
+my ($InputEncoding, $OutputEncoding, $DoEncoding);
+
+sub input_encoding { $InputEncoding };
+sub output_encoding { $OutputEncoding };
+
 sub parse {
     my $self = shift;
     my (%var, $key, @ret);
     my @metadata;
 
+    $InputEncoding = $OutputEncoding = $DoEncoding = undef;
+
     # Check for magic string of MO files
-    if ($_[0] =~ /^\x95\x04\x12\xde/ or $_[0] =~ /^\xde\x12\x04\x95/) {
-	my ($tmpfh, $tmpfile);
-	if (eval { require File::Temp; 1 }) {
-	    ($tmpfh, $tmpfile) = File::Temp::tempfile();
-	}
-	else {
-	    # make a reasonable tmpfile decision
-	    use FileHandle;
-	    $tmpfile = ($ENV{TEMP} || $ENV{TMPDIR} || '/tmp') . "/$$.tmp";
-	    $tmpfh = FileHandle->new;
-	    $tmpfh->open(">$tmpfile") or die $!;
-	}
-
-	print $tmpfh @_;
-	close $tmpfh;
-
-	# Convert it to PO format
-	@_ = `msgunfmt $tmpfile`;
-	unlink $tmpfile;
-    }
+    return parse_mo(join('', @_))
+	if ($_[0] =~ /^\x95\x04\x12\xde/ or $_[0] =~ /^\xde\x12\x04\x95/);
 
     local $^W;	# no 'uninitialized' warnings, please.
 
@@ -127,19 +116,36 @@ sub parse {
 
 sub parse_metadata {
     return map {
-	/^([^\x00-\x1f\x80-\xff :=]+):\s*(.*)$/ ? ("__$1", $2) : ()
-    } split(/\n+/, transform(pop));
+	(/^([^\x00-\x1f\x80-\xff :=]+):\s*(.*)$/) ?
+	    ($1 eq 'Content-Type') ? do {
+		my $enc = $2;
+		if ($enc =~ /\bcharset=\s*([-\w]+)/i) {
+		    $InputEncoding = $1;
+		    $OutputEncoding = Locale::Maketext::Lexicon::option('encoding');
+		    if ( Locale::Maketext::Lexicon::option('decode') and
+			(!$OutputEncoding or $InputEncoding ne $OutputEncoding)) {
+			require Encode::compat if $] < 5.007001;
+			require Encode;
+			$DoEncoding = 1;
+		    }
+		}
+		("__Content-Type", $enc);
+	    } : ("__$1", $2)
+	: ();
+    } split(/\r*\n+\r*/, transform(pop));
 }
 
 sub transform {
     my $str = shift;
 
+    $str = Encode::decode($InputEncoding, $str) if $DoEncoding and $InputEncoding;
     $str =~ s/\\([0x]..|c?.)/qq{"\\$1"}/eeg;
     $str =~ s/[\~\[\]]/~$&/g;
     $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/"\[$1,".unescape($2)."]"/eg;
     $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
+    $str =~ s/\r*\n+\r*$//;
+    $str = Encode::encode($OutputEncoding, $str) if $DoEncoding and $OutputEncoding;
 
-    chomp $str;
     return $str;
 }
 
@@ -147,6 +153,49 @@ sub unescape {
     my $str = shift;
     $str =~ s/(^|,)%(\d+|\*)(,|$)/$1_$2$3/g;
     return $str;
+}
+
+# This subroutine was derived from Locale::Maketext::Gettext::readmo()
+# under the Perl License; the original author is Yi Ma Mao (IMACAT).
+sub parse_mo {
+    my $content = shift;
+    my $tmpl = (substr($content, 0, 4) eq "\xde\x12\x04\x95") ? 'V' : 'N';
+    
+    # Check the MO format revision number
+    # There is only one revision now: revision 0.
+    return if unpack($tmpl, substr($content, 4, 4)) > 0;
+    
+    my ($num, $offo, $offt);
+    # Number of strings
+    $num = unpack $tmpl, substr($content, 8, 4);
+    # Offset to the beginning of the original strings
+    $offo = unpack $tmpl, substr($content, 12, 4);
+    # Offset to the beginning of the translated strings
+    $offt = unpack $tmpl, substr($content, 16, 4);
+
+    my (@metadata, @ret);
+    for (0 .. $num - 1) {
+        my ($len, $off, $stro, $strt);
+        # The first word is the length of the string
+        $len = unpack $tmpl, substr($content, $offo+$_*8, 4);
+        # The second word is the offset of the string
+        $off = unpack $tmpl, substr($content, $offo+$_*8+4, 4);
+        # Original string
+        $stro = substr($content, $off, $len);
+        
+        # The first word is the length of the string
+        $len = unpack $tmpl, substr($content, $offt+$_*8, 4);
+        # The second word is the offset of the string
+        $off = unpack $tmpl, substr($content, $offt+$_*8+4, 4);
+        # Translated string
+        $strt = substr($content, $off, $len);
+        
+        # Hash it
+	push @metadata, parse_metadata($strt) if $stro eq '';
+	push @ret, (map transform($_), $stro, $strt) if length $strt;
+    }
+    
+    return {@metadata, @ret};
 }
 
 1;
@@ -161,7 +210,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

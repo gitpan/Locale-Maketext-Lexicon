@@ -1,4 +1,62 @@
 ____________________________________________________________________________
+[  5463] By: autrijus                              on 2003/04/26  17:41:08
+        Log: * This be 0.20.
+             * add a note that we now turns 'zh-tw' into 'zh_tw' during
+             import. this fixed imacat's major gripe with previous
+	     versions
+             of L::M::L.
+             * nixed the TODO test since it's not really on my todo.
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+	   ! t/4-encodings.t
+____________________________________________________________________________
+[  5462] By: autrijus                              on 2003/04/26  17:31:33
+        Log: * add copyright notice around parse_mo() by imacat's
+	       request.
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[  5461] By: autrijus                              on 2003/04/26  13:10:59
+        Log: * oops.
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[  5460] By: autrijus                              on 2003/04/26  13:08:56
+        Log: * Test suite from imacat's Locale::Maketext::Gettext.
+             * Documenting the new _encoding, _decode and wildcard
+	       support.
+             * add IMACAT to authors and acknowledgement list.
+	   + t/2-lmg.t t/3-big-endian.t t/4-encodings.t
+	   + t/TestPkg/L10N.pm
+	   + t/locale/en/LC_MESSAGES/bad.mo
+	   + t/locale/en/LC_MESSAGES/test.mo
+	   + t/locale/en/LC_MESSAGES/test2.mo
+	   + t/locale/en/LC_MESSAGES/test_be.mo
+	   + t/locale/en/LC_MESSAGES/test_reload.mo
+	   + t/locale/en/LC_MESSAGES/test_utf8.mo
+	   + t/locale/zh_CN/LC_MESSAGES/test.mo
+	   + t/locale/zh_CN/LC_MESSAGES/test_be.mo
+	   + t/locale/zh_CN/LC_MESSAGES/test_utf8.mo
+	   + t/locale/zh_TW/LC_MESSAGES/test.mo
+	   + t/locale/zh_TW/LC_MESSAGES/test2.mo
+	   + t/locale/zh_TW/LC_MESSAGES/test_be.mo
+	   + t/locale/zh_TW/LC_MESSAGES/test_utf8.mo
+	   ! AUTHORS MANIFEST
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[  5459] By: autrijus                              on 2003/04/26  11:53:17
+        Log: <ente: description here>
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5458] By: autrijus                              on 2003/04/26  11:47:46
+        Log: * new _decode and _encoding flag to control auto-recoding.
+             * globbing support for import lists.
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[  4416] By: autrijus                              on 2003/02/22  01:35:19
+        Log: * changes and signatures.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
 [  4415] By: autrijus                              on 2003/02/22  01:33:27
         Log: * This be 0.16.
 	   - bin/messages.po
