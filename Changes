@@ -1,5 +1,18 @@
 ____________________________________________________________________________
 
+0.06 - Gettext now handles MO File correctly via calling 'msgunfmt'.
+     - New backend "Tie" added.
+     - Introduces "xgettext.pl", the xgettext clone.
+
+0.05 - Released due to PAUSE malfunction. Go figure.
+0.04 - Not released due to PAUSE malfunction.
+
+0.03 - Various comments, pod and readability changes.
+     - Now changes for erroneous argument numbers in import().
+     - Added Gettext parsing for functions like %quant(%1, piece).
+     - %*() and %#() are also supported.
+     - The \*DATA source now works as use() arguments.
+
 0.02 - Fixed POD __DATA_ typo (Sean M. Burke)
      - Added Gettext metadata parsing (Jesse Vincent)
 

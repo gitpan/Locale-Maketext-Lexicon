@@ -1,8 +1,8 @@
-# $File: //member/autrijus/Acme-ComeFrom/ComeFrom.pm $ $Author: autrijus $
-# $Revision: #9 $ $Change: 3586 $ $DateTime: 2002/03/29 13:55:17 $
+# $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
+# $Revision: #4 $ $Change: 340 $ $DateTime: 2002/07/16 03:18:58 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.02';
+$Locale::Maketext::Lexicon::VERSION = '0.06';
 
 use strict;
 
@@ -12,8 +12,7 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.02 of Locale::Maketext::Lexicon, released
-May 13, 2002.
+This document describes version 0.06 of Locale::Maketext::Lexicon.
 
 =head1 SYNOPSIS
 
@@ -27,8 +26,7 @@ Alternatively, as part of a localization subclass:
 
     package Hello::L10N::de;
     use base 'Hello::L10N';
-    use Locale::Maketext::Lexicon;
-    Locale::Maketext::Lexicon->import(Gettext => \*DATA);
+    use Locale::Maketext::Lexicon (Gettext => \*DATA);
     __DATA__
     # Some sample data
     msgid ""
@@ -42,6 +40,10 @@ Alternatively, as part of a localization subclass:
     msgid "Hello, World!"
     msgstr "Hallo, Welt!"
 
+    #: Hello.pm:11
+    msgid "You have %quant(%1,piece) of mail."
+    msgstr "Sie haben %quant(%1,Poststueck,Poststuecken)."
+
 =head1 DESCRIPTION
 
 This module provides lexicon-handling modules to read from other
@@ -51,16 +53,16 @@ The C<import()> function accepts two forms of arguments:
 
 =over 4
 
-=item (I<format>, [ I<filehandle> | I<filename> | I<arrayref> ])
+=item (I<format>, I<[ filehandle | filename | arrayref ]>)
 
 This form pass the contents specified by the second argument to
-B<Locale::Maketext::Plugin::I<format>>->parse as a plain list,
+B<Locale::Maketext::Lexicon::I<format>>->parse as a plain list,
 and export its return value as the C<%Lexicon> hash in the calling
 package.
 
-=item { I<language> => I<format>, [ I<filehandle> | I<filename> | I<arrayref> ] ... }
+=item { I<language> => [ I<format>, I<[ filehandle | filename | arrayref ]> ] ... }
 
-This form accepts a hash reference. It will export a C<%Lexicon>
+This form accepts a hash reference.  It will export a C<%Lexicon>
 into the subclasses specified by each I<language>, using the process
 described above.  It is designed to alleviate the need to set up a
 separate subclass for each localized language, and just use the catalog
@@ -68,60 +70,120 @@ files.
 
 =back
 
+=head1 NOTES
+
+If you want to implement a new C<Lexicon::*> backend module, please note
+that C<parse()> takes an array containing the B<source strings> from the
+specified filehandle or filename, which are I<not> C<chomp>ed.  Although
+if the source is an array reference, its elements will probably not contain
+any newline characters.
+
+The C<parse()> function should return a hash reference, which will be
+assigned to the I<typeglob> (C<*Lexicon>) of the language module.  All
+it amounts to is that if the returned reference points to a tied hash,
+the C<%Lexicon> will be aliased to the same tied hash.
+
 =cut
 
 sub import {
     my $class = shift;
     return unless @_;
 
-    my %entries = %{UNIVERSAL::isa($_[0], 'HASH') ? $_[0] : { '' => [ @_ ] }};
+    my %entries;
+    if (UNIVERSAL::isa($_[0], 'HASH')) {
+	# a hashref with $lang as keys, [$format, $src] as values
+	%entries = %{$_[0]};
+    }
+    else {
+	%entries = ( '' => [ @_ ] );
+    }
+
+	if (@_ == 2) {
+	# an array consisting of $format and $src
+    }
+    else {
+	# incorrect number of arguments
+    }
 
     while (my ($lang, $entry) = each %entries) {
-	my ($format, $src) = @{$entries{$lang}};
+	my ($format, $src) = @{$entries{$lang}}
+	    or die "no format specified";
+
 	my $export = caller;
-	$export .= "::$lang" if $lang;
+	$export .= "::$lang" if length($lang);
 
 	my @content;
-	if (UNIVERSAL::isa($src, 'ARRAY')) {
+	if (!defined($src)) {
+	    # nothing happens
+	}
+	elsif (UNIVERSAL::isa($src, 'ARRAY')) {
+	    # arrayref of lines
 	    @content = @{$src};
 	}
-	elsif ($src =~ /GLOB/ or UNIVERSAL::isa($src, 'IO::Handle')) {
-	    @content = <$src>;
+	elsif (UNIVERSAL::isa($src, 'GLOB')) {
+	    no strict 'refs';
+
+	    # be extra magical and check for DATA section
+	    if (eof($src) and $src eq \*{caller()."::DATA"}) {
+		# okay, the *DATA isn't initiated yet. let's read.
+		require FileHandle;
+		my $fh = FileHandle->new;
+		$fh->open((caller())[1]) or die $!;
+
+		while (<$fh>) {
+		    # okay, this isn't foolproof, but good enough
+		    last if /^__DATA__$/;
+		}
+
+		@content = <$fh>;
+	    }
+	    else {
+		# fh containing the lines
+		@content = <$src>;
+	    }
 	}
 	elsif (ref($src)) {
 	    die "Can't handle source reference: $src";
 	}
 	else {
+	    # filename - open and return its handle
 	    require FileHandle;
 	    require File::Spec;
-	    my $fh = FileHandle->new; # filename - open and return its handle
+
+	    my $fh = FileHandle->new;
 	    my @path = split('::', $export);
+
 	    $src = (grep { -e } map {
 		my @subpath = @path[0..$_];
 		map { File::Spec->catfile($_, @subpath, $src) } @INC;
-	    } -1..$#path)[-1];
+	    } -1 .. $#path)[-1] unless -e $src;
 
 	    $fh->open($src) or die $!;
 	    @content = <$fh>;
 	}
 
 	no strict 'refs';
-	eval "use $class\::$format";
-	%{"$export\::Lexicon"} = "$class\::$format"->parse(@content);
-	push @{"$export\::ISA"}, caller if $lang;
+	eval "use $class\::$format; 1" or die $@;
+	*{"$export\::Lexicon"} = "$class\::$format"->parse(@content);
+	push(@{"$export\::ISA"}, scalar caller) if $lang;
     }
 }
 
 1;
 
-=head1 ACKNOWLEDGEMENTS
+=head1 ACKNOWLEDGMENTS
 
-Thanks to Jesse Vincent for suggesting this function, and Sean M Burke for
-coming up with B<Locale::Maketext> in the first place.
+Thanks to Jesse Vincent for suggesting this module to be written.
+
+Thanks also to Sean M. Burke for coming up with B<Locale::Maketext>
+in the first place, and encouraging me to experiment with alternative
+Lexicon syntaxes.
 
 =head1 SEE ALSO
 
-L<Locale::Maketext>, L<Locale::Maketext::Lexicon::Gettext>
+L<Locale::Maketext>, L<Locale::Maketext::Lexicon::Auto>,
+L<Locale::Maketext::Lexicon::Gettext>, L<Locale::Maketext::Lexicon::Msgcat>,
+L<Locale::Maketext::Lexicon::Tie>
 
 =head1 AUTHORS
 

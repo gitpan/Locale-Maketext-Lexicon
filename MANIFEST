@@ -2,6 +2,10 @@ Changes
 MANIFEST			This list of files
 Makefile.PL
 README
+bin/xgettext.pl
 lib/Locale/Maketext/Lexicon.pm
+lib/Locale/Maketext/Lexicon/Auto.pm
 lib/Locale/Maketext/Lexicon/Gettext.pm
+lib/Locale/Maketext/Lexicon/Tie.pm
 t/1-basic.t
+t/messages.mo
