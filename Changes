@@ -1,30 +1,32 @@
 ____________________________________________________________________________
-0.09 - Fixed spurious warnings from blank lines in .po files. (Wei-Hon Chen)
-     - Added AUTHORS to give credit where credit's due.
-     - Added SIGNATURE to let Module::Signature users verify the integrity.
+0.091 - One less warning.
 
-0.08 - Oops. Missing t/gencat.m in MANIFEST. (Tatsuhiko Miyagawa)
+0.09  - Fixed spurious warnings from blank lines in .po files. (Wei-Hon Chen)
+      - Added AUTHORS to give credit where credit's due.
+      - Added SIGNATURE to let Module::Signature users verify the integrity.
 
-0.07 - Perl 5.005 now works with File::Temp module. (Tatsuhiko Miyagawa)
-     - New backend "Msgcat" added. (plaintext-only, no binary support yet)
-     - VERSION strings was missing in backend modules.
-     - Variable no longer interpolate inside Gettext %func(text%1text).
+0.08  - Oops. Missing t/gencat.m in MANIFEST. (Tatsuhiko Miyagawa)
 
-0.06 - Gettext now handles MO File correctly via calling 'msgunfmt'.
-     - New backend "Tie" added.
-     - Introduces "xgettext.pl", the xgettext clone.
+0.07  - Perl 5.005 now works with File::Temp module. (Tatsuhiko Miyagawa)
+      - New backend "Msgcat" added. (plaintext-only, no binary support yet)
+      - VERSION strings was missing in backend modules.
+      - Variable no longer interpolate inside Gettext %func(text%1text).
 
-0.05 - Released due to PAUSE malfunction. Go figure.
-0.04 - Not released due to PAUSE malfunction.
+0.06  - Gettext now handles MO File correctly via calling 'msgunfmt'.
+      - New backend "Tie" added.
+      - Introduces "xgettext.pl", the xgettext clone.
 
-0.03 - Various comments, pod and readability changes.
-     - Now changes for erroneous argument numbers in import().
-     - Added Gettext parsing for functions like %quant(%1, piece).
-     - %*() and %#() are also supported.
-     - The \*DATA source now works as use() arguments.
+0.05  - Released due to PAUSE malfunction. Go figure.
+0.04  - Not released due to PAUSE malfunction.
 
-0.02 - Fixed POD __DATA_ typo (Sean M. Burke)
-     - Added Gettext metadata parsing (Jesse Vincent)
+0.03  - Various comments, pod and readability changes.
+      - Now changes for erroneous argument numbers in import().
+      - Added Gettext parsing for functions like %quant(%1, piece).
+      - %*() and %#() are also supported.
+      - The \*DATA source now works as use() arguments.
 
-0.01 - Initial release
+0.02  - Fixed POD __DATA_ typo (Sean M. Burke)
+      - Added Gettext metadata parsing (Jesse Vincent)
+
+0.01  - Initial release
 ____________________________________________________________________________

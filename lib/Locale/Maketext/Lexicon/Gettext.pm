@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #6 $ $Change: 806 $ $DateTime: 2002/08/28 02:14:09 $
+# $Revision: #7 $ $Change: 1012 $ $DateTime: 2002/09/24 02:04:37 $
 
 package Locale::Maketext::Lexicon::Gettext;
 $Locale::Maketext::Lexicon::Gettext::VERSION = '0.03';
@@ -91,6 +91,8 @@ sub parse {
 	unlink $tmpfile;
     }
 
+    local $^W;	# no 'uninitialized' warnings, please.
+
     # Parse PO files; Locale::gettext objects are not yet supported.
     foreach (@_) {
 	/^(msgid|msgstr) +"(.*)" *$/	? do {	# leading strings
@@ -114,8 +116,6 @@ sub parse {
 	    %var = ();
 	} : ();
     }
-
-    local $^W;	# no 'uninitialized' warnings, please.
 
     push @ret, map { transform($_) } @var{'msgid', 'msgstr'}
 	if length $var{msgstr};
