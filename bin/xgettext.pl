@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #16 $ $Change: 5471 $ $DateTime: 2003/04/27 14:34:02 $
+# $Revision: #21 $ $Change: 5999 $ $DateTime: 2003/05/20 07:50:59 $
 
 use strict;
 use Getopt::Std;
@@ -11,8 +11,6 @@ use constant PAR  => 2;
 use constant QUO1 => 3;
 use constant QUO2 => 4;
 use constant QUO3 => 5;
-
-$::interop = 0; # whether to interoperate with GNU gettext
 
 =head1 NAME
 
@@ -72,7 +70,7 @@ my (%file, %Lexicon, %opts);
 my ($PO, $out);
 
 # options as above. Values in %opts
-getopts('huo:', \%opts)
+getopts('hugo:', \%opts)
   or pod2usage( -verbose => 1, -exitval => 1 );
 $opts{h} and pod2usage( -verbose => 2, -exitval => 0 );
 
@@ -150,10 +148,12 @@ foreach my $file (@ARGV) {
 
     # Template Toolkit
     $line = 1; pos($_) = 0;
-    while (m!\G.*?\[%\s*\|l(?:oc)?(.*?)\s*%\](.*?)\[%\s*END\s*%\]</&>!sg) {
+    while (m!\G.*?\[%\s*\|l(?:oc)?(.*?)\s*%\](.*?)\[%\s*END\s*%\]!sg) {
 	my ($vars, $str) = ($1, $2);
 	$line += ( () = ($& =~ /\n/g) ); # cryptocontext!
 	$str =~ s/\\'/\'/g; 
+	$vars =~ s/^\s*\(//;
+	$vars =~ s/\)\s*$//;
 	push @{$file{$str}}, [ $filename, $line, $vars ];
     }
 
@@ -269,7 +269,7 @@ foreach my $entry (sort keys %Lexicon) {
 	print "#. ($var)\n" unless !length($var) or $seen{$var}++;
     }
 
-    print "#, maketext-format" if $::interop and /%(?:\d|\w+\([^\)]*\))/;
+    print "#, maketext-format" if $opts{g} and /%(?:\d|\w+\([^\)]*\))/;
     print "msgid "; output($entry);
     print "msgstr "; output($Lexicon{$entry});
 }
@@ -279,7 +279,7 @@ sub output {
 
     if ($str =~ /\n/) {
 	print "\"\"\n";
-	print "\"$_\"\n" foreach split(/\n/, $str, -1);
+	print "\"$_\\n\"\n" foreach split(/\n/, $str, -1);
     }
     else {
 	print "\"$str\"\n"

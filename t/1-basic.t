@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # $File: //member/autrijus/Locale-Maketext-Lexicon/t/1-basic.t $ $Author: autrijus $
-# $Revision: #10 $ $Change: 5470 $ $DateTime: 2003/04/27 14:22:30 $
+# $Revision: #11 $ $Change: 6875 $ $DateTime: 2003/07/07 12:10:08 $
 
 use strict;
 use Test::More tests => 30;
@@ -115,7 +115,7 @@ SKIP: {
 
     is(
 	$lh->maketext('This is a test'),
-	'³o¬O´ú¸Õ',
+	'é€™æ˜¯æ¸¬è©¦',
 	'Gettext - MO File'
     );
 }
@@ -174,7 +174,7 @@ is(
 
 is(
     $lh->maketext('This is a test'),
-    '³o¬O´ú¸Õ',
+    'é€™æ˜¯æ¸¬è©¦',
     'Multiple lexicons - second'
 );
 

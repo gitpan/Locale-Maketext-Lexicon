@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #28 $ $Change: 5583 $ $DateTime: 2003/05/03 10:59:46 $
+# $Revision: #34 $ $Change: 6875 $ $DateTime: 2003/07/07 12:10:08 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.26';
+$Locale::Maketext::Lexicon::VERSION = '0.27';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.26 of Locale::Maketext::Lexicon,
-released May 3, 2003.
+This document describes version 0.27 of Locale::Maketext::Lexicon,
+released July 7, 2003.
 
 =head1 SYNOPSIS
 
@@ -189,6 +189,9 @@ sub import {
 		$file =~ /$pattern/ or next;
 		push @{$entries{$1}}, ($format => $file) if $1;
 	    }
+	    delete $entries{$1}
+		unless !defined($1)
+		    or exists $entries{$1} and @{$entries{$1}};
 	}
     }
 
@@ -264,11 +267,21 @@ sub lexicon_get_glob   {
     no strict 'refs';
 
     # be extra magical and check for DATA section
-    if (eof($src) and $src eq \*{"$caller\::DATA"}) {
+    if (eof($src) and $src eq \*{"$caller\::DATA"} or $src eq \*{"main\::DATA"}) {
 	# okay, the *DATA isn't initiated yet. let's read.
-	require FileHandle;
-	my $fh = FileHandle->new;
-	$fh->open((caller())[1]) or die $!;
+	#
+	my $level = 1;
+	my $fh;
+
+	while (my($pkg, $filename) = caller($level++)) {
+	    next unless $pkg eq $caller or $pkg eq 'main';
+	    next unless -e $filename;
+
+	    require FileHandle;
+	    $fh = FileHandle->new;
+	    $fh->open($filename) or die "Can't open $filename: $!";
+	    last;
+	}
 
 	while (<$fh>) {
 	    # okay, this isn't foolproof, but good enough

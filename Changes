@@ -1,4 +1,62 @@
 ____________________________________________________________________________
+[  6875] By: autrijus                              on 2003/07/07  12:10:08
+        Log: * This be 0.27.
+             * Change tests to use utf8, not big5, for perl 5.6.1
+             people with broken Locale::Maketext (1.06).
+	   - bin/yaml2po.pl
+	   ! AUTHORS lib/Locale/Maketext/Lexicon.pm
+	   ! t/1-basic.t t/messages.mo t/messages.po
+____________________________________________________________________________
+[  6809] By: autrijus                              on 2003/07/01  15:39:43
+        Log: * supress uninitialized warning.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  6592] By: autrijus                              on 2003/06/17  12:40:19
+        Log: * Jonas Lincoln reported that an empty glob causes
+	       problems. try a fix.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  6020] By: autrijus                              on 2003/05/20  16:58:10
+        Log: * for clkao
+	   + bin/yaml2po.pl
+____________________________________________________________________________
+[  5999] By: autrijus                              on 2003/05/20  07:50:59
+        Log: * strip the extra parens off tt2 templates.
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[  5998] By: autrijus                              on 2003/05/20  07:46:12
+        Log: * don't be silly and try to read from eval().
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5997] By: autrijus                              on 2003/05/20  07:34:13
+        Log: * oops typo
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[  5996] By: autrijus                              on 2003/05/20  07:21:08
+        Log: * be very extra magical and assume that main:: comes from
+	       the caller
+             if it is not yet opened.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5995] By: autrijus                              on 2003/05/20  07:13:53
+        Log: * clkao pointed out that getting sources from glob isn't
+	       working.
+             * also, -g was documented but never enabled.
+	   ! bin/xgettext.pl lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5986] By: autrijus                              on 2003/05/19  16:21:13
+        Log: * fixed xgettext.pl's multiline handling.
+	   ! bin/xgettext.pl
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[  5985] By: autrijus                              on 2003/05/19  16:16:54
+        Log: * TT2 regex was wrong. thanks clkao for pointing out.
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[  5584] By: autrijus                              on 2003/05/03  11:04:44
+        Log: * changes and signatures.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
 [  5583] By: autrijus                              on 2003/05/03  10:59:46
         Log: * This be 0.26.
              * incoporated a modified version of Matthieu Arnold's patch
@@ -341,10 +399,6 @@ ____________________________________________________________________________
 ____________________________________________________________________________
 [   688] By: autrijus                              on 2002/08/17  16:01:20
         Log: * do escapes right on ~~ and ~[ extractions.
-	   ! bin/xgettext.pl
-____________________________________________________________________________
-[   535] By: autrijus                              on 2002/08/01  03:15:21
-        Log: * up to -28 and about.
 	   ! bin/xgettext.pl
 ____________________________________________________________________________
 [   348] By: autrijus                              on 2002/07/17  09:27:31

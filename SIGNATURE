@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.22.
+signed via the Module::Signature module, version 0.23.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,19 +14,20 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 22a28a27e307b699c0ecaa2f27beebf82d21742f AUTHORS
-SHA1 3727aa804e50634c4aad9fe14f6b7c3bcdbc34a2 Changes
-SHA1 f11f76f7a4fca1bace91e7101f128696e5dd3d5e MANIFEST
+SHA1 e29dc069f8a4eaef5a8987fbc6c6d13224a3a717 AUTHORS
+SHA1 ff3c1abe60b219f20cba2530dfc6657c5b30db77 Changes
+SHA1 e219eb7f1b3fc70f88228cf36cd234bda27da1ab MANIFEST
+SHA1 b814871ff08deffd01e7e2c2b9a48a27f7332a6b META.yml
 SHA1 03e98d0e6b02fb2e72342482e460ea806d1632b4 Makefile.PL
 SHA1 7a32a5ba6a9961cc09547cb864e98b5397ed80b0 README
-SHA1 6e30b82d30b0936446a7588c359c6fbbdd561b0f bin/xgettext.pl
-SHA1 2acce83f9be1560cf6de8f7fe2c78380d67cdb29 lib/Locale/Maketext/Lexicon.pm
+SHA1 63307d7e7375e07758e2b57334e2fb9fb717934c bin/xgettext.pl
+SHA1 acc88374b8207390cf2ee8bdd791ec66b107fde5 lib/Locale/Maketext/Lexicon.pm
 SHA1 548ef5ac0f447ef02c7b0eb199a5f3d437840b02 lib/Locale/Maketext/Lexicon/Auto.pm
-SHA1 385726bb27e511daa5910f4677fff6bf16cc7e92 lib/Locale/Maketext/Lexicon/Gettext.pm
+SHA1 a05dd330a2708e694700c14a6ee048007be83ea5 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 7721ffd5bfe723c5aeb6609546274ee3dbcf3359 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 5a17028258c93ba6de24dad2870899e8801176a3 lib/Locale/Maketext/Lexicon/Tie.pm
 SHA1 5fca2bfebae7666664e73f9f064ffa9dd3334a6f t/0-signature.t
-SHA1 092112d8592e2166e0f2f471975a9b7326aed45e t/1-basic.t
+SHA1 1857c863f9ca6b9e83d904a1d7b9965a26401a4b t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
 SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
 SHA1 786af50f71a3299ec40267c74001822602b9b247 t/4-encodings.t
@@ -41,12 +42,12 @@ SHA1 ce40b0a4b57820b7104df00049d69b6653a55c64 t/locale/zh_CN/LC_MESSAGES/test_ut
 SHA1 b41e19e552384b3d3239bb5e0349ded1477b52eb t/locale/zh_TW/LC_MESSAGES/test.mo
 SHA1 20f810c6229d0bd4064b27f9b3d86b61a20f0821 t/locale/zh_TW/LC_MESSAGES/test_be.mo
 SHA1 ce40b0a4b57820b7104df00049d69b6653a55c64 t/locale/zh_TW/LC_MESSAGES/test_utf8.mo
-SHA1 484853d1077b8a765e444024a7c445c6a3a1276c t/messages.mo
-SHA1 1b806d9de59e4b2961507313c73db3c5d3562b85 t/messages.po
+SHA1 6910777b47e5f73042aa40d210a5f9485510f52d t/messages.mo
+SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.2.1 (FreeBSD)
+Version: GnuPG v1.2.2 (FreeBSD)
 
-iD8DBQE+s6WUtLPdNzw1AaARAsK+AJ9pdhLmQph+KQzj++L4KppNRZ31awCfacpl
-smyczTzyL8+nvmMYIYLy+GI=
-=n6lS
+iD8DBQE/CWQttLPdNzw1AaARAul7AJ957Ri54w4+tDhuRahoPkmXGaY3dwCbBPHs
+4wlWfZleN7YzuaqdsHBaUjE=
+=Veif
 -----END PGP SIGNATURE-----

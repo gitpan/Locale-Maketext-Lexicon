@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #17 $ $Change: 5470 $ $DateTime: 2003/04/27 14:22:30 $
+# $Revision: #18 $ $Change: 5986 $ $DateTime: 2003/05/19 16:21:13 $
 
 package Locale::Maketext::Lexicon::Gettext;
 $Locale::Maketext::Lexicon::Gettext::VERSION = '0.08';
@@ -93,6 +93,7 @@ sub parse {
 
     local $^W;	# no 'uninitialized' warnings, please.
 
+    require Locale::Maketext::Lexicon;
     my $UseFuzzy = Locale::Maketext::Lexicon::option('use_fuzzy');
 
     # Parse PO files
