@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/AUTHORS $
-# $Revision: #3 $ $Change: 1710 $ $DateTime: 2002/10/27 22:07:45 $
+# $Revision: #4 $ $Change: 2038 $ $DateTime: 2002/11/07 14:12:17 $
 
 [Credits]
 
@@ -8,6 +8,7 @@ file and the mailing list archives.  These people have either submitted
 patches or suggestions, or their bug reports or comments have inspired
 the appropriate patches.  Corrections, additions, deletions welcome:
 
+Alain Barbet		(ALIAN)
 Hsin-Chan Chien		(HCCHIEN)
 Jesse Vincent		(JESSE)
 Sean M. Burke		(SBURKE)

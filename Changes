@@ -1,42 +1,161 @@
 ____________________________________________________________________________
-0.11  - Fixed Gettext backend to allow concatenated %1%2%3.
-      - Documentation cleanups all around.
-
-0.10  - Support for multiple lexicons, as well as incremental lexicons
-        by calling import() repeatedly
-      - Subclassable handlers for difference source types.
-
-0.092 - Skip tests where msgunfmt are unavailable. (Wei-Hon Chen)
-      - Bump Locale::Maketext::Lexicon::Gettext version number. (Macpaul Lin)
-
-0.091 - One less warning.
-
-0.09  - Fixed spurious warnings from blank lines in .po files. (Wei-Hon Chen)
-      - Added AUTHORS to give credit where credit's due.
-      - Added SIGNATURE to let Module::Signature users verify the integrity.
-
-0.08  - Oops. Missing t/gencat.m in MANIFEST. (Tatsuhiko Miyagawa)
-
-0.07  - Perl 5.005 now works with File::Temp module. (Tatsuhiko Miyagawa)
-      - New backend "Msgcat" added. (plaintext-only, no binary support yet)
-      - VERSION strings was missing in backend modules.
-      - Variable no longer interpolate inside Gettext %func(text%1text).
-
-0.06  - Gettext now handles MO File correctly via calling 'msgunfmt'.
-      - New backend "Tie" added.
-      - Introduces "xgettext.pl", the xgettext clone.
-
-0.05  - Released due to PAUSE malfunction. Go figure.
-0.04  - Not released due to PAUSE malfunction.
-
-0.03  - Various comments, pod and readability changes.
-      - Now changes for erroneous argument numbers in import().
-      - Added Gettext parsing for functions like %quant(%1, piece).
-      - %*() and %#() are also supported.
-      - The \*DATA source now works as use() arguments.
-
-0.02  - Fixed POD __DATA_ typo (Sean M. Burke)
-      - Added Gettext metadata parsing (Jesse Vincent)
-
-0.01  - Initial release
+[  2040] By: autrijus                              on 2002/11/07  14:16:28
+        Log: * This be 0.12.
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
 ____________________________________________________________________________
+[  2038] By: autrijus                              on 2002/11/07  14:12:17
+        Log: * add alain to authors.
+	   ! AUTHORS
+____________________________________________________________________________
+[  2037] By: autrijus                              on 2002/11/07  13:41:43
+        Log: * patch from Alain Barbett: Fix multiline gettext strings.
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[  1712] By: autrijus                              on 2002/10/27  23:25:54
+        Log: * signature.
+	   ! SIGNATURE
+____________________________________________________________________________
+[  1711] By: autrijus                              on 2002/10/27  22:10:19
+        Log: * document -u before i forget.
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[  1710] By: autrijus                              on 2002/10/27  22:07:45
+        Log: * Let this be 0.11...
+	   ! AUTHORS Changes lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Auto.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+	   ! lib/Locale/Maketext/Lexicon/Tie.pm t/1-basic.t
+____________________________________________________________________________
+[  1460] By: autrijus                              on 2002/10/16  19:37:25
+        Log: * changes and signature.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
+[  1459] By: autrijus                              on 2002/10/16  19:36:13
+        Log: * This be 0.10.
+             * add signature tests.
+	  +> t/0-signature.t
+	   ! MANIFEST
+____________________________________________________________________________
+[  1454] By: autrijus                              on 2002/10/16  18:02:23
+        Log: * add to manifest.
+	   ! MANIFEST
+____________________________________________________________________________
+[  1453] By: autrijus                              on 2002/10/16  17:59:39
+        Log: * support for multiple lexicons.
+	   + t/messages.po
+	   ! Makefile.PL lib/Locale/Maketext/Lexicon.pm
+	   ! t/1-basic.t
+____________________________________________________________________________
+[  1375] By: autrijus                              on 2002/10/12  22:06:40
+        Log: * add -u to avoid escape (currently undocumented.) 
+             * multiline support.
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[  1162] By: autrijus                              on 2002/10/04  03:44:57
+        Log: * changes and signature.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
+[  1157] By: autrijus                              on 2002/10/04  02:58:40
+        Log: * This be 0.092.
+             * bump relavent versions.
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[  1156] By: autrijus                              on 2002/10/04  02:55:32
+        Log: * ok, i can't count.
+	   ! t/1-basic.t
+____________________________________________________________________________
+[  1155] By: autrijus                              on 2002/10/04  02:54:10
+        Log: * skip unreasonable tests.
+	   ! t/1-basic.t
+____________________________________________________________________________
+[  1154] By: autrijus                              on 2002/10/04  02:45:16
+        Log: * lotsa changes.
+	   ! AUTHORS Makefile.PL README bin/xgettext.pl
+	   ! lib/Locale/Maketext/Lexicon/Auto.pm
+	   ! t/1-basic.t
+____________________________________________________________________________
+[  1153] By: autrijus                              on 2002/10/04  02:35:33
+        Log: * missing files.
+	   + bin/messages.po
+	   + lib/Locale/Maketext/Lexicon/Msgcat.pm
+	   + t/messages.mo
+____________________________________________________________________________
+[  1048] By: autrijus                              on 2002/09/25  09:32:24
+        Log: * changes and signature.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
+[  1047] By: autrijus                              on 2002/09/25  09:31:55
+        Log: * 0.91.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  1012] By: autrijus                              on 2002/09/24  02:04:37
+        Log: * fix extra warnings
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[   808] By: autrijus                              on 2002/08/28  09:15:35
+        Log: * changes and signature.
+	   + SIGNATURE
+	   ! Changes
+____________________________________________________________________________
+[   807] By: autrijus                              on 2002/08/28  09:15:11
+        Log: * this be 0.09.
+             * added AUTHORS.
+	   + AUTHORS
+	   ! MANIFEST README lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[   806] By: autrijus                              on 2002/08/28  09:14:09
+        Log: * Fixed spurious warnings from blank lines in .po files.
+	       (Wei-Hon Chen)
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+	   ! t/1-basic.t
+____________________________________________________________________________
+[   688] By: autrijus                              on 2002/08/17  16:01:20
+        Log: * do escapes right on ~~ and ~[ extractions.
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[   535] By: autrijus                              on 2002/08/01  03:15:21
+        Log: * up to -28 and about.
+	   ! bin/xgettext.pl
+____________________________________________________________________________
+[   348] By: autrijus                              on 2002/07/17  09:27:31
+        Log: * 0.08, thanks to miyagawa-kun.
+	   ! Changes MANIFEST
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[   345] By: autrijus                              on 2002/07/17  03:07:35
+        Log: * 0.07.
+	   + t/gencat.m
+	   ! Changes MANIFEST
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Auto.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+	   ! lib/Locale/Maketext/Lexicon/Tie.pm t/1-basic.t
+____________________________________________________________________________
+[   342] By: autrijus                              on 2002/07/16  11:05:30
+        Log: * missed.
+	   + lib/Locale/Maketext/Lexicon/Auto.pm
+____________________________________________________________________________
+[   340] By: autrijus                              on 2002/07/16  10:18:58
+        Log: * This be 0.06.
+	   ! MANIFEST Makefile.PL
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[   339] By: autrijus                              on 2002/07/16  09:53:47
+        Log: * grand submit till 0.6.
+	   + bin/xgettext.pl
+	   + lib/Locale/Maketext/Lexicon/Tie.pm
+	   ! Changes MANIFEST Makefile.PL README
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+	   ! t/1-basic.t
+____________________________________________________________________________
+[   320] By: autrijus                              on 2002/07/03  05:32:02
+        Log: * redundant warning reported by hcchien.
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
+[    64] By: autrijus                              on 2002/06/16  23:08:16
+        Log: * prefer absolute path first.
+	   ! lib/Locale/Maketext/Lexicon.pm

@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #9 $ $Change: 1710 $ $DateTime: 2002/10/27 22:07:45 $
+# $Revision: #11 $ $Change: 2040 $ $DateTime: 2002/11/07 14:16:28 $
 
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.05';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.06';
 
 use strict;
 
@@ -101,7 +101,7 @@ sub parse {
 	} :
 
 	/^"(.*)" *$/			? do {	# continued strings
-	    $var{$key} .= $1;
+	    $var{$key} .= $1."\n";
 	} :
 
 	/^#, +(.*) *$/			? do {	# control variables

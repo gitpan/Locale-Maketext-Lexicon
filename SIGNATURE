@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.15.
+signed via the Module::Signature module, version 0.19.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,19 +14,19 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 3042be6d2c58f3ec5083e2f5f5afbfcd4584a5bb AUTHORS
-SHA1 0a1c9eedd83e46745e003872e72b56a9c2313c3e Changes
+SHA1 4fee7a153597349c60c15554d6da9e513144b1a1 AUTHORS
+SHA1 76896d4c311e69539badf29cf58c7c0aa17616f5 Changes
 SHA1 6be8235b8e38eed90aba9a8e114b6cbd029dae39 MANIFEST
 SHA1 71cedc0275b495f407e92cbf805f2bdf46dcc35f Makefile.PL
 SHA1 a189ed42a970c7c7ffc7f55f1bd0cb1b55bb4df2 README
 SHA1 8279c2b3af25e446833d8b4b0f613c3c2157c3bc bin/messages.po
 SHA1 5814d7165aeb70e8828a09f1a97f94c3ae7030d8 bin/xgettext.pl
-SHA1 5f6c686ea7a19acd9716a61ccb75efead818df71 lib/Locale/Maketext/Lexicon.pm
+SHA1 c49df04dfac03efe085b17e7f24ba334c81f94cb lib/Locale/Maketext/Lexicon.pm
 SHA1 cee8dc5b59ebe3f09ef3e64fd8ca8b4f722e717e lib/Locale/Maketext/Lexicon/Auto.pm
-SHA1 ca27de6b9e2800a8703ead303d94e420f79a55c1 lib/Locale/Maketext/Lexicon/Gettext.pm
+SHA1 4d07ad5b3e8f0dc469075707821cae00e91bed74 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 7721ffd5bfe723c5aeb6609546274ee3dbcf3359 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 5a17028258c93ba6de24dad2870899e8801176a3 lib/Locale/Maketext/Lexicon/Tie.pm
-SHA1 33654a8e3773f2cd6c254ada1afb6825f5e1b054 t/0-signature.t
+SHA1 5fca2bfebae7666664e73f9f064ffa9dd3334a6f t/0-signature.t
 SHA1 1c36853e4d4afa3e7dbf4e36bfd9c2a53d3699bb t/1-basic.t
 SHA1 2d43b0eae020f43417d20190172d16885f9f8e8f t/gencat.m
 SHA1 484853d1077b8a765e444024a7c445c6a3a1276c t/messages.mo
@@ -34,7 +34,7 @@ SHA1 1b806d9de59e4b2961507313c73db3c5d3562b85 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.0 (FreeBSD)
 
-iD8DBQE9vGgstLPdNzw1AaARAiREAJ9K9ty2qyVeOG8VEAEElw8ubs/hlgCeMFhK
-WOtk49xn5k0OdMAvcsgiThk=
-=QUQ4
+iD8DBQE9ynngtLPdNzw1AaARAjROAKC9cK4bVLxc/7rvoCr3XEeq6/azcwCgm1do
++YTLkK5cBl4lOXMVJakpvcA=
+=lYyY
 -----END PGP SIGNATURE-----
