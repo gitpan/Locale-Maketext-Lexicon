@@ -2,7 +2,7 @@
 # $Revision: #4 $ $Change: 340 $ $DateTime: 2002/07/16 03:18:58 $
 
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext = '0.03';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.03';
 
 use strict;
 
@@ -83,13 +83,15 @@ sub parse {
 	    $tmpfh->open(">$tmpfile") or die $!;
 	}
 
-	$tmpfh->print(@_);
-	$tmpfh->close;
+	print $tmpfh @_;
+	close $tmpfh;
+
+	# Convert it to PO format
 	@_ = `msgunfmt $tmpfile`;
 	unlink $tmpfile;
     }
 
-    # Parse *.po; Locale::gettext objects and *.mo are not yet supported.
+    # Parse PO files; Locale::gettext objects are not yet supported.
     foreach (@_) {
 	/^(msgid|msgstr) +"(.*)" *$/	? do {	# leading strings
 	    $var{$1} = $2;
@@ -142,7 +144,7 @@ sub transform {
 
 sub unescape {
     my $str = shift;
-    $str =~ s/(^|[^%\\])%(\d+|\*)/$1_$2/g;
+    $str =~ s/(^|,)%(\d+|\*)(,|$)/$1_$2$3/g;
     return $str;
 }
 

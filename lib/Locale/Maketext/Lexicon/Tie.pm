@@ -2,7 +2,7 @@
 # $Revision: #2 $ $Change: 320 $ $DateTime: 2002/07/02 22:32:02 $
 
 package Locale::Maketext::Lexicon::Tie;
-$Locale::Maketext::Lexicon::Tie = '0.01';
+$Locale::Maketext::Lexicon::Tie::VERSION = '0.01';
 
 use strict;
 use Symbol;

@@ -3,7 +3,7 @@
 # $Revision: #2 $ $Change: 339 $ $DateTime: 2002/07/16 02:53:47 $
 
 use strict;
-use Test::More tests => 15;
+use Test::More tests => 20;
 
 package Hello::L10N;
 use Test::More;
@@ -12,10 +12,11 @@ use Tie::Hash;
 use_ok(base => 'Locale::Maketext');
 use_ok(
     'Locale::Maketext::Lexicon' => {
-	en => ['Auto'],
-	de => ['Gettext' => \*::DATA],
-	fr => ['Tie' => [ 'Tie::StdHash' ]],
-	zh_tw => ['Gettext' => 't/messages.mo'],
+	en	=> ['Auto'],
+	fr	=> ['Tie'	=> [ 'Tie::StdHash' ]],
+	de	=> ['Gettext'	=> \*::DATA],
+	zh_tw	=> ['Gettext'	=> 't/messages.mo'],
+	zh_cn	=> ['Msgcat'	=> 't/gencat.m'],
     }
 );
 
@@ -88,6 +89,32 @@ is(
     'Bon jour, Sean',
     'Tie - complex case'
 );
+
+################################################################
+
+ok($lh = Hello::L10N->get_handle('zh_cn'), 'Msgcat - get_handle');
+is(
+    $lh->maketext(1, 1),
+    'First string',
+    'Msgcat - simple case'
+);
+is(
+    $lh->maketext(1, 2),
+    'Second string',
+    'Msgcat - continued string'
+);
+is(
+    $lh->maketext(1, 3),
+    'Third string',
+    'Msgcat - quote character'
+);
+is(
+    $lh->maketext(1, 4),
+    'Fourth string',
+    'Msgcat - quote character + continued string'
+);
+
+################################################################
 
 __DATA__
 msgid ""
