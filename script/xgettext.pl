@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/script/xgettext.pl $ $Author: autrijus $
-# $Revision: #2 $ $Change: 9216 $ $DateTime: 2003/12/08 18:41:04 $ vim: expandtab shiftwidth=4
+# $Revision: #3 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $ vim: expandtab shiftwidth=4
 
 use strict;
 use Cwd;
@@ -57,14 +57,6 @@ $Ext->write_po($PO);
 
 1;
 
-=head1 ACKNOWLEDGMENTS
-
-Thanks to Jesse Vincent for contributing to an early version of this
-utility.
-
-Also to Alain Barbet, who effectively re-wrote the source parser with a
-flex-like algorithm.
-
 =head1 SEE ALSO
 
 L<Locale::Maketext::Extract>,
@@ -77,7 +69,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002, 2003 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003, 2004 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

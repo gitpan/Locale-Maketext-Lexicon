@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Extract.pm $ $Author: autrijus $
-# $Revision: #5 $ $Change: 9216 $ $DateTime: 2003/12/08 18:41:04 $ vim: expandtab shiftwidth=4
+# $Revision: #6 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $ vim: expandtab shiftwidth=4
 
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.03';
+$Locale::Maketext::Extract::VERSION = '0.04';
 
 use strict;
 
@@ -57,8 +57,6 @@ Strings inside {{...}} are extracted.
 =back
 
 =head1 METHODS
-
-XXX: Documentation needed.  Patches welcome.
 
 =head2 Constructor
 
@@ -447,6 +445,14 @@ sub _format {
 
 1;
 
+=head1 ACKNOWLEDGMENTS
+
+Thanks to Jesse Vincent for contributing to an early version of this
+module.
+
+Also to Alain Barbet, who effectively re-wrote the source parser with a
+flex-like algorithm.
+
 =head1 SEE ALSO
 
 L<xgettext.pl>, L<Locale::Maketext>, L<Locale::Maketext::Lexicon>
@@ -457,7 +463,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2003 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2003, 2004 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

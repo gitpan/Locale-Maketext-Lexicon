@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Auto.pm $ $Author: autrijus $
-# $Revision: #5 $ $Change: 2333 $ $DateTime: 2002/11/23 21:23:33 $
+# $Revision: #6 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $
 
 package Locale::Maketext::Lexicon::Auto;
 $Locale::Maketext::Lexicon::Auto::VERSION = '0.02';
@@ -37,7 +37,7 @@ FAILURE> for how to prevent it.
 =cut
 
 sub parse {
-    return { '_AUTO' => 1 };
+    return { _AUTO => 1 };
 }
 
 1;
@@ -52,7 +52,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003, 2004 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

@@ -2,7 +2,7 @@
 # $Revision: #2 $ $Change: 320 $ $DateTime: 2002/07/02 22:32:02 $
 
 package Locale::Maketext::Lexicon::Tie;
-$Locale::Maketext::Lexicon::Tie::VERSION = '0.02';
+$Locale::Maketext::Lexicon::Tie::VERSION = '0.03';
 
 use strict;
 use Symbol ();
@@ -16,7 +16,7 @@ Locale::Maketext::Lexicon::Tie - Use tied hashes as lexicons for Maketext
     package Hello::L10N;
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
-	en => ['Tie' => ['DB_File', 'en.db']],
+	en => [ Tie => [ DB_File => 'en.db' ] ],
     };
 
 =head1 DESCRIPTION
@@ -38,8 +38,7 @@ sub parse {
     # Load the target module into memory
     {
 	no strict 'refs';
-	eval "use $mod; 1" or die $@
-	    unless defined %{"$mod\::"};
+	eval "use $mod; 1" or die $@ unless defined %{"$mod\::"};
     }
 
     # Perform the actual tie 
@@ -61,7 +60,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003, 2004 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

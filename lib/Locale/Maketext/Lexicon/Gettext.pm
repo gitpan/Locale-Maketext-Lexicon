@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #23 $ $Change: 9216 $ $DateTime: 2003/12/08 18:41:04 $
+# $Revision: #25 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $
 
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.10';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.11';
 
 use strict;
 
@@ -101,6 +101,8 @@ sub parse {
 
     # Parse PO files
     foreach (@_) {
+	s/[\015\012]*\z//; # fix CRLF issues
+
 	/^(msgid|msgstr) +"(.*)" *$/	? do {	# leading strings
 	    $var{$1} = $2;
 	    $key = $1;
@@ -241,7 +243,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002, 2003 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003, 2004 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

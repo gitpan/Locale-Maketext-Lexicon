@@ -2,7 +2,7 @@
 # $Revision: #2 $ $Change: 320 $ $DateTime: 2002/07/02 22:32:02 $
 
 package Locale::Maketext::Lexicon::Msgcat;
-$Locale::Maketext::Lexicon::Msgcat::VERSION = '0.01';
+$Locale::Maketext::Lexicon::Msgcat::VERSION = '0.02';
 
 use strict;
 
@@ -50,6 +50,8 @@ sub parse {
 
     # Parse *.m files; Locale::Msgcat objects and *.cat are not yet supported.
     foreach (@_) {
+	s/[\015\012]*\z//; # fix CRLF issues
+
 	/^\$set (\d+)/ 				? do {	# set_id
 	    $set = int($1);
 	    push @out, $1, "[msgcat,$1,_1]";
@@ -114,7 +116,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003, 2004 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

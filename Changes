@@ -1,4 +1,22 @@
 ____________________________________________________________________________
+[  9506] By: autrijus                              on 2003/12/31  08:28:21
+        Log: * This be 0.34.
+             * Update years to 2004.
+             * Make Msgcat also handle CRLF gracefully.
+	   ! MANIFEST Makefile.PL README
+	   ! lib/Locale/Maketext/Extract.pm
+	   ! lib/Locale/Maketext/Lexicon.pm
+	   ! lib/Locale/Maketext/Lexicon/Auto.pm
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+	   ! lib/Locale/Maketext/Lexicon/Msgcat.pm
+	   ! lib/Locale/Maketext/Lexicon/Tie.pm
+	   ! script/xgettext.pl
+____________________________________________________________________________
+[  9497] By: autrijus                              on 2003/12/30  17:10:57
+        Log: * .po files with DOSish CRLF line-ending was not
+             parsed correctly.
+	   ! lib/Locale/Maketext/Lexicon/Gettext.pm
+____________________________________________________________________________
 [  9216] By: autrijus                              on 2003/12/08  18:41:04
         Log: * This be 0.33.
              * Multiline strings were produced with an extra "\n" by

@@ -1,41 +1,24 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/Makefile.PL $ $Author: autrijus $
-# $Revision: #9 $ $Change: 9223 $ $DateTime: 2003/12/08 19:05:04 $
+# $Revision: #10 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $
 
 require 5.005;
+use inc::Module::Install;
 
-use ExtUtils::MakeMaker;
+author		('Autrijus Tang <autrijus@autrijus.org>');
+abstract	('Use other catalog formats in Maketext');
+name		('Locale-Maketext-Lexicon');
+version_from	('lib/Locale/Maketext/Lexicon.pm',);
+license		('perl');
+install_script	('script/xgettext.pl');
+requires	(
+    'Test::More'	=> '0.01',
+    'Locale::Maketext'	=> '0.01',
+    'Regexp::Common'	=> '0.01',
+    'Pod::Usage'	=> '0.01',
+);
 
 # workaround weird bug that prevents R::C from being detected by MM.
 eval { require Regexp::Common };
 
-WriteMakefile(
-    AUTHOR		=> 'Autrijus Tang (autrijus@autrijus.org)',
-    ABSTRACT		=> 'Use other catalog formats in Maketext',
-    NAME		=> 'Locale::Maketext::Lexicon',
-    VERSION_FROM	=> 'lib/Locale/Maketext/Lexicon.pm', 
-    DISTNAME		=> 'Locale-Maketext-Lexicon',
-    BINARY_LOCATION	=> 'x86/Locale-Maketext-Lexicon.tar.gz',
-    SIGN		=> 1,
-
-    EXE_FILES		=> [ 'script/xgettext.pl' ],
-    PREREQ_PM		=> {
-	'Test::More'		=> '0.01',
-	'Locale::Maketext'	=> '0.01',
-	'Regexp::Common'	=> '0.01',
-	'Pod::Usage'		=> '0.01',
-    },
-
-    dist		=> {
-	DIST_DEFAULT	=> 'all metafile sign tardist',
-        COMPRESS	=> 'gzip -9',
-        SUFFIX		=> '.gz',
-    },
-);
-
-sub MY::postamble {
-  q{
-sign ::
-	cpansign -s
-}
-}
+&WriteAll( sign => 1);

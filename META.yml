@@ -1,14 +1,15 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Locale-Maketext-Lexicon
-version:      0.33
-version_from: lib/Locale/Maketext/Lexicon.pm
-installdirs:  site
-requires:
-    Locale::Maketext:              0.01
-    Pod::Usage:                    0.01
-    Regexp::Common:                0.01
-    Test::More:                    0.01
-
+name: Locale-Maketext-Lexicon
+version: 0.34
+abstract: Use other catalog formats in Maketext
+author: Autrijus Tang <autrijus@autrijus.org>
+license: perl
 distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.21
+requires:
+  Test::More: 0.01
+  Locale::Maketext: 0.01
+  Regexp::Common: 0.01
+  Pod::Usage: 0.01
+no_index:
+  directory:
+    - inc
+generated_by: Module::Install version 0.30

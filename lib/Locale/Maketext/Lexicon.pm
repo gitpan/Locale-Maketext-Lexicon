@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #40 $ $Change: 9216 $ $DateTime: 2003/12/08 18:41:04 $
+# $Revision: #41 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.33';
+$Locale::Maketext::Lexicon::VERSION = '0.34';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.33 of Locale::Maketext::Lexicon,
-released December 9, 2003.
+This document describes version 0.34 of Locale::Maketext::Lexicon,
+released January 1, 2004.
 
 =head1 SYNOPSIS
 
@@ -360,7 +360,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002, 2003 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003, 2004 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

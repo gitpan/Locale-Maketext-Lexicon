@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/README $ $Author: autrijus $
-# $Revision: #6 $ $Change: 8357 $ $DateTime: 2003/10/09 18:03:07 $
+# $Revision: #7 $ $Change: 9506 $ $DateTime: 2003/12/31 08:28:21 $
 
 This is the README file for Locale::Maketext::Lexicon, a module providing
 lexicon-handling backends, for "Locale::Maketext" to read from other
@@ -27,7 +27,7 @@ make install
 
 * Copyright
 
-Copyright 2002, 2003 by Autrijus Tang <autrijus@autrijus.org>.
+Copyright 2002, 2003, 2004 by Autrijus Tang <autrijus@autrijus.org>.
 
 All rights reserved.  You can redistribute and/or modify
 this bundle under the same terms as Perl itself.
