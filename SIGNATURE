@@ -15,12 +15,12 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 22a28a27e307b699c0ecaa2f27beebf82d21742f AUTHORS
-SHA1 456de29aa36817db692c9b3a5a2804641a458999 Changes
+SHA1 4baaa23b6ead918f714a30d11b0c4a032ff2e988 Changes
 SHA1 8b3adcee91e885854ecf9c4eb08275dd422b22ff MANIFEST
 SHA1 03e98d0e6b02fb2e72342482e460ea806d1632b4 Makefile.PL
 SHA1 7a32a5ba6a9961cc09547cb864e98b5397ed80b0 README
 SHA1 6e30b82d30b0936446a7588c359c6fbbdd561b0f bin/xgettext.pl
-SHA1 f7932adc4b18cbde6524305682b802aa4e5041b4 lib/Locale/Maketext/Lexicon.pm
+SHA1 51044682423474e98947377d3293126cd2769676 lib/Locale/Maketext/Lexicon.pm
 SHA1 548ef5ac0f447ef02c7b0eb199a5f3d437840b02 lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 385726bb27e511daa5910f4677fff6bf16cc7e92 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 7721ffd5bfe723c5aeb6609546274ee3dbcf3359 lib/Locale/Maketext/Lexicon/Msgcat.pm
@@ -46,7 +46,7 @@ SHA1 1b806d9de59e4b2961507313c73db3c5d3562b85 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.1 (FreeBSD)
 
-iD8DBQE+q+4htLPdNzw1AaARAigtAJ9W41o583OcIuMRESg7hhG9/78h0QCggIQs
-+v+ZY5efJTDuAbIf5xiAVlM=
-=VyQ4
+iD8DBQE+rOjctLPdNzw1AaARAlCdAJ9YPgv9zLtCORRb9wf8Q/VxCbJrDgCdHgey
+b8E2UEdhv+LGnPOrFDChy7Q=
+=fuZh
 -----END PGP SIGNATURE-----

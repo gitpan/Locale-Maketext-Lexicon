@@ -1,4 +1,30 @@
 ____________________________________________________________________________
+[  5487] By: autrijus                              on 2003/04/28  08:18:28
+        Log: * 0.23 -- PAUSE wrecked 0.22.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5486] By: autrijus                              on 2003/04/28  07:58:37
+        Log: * changes and signatures.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
+[  5485] By: autrijus                              on 2003/04/28  07:53:10
+        Log: * This be 0.22.
+             * document the choice of using the final '*' for
+             glob patterns that has multiple '*'s.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5483] By: autrijus                              on 2003/04/28  07:35:13
+        Log: * add extra debug info
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5475] By: autrijus                              on 2003/04/27  15:56:48
+        Log: * prefer the last * for globbing languages.
+	   ! lib/Locale/Maketext/Lexicon.pm
+____________________________________________________________________________
+[  5472] By: autrijus                              on 2003/04/27  14:37:38
+        Log: * changes and signatures.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
 [  5471] By: autrijus                              on 2003/04/27  14:34:02
         Log: * This be 0.21.
              * remove unneccessary MO files.
