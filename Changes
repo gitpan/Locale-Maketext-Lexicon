@@ -1,4 +1,10 @@
 ----------------------------------------------------------------------
+r10052 (orig r744):  autrijus | 2004-08-25T07:10:38.829420Z
+
+* This be 0.42.
+* Devel::DProf did not like the closure-based delay loading mechanism;
+  rewrite using OO-based promises instead.
+----------------------------------------------------------------------
 r10044 (orig r740):  autrijus | 2004-08-24T21:00:23.566608Z
 
 * This be 0.41.

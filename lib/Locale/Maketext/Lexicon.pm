@@ -2,7 +2,7 @@
 # $Revision: #49 $ $Change: 11058 $ $DateTime: 2004/08/22 19:23:52 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.41';
+$Locale::Maketext::Lexicon::VERSION = '0.42';
 
 use strict;
 
@@ -12,7 +12,7 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.41 of Locale::Maketext::Lexicon,
+This document describes version 0.42 of Locale::Maketext::Lexicon,
 released August 25, 2004.
 
 =head1 SYNOPSIS
@@ -277,7 +277,7 @@ sub import {
 
 	    if (defined %{"$export\::Lexicon"}) {
                 if (ref(tied %{"$export\::Lexicon"}) eq __PACKAGE__) {
-		    tied(%{"$export\::Lexicon"})->();
+		    tied(%{"$export\::Lexicon"})->_force;
                 }
 		# be very careful not to pollute the possibly tied lexicon
 		*{"$export\::Lexicon"} = {
@@ -287,14 +287,11 @@ sub import {
 	    }
 	    else {
                 my $promise;
-                bless($promise = sub {
-                    $_[0] = $promise;
-                    return "$export\::Lexicon";
-                }, __PACKAGE__);
-                tie %{"$export\::Lexicon"}, __PACKAGE__, sub {
-                    local %Opts = %$OptsRef;
-                    *{"$export\::Lexicon"} = "$class\::$format"->parse(@content);
-                    return $promise->($_[0]);
+                tie %{"$export\::Lexicon"}, __PACKAGE__, {
+                    Opts => $OptsRef,
+                    Export => "$export\::Lexicon",
+                    Class => "$class\::$format",
+                    Content => \@content,
                 };
 	    }
 
@@ -304,13 +301,21 @@ sub import {
 }
 
 sub TIEHASH {
-    my ($class, $promise) = @_;
-    return bless($promise, $class);
+    my ($class, $args) = @_;
+    return bless($args, $class);
+
 }
 
 {
     no strict 'refs';
-    sub _force { $_[0]->($_[0]) }
+    sub _force {
+        my $args = shift;
+        if (!$args->{Done}++) {
+            local *Opts = $args->{Opts};
+            *{$args->{Export}} = $args->{Class}->parse(@{$args->{Content}});
+        }
+        return \%{$args->{Export}};
+    }
     sub FETCH { _force($_[0])->{$_[1]} }
     sub EXISTS { exists _force($_[0])->{$_[1]} }
     sub DELETE { delete _force($_[0])->{$_[1]} }
