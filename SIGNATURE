@@ -15,22 +15,22 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 22a28a27e307b699c0ecaa2f27beebf82d21742f AUTHORS
-SHA1 f113e16b9364e327d2985c9a03db25d72385320d Changes
+SHA1 3727aa804e50634c4aad9fe14f6b7c3bcdbc34a2 Changes
 SHA1 f11f76f7a4fca1bace91e7101f128696e5dd3d5e MANIFEST
 SHA1 03e98d0e6b02fb2e72342482e460ea806d1632b4 Makefile.PL
 SHA1 7a32a5ba6a9961cc09547cb864e98b5397ed80b0 README
 SHA1 6e30b82d30b0936446a7588c359c6fbbdd561b0f bin/xgettext.pl
-SHA1 91c9fddb3145247f82863f1e35643cd98fa42c61 lib/Locale/Maketext/Lexicon.pm
+SHA1 2acce83f9be1560cf6de8f7fe2c78380d67cdb29 lib/Locale/Maketext/Lexicon.pm
 SHA1 548ef5ac0f447ef02c7b0eb199a5f3d437840b02 lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 385726bb27e511daa5910f4677fff6bf16cc7e92 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 7721ffd5bfe723c5aeb6609546274ee3dbcf3359 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 5a17028258c93ba6de24dad2870899e8801176a3 lib/Locale/Maketext/Lexicon/Tie.pm
 SHA1 5fca2bfebae7666664e73f9f064ffa9dd3334a6f t/0-signature.t
 SHA1 092112d8592e2166e0f2f471975a9b7326aed45e t/1-basic.t
-SHA1 82ed9758da52884d3cc7164213885aea0d37d757 t/2-lmg.t
-SHA1 7f33279d6f40b09002549cf6f1b31ffcc63792e4 t/3-big-endian.t
-SHA1 c410847c3436d35f385cf80f31ffb30653369947 t/4-encodings.t
-SHA1 aa111abaa11956a2695d00b0781040aea5a1afff t/T_L10N.pm
+SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
+SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
+SHA1 786af50f71a3299ec40267c74001822602b9b247 t/4-encodings.t
+SHA1 20689d41baa53f44caf0bc8ef8fdefcda77d82f9 t/T_L10N.pm
 SHA1 2d43b0eae020f43417d20190172d16885f9f8e8f t/gencat.m
 SHA1 d5a3581bbbec3df38f7c47dc82edfbdb0964bebd t/locale/en/LC_MESSAGES/test.mo
 SHA1 76f5af7c51893120382ede3d2ef00c98d0c34b2f t/locale/en/LC_MESSAGES/test_be.mo
@@ -46,7 +46,7 @@ SHA1 1b806d9de59e4b2961507313c73db3c5d3562b85 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.1 (FreeBSD)
 
-iD8DBQE+r6R7tLPdNzw1AaARAm/EAJ9EqYHG+/2t1N11MAiDZBmnv456DgCcCwF9
-xx+DF6wtmhbiG8AT4ejjrxA=
-=FuQb
+iD8DBQE+s6WUtLPdNzw1AaARAsK+AJ9pdhLmQph+KQzj++L4KppNRZ31awCfacpl
+smyczTzyL8+nvmMYIYLy+GI=
+=n6lS
 -----END PGP SIGNATURE-----

@@ -1,4 +1,16 @@
 ____________________________________________________________________________
+[  5583] By: autrijus                              on 2003/05/03  10:59:46
+        Log: * This be 0.26.
+             * incoporated a modified version of Matthieu Arnold's patch
+             that enables Encode-specific testing for Perl 5.6.1 with
+	     Encode::compat.
+	   ! lib/Locale/Maketext/Lexicon.pm t/2-lmg.t
+	   ! t/3-big-endian.t t/4-encodings.t t/T_L10N.pm
+____________________________________________________________________________
+[  5541] By: autrijus                              on 2003/04/30  10:12:02
+        Log: * changes and signatures.
+	   ! Changes SIGNATURE
+____________________________________________________________________________
 [  5540] By: autrijus                              on 2003/04/30  10:10:02
         Log: * This be 0.25.
              * change t/TestPkg/L10N.pm to t/T_L10N.pm in accord with

@@ -5,10 +5,13 @@
 # as Perl itself.
 
 use strict;
-use warnings;
 use Test;
 
-BEGIN { plan(tests => 0), exit unless $] >= 5.008 }
+BEGIN {
+    plan(tests => 0), exit
+	unless eval { require Encode::compat; 1 }
+	    or eval { require Encode; 1 }
+}
 BEGIN { plan tests => 22 }
 
 use FindBin;

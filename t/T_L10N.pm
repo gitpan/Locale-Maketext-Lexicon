@@ -59,6 +59,8 @@ sub encoding {
 
 sub maketext {
     my $self = shift;
+
+    require Encode::compat if ($] == 5.006001);
     require Encode;
     Encode::encode($self->encoding, $self->SUPER::maketext(@_));
 }
