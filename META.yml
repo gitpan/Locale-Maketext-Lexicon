@@ -1,5 +1,5 @@
 name: Locale-Maketext-Lexicon
-version: 0.42
+version: 0.43
 abstract: Use other catalog formats in Maketext
 author: Autrijus Tang <autrijus@autrijus.org>
 license: perl

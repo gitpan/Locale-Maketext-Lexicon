@@ -159,26 +159,26 @@ sub parse_metadata {
 sub transform {
     my $str = shift;
 
-    if ($DoEncoding) {
-	if ($InputEncoding) {
-	    $str = ($InputEncoding eq 'utf8')
-		? Encode::decode_utf8($str)
-		: Encode::decode($InputEncoding, $str)
-	}
-	if ($OutputEncoding) {
-	    $str = ($OutputEncoding eq 'utf8')
-		? Encode::encode_utf8($str)
-		: Encode::encode($OutputEncoding, $str)
-	}
+    if ($DoEncoding and $InputEncoding) {
+	$str = ($InputEncoding eq 'utf8')
+	    ? Encode::decode_utf8($str)
+	    : Encode::decode($InputEncoding, $str)
     }
 
     $str =~ s/\\([0x]..|c?.)/qq{"\\$1"}/eeg;
-    $str =~ s/([~\[\]])/~$1/g;
     $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/[$1,~~~$2~~~]/g;
     $str = join('', map {
 	/^~~~.*~~~$/ ? unescape(substr($_, 3, -3)) : $_
     } split(/(~~~.*?~~~)/, $str));
     $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
+
+    if ($DoEncoding and $OutputEncoding) {
+	$str = ($OutputEncoding eq 'utf8')
+	    ? Encode::encode_utf8($str)
+	    : Encode::encode($OutputEncoding, $str)
+    }
+
+    $str =~ s/([~\[\]])/~$1/g;
 
     return $str;
 }
