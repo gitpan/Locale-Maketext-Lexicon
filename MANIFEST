@@ -22,7 +22,6 @@ META.yml			Module meta-data (added by MakeMaker)
 README
 script/xgettext.pl
 SIGNATURE
-t/0-signature.t
 t/1-basic.t
 t/2-lmg.t
 t/3-big-endian.t

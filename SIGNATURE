@@ -1,12 +1,12 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.44.
+signed via the Module::Signature module, version 0.41.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
 
     % cpansign -v
 
-It will check each file's integrity, as well as the signature's
+It would check each file's integrity, as well as the signature's
 validity.  If "==> Signature verified OK! <==" is not displayed,
 the distribution may already have been compromised, and you should
 not run its Makefile.PL or Build.PL.
@@ -15,29 +15,28 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 a0ebbb47fcf331862e155da768629b4718f4116f AUTHORS
-SHA1 34bb9e5cd40b30d1a12efee757d76db2ba38a255 Changes
-SHA1 e1379626193bcca338a2f702ac90cc826294072d MANIFEST
-SHA1 0f012491c101017dec4a1bb645ecaa424578ccbe META.yml
+SHA1 8ac097d803b6137e61fcbdb6003f9a01575197e9 Changes
+SHA1 49a810703499528d00a1e86b7686782d45d339fc MANIFEST
+SHA1 6c31557dad2255cff525dff94aa20ba7bd08f478 META.yml
 SHA1 a709d8b569c3fc575d785bfa691998b4d00716d2 Makefile.PL
 SHA1 c8de33b05914584c4dc5983c8ef098bae6292cbf README
-SHA1 06d883487127fa0026311904e7c4867e850c505c inc/Module/Install.pm
-SHA1 2771d5c5033e94c4789c66a0aad4e21c62985ce9 inc/Module/Install/Base.pm
-SHA1 b5e2d5fc07b92d042c97631d2b00f61f974fc164 inc/Module/Install/Can.pm
-SHA1 c3747aa4bd8faa530c974b78f729c67f15c6f928 inc/Module/Install/Fetch.pm
-SHA1 d8bc0d6e0a82d2b7533bdd3de467593094cc8b2c inc/Module/Install/Makefile.pm
-SHA1 6fca1d05c6b9a8f10865de5be4fefb9bfa7a52e9 inc/Module/Install/Metadata.pm
-SHA1 2e6f5004ac895a26c41f043bf8fa5efb4f5b21c4 inc/Module/Install/Scripts.pm
-SHA1 6b051a6d3ed824df40343a7ff09b66282e1783c3 inc/Module/Install/Win32.pm
-SHA1 77f82ce7c623e05304ac9aae05bcd1a5558fadbb inc/Module/Install/WriteAll.pm
-SHA1 95b4f8c3e94a1704a20d8d6a99027146777e188f lib/Locale/Maketext/Extract.pm
+SHA1 3ff12015503052e094a388c5d5dc4bcdcdcdffd2 inc/Module/Install.pm
+SHA1 f5aceef36c6c1a796b602bbe214b4210268f528d inc/Module/Install/Base.pm
+SHA1 9fbf956140af2b9b0da6c6b264da82540f888760 inc/Module/Install/Can.pm
+SHA1 9a60737b1855465b3e74465db6d138033274f21f inc/Module/Install/Fetch.pm
+SHA1 12ce23254b0917768ae9d2f0479427e11998b412 inc/Module/Install/Makefile.pm
+SHA1 168746fdaaa3f8de0cc49c9d6cc923a3a9524053 inc/Module/Install/Metadata.pm
+SHA1 44c80f6e2de2c4c0808f6c1c070206424875930b inc/Module/Install/Scripts.pm
+SHA1 938105bedbeccd6253f64ceb4142f5be177ea01d inc/Module/Install/Win32.pm
+SHA1 479decbc66e02828fe1f4763cc99bc5cd661cfbc inc/Module/Install/WriteAll.pm
+SHA1 1b2fde1aa278b2e243458ff91f448195742a5cff lib/Locale/Maketext/Extract.pm
 SHA1 8f77b62534098704e1ebd82a1909543d76e56e6f lib/Locale/Maketext/Extract/Run.pm
-SHA1 fcbc854a3a9895f8a4506d270431a69d7caa1852 lib/Locale/Maketext/Lexicon.pm
+SHA1 6e3d05be08e29d7258aa828f741c7ef1413c3dbb lib/Locale/Maketext/Lexicon.pm
 SHA1 ecd3f4fa6b71c62b61420bdf4f175c351edee301 lib/Locale/Maketext/Lexicon/Auto.pm
-SHA1 0936a5706a7b3e39750fd88fb0a289d014a17922 lib/Locale/Maketext/Lexicon/Gettext.pm
+SHA1 23d21cf4819640a5addeca8b4fcbab15558050bd lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 e87b5fe4995756623fc1296368f01e2d8441dda2 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 c4135c8272b323486fc2e343028290d366e16d6f lib/Locale/Maketext/Lexicon/Tie.pm
 SHA1 58cbd83336ed1d2be11f540002c1f60e5e14f24c script/xgettext.pl
-SHA1 63c7ea0cfdd7643aa113c260eec9c9bf0a6ee8a0 t/0-signature.t
 SHA1 e3e3f633358d38e285fe2118a2aae85e4e697fa1 t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
 SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
@@ -59,7 +58,7 @@ SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.6 (FreeBSD)
 
-iD8DBQFCAcYRtLPdNzw1AaARArnaAJ0UTd90AAWod/4FsPkEGPero8v6jwCfS/qc
-MrxTA/Ax4sVP+s0GOASefJ0=
-=19JC
+iD8DBQFCNZfNtLPdNzw1AaARArjZAJwI17jNXkpPWgdM7um4Ln3rt5Y6cACgqd5u
+DZxw872DN0dfVzP64trttQQ=
+=VYjo
 -----END PGP SIGNATURE-----

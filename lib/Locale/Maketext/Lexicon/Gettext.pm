@@ -109,6 +109,17 @@ sub parse {
     require Locale::Maketext::Lexicon;
     my $UseFuzzy = Locale::Maketext::Lexicon::option('use_fuzzy');
     my $AllowEmpty = Locale::Maketext::Lexicon::option('allow_empty');
+    my $process = sub {
+            if ( length($var{msgstr}) and ($UseFuzzy or !$var{fuzzy}) ) {
+                push @ret, (map transform($_), @var{'msgid', 'msgstr'});
+            }
+            elsif ( $AllowEmpty ) {
+                push @ret, (transform($var{msgid}), '');
+            }
+            push @metadata, parse_metadata($var{msgstr})
+                if $var{msgid} eq '';
+            %var = ();
+    };
 
     # Parse PO files
     foreach (@_) {
@@ -128,17 +139,11 @@ sub parse {
         } :
 
         /^ *$/ && %var                  ? do {  # interpolate string escapes
-            if ( length($var{msgstr}) and ($UseFuzzy or !$var{fuzzy}) ) {
-                push @ret, (map transform($_), @var{'msgid', 'msgstr'});
-            }
-            elsif ( $AllowEmpty ) {
-                push @ret, (transform($var{msgid}), '');
-            }
-            push @metadata, parse_metadata($var{msgstr})
-                if $var{msgid} eq '';
-            %var = ();
+		$process->($_);
         } : ();
     }
+    # do not silently skip last entry
+    $process->() if keys %var != 0;
 
     push @ret, map { transform($_) } @var{'msgid', 'msgstr'}
         if length $var{msgstr};

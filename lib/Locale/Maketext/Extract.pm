@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.07';
+$Locale::Maketext::Extract::VERSION = '0.08';
 
 use strict;
 
@@ -119,7 +119,7 @@ sub read_po {
     $self->set_header("$header\n");
 
     require Locale::Maketext::Lexicon::Gettext;
-    my $lexicon = Locale::Maketext::Lexicon::Gettext->parse(<LEXICON>);
+    my $lexicon = Locale::Maketext::Lexicon::Gettext->parse($_, <LEXICON>);
 
     $self->set_lexicon(
         $verbatim ? { map _to_gettext($_), %$lexicon } : $lexicon
