@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #22 $ $Change: 8411 $ $DateTime: 2003/10/14 08:56:43 $
+# $Revision: #23 $ $Change: 9216 $ $DateTime: 2003/12/08 18:41:04 $
 
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.09';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.10';
 
 use strict;
 
@@ -88,7 +88,8 @@ sub parse {
     $InputEncoding = $OutputEncoding = $DoEncoding = undef;
 
     use Carp;
-    Carp::cluck " is happy\n" unless defined $_[0];
+    Carp::cluck "Undefined source called\n" unless defined $_[0];
+
     # Check for magic string of MO files
     return parse_mo(join('', @_))
 	if ($_[0] =~ /^\x95\x04\x12\xde/ or $_[0] =~ /^\xde\x12\x04\x95/);

@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #39 $ $Change: 8411 $ $DateTime: 2003/10/14 08:56:43 $
+# $Revision: #40 $ $Change: 9216 $ $DateTime: 2003/12/08 18:41:04 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.32';
+$Locale::Maketext::Lexicon::VERSION = '0.33';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.32 of Locale::Maketext::Lexicon,
-released October 14, 2003.
+This document describes version 0.33 of Locale::Maketext::Lexicon,
+released December 9, 2003.
 
 =head1 SYNOPSIS
 
@@ -104,9 +104,9 @@ described above.  It is designed to alleviate the need to set up a
 separate subclass for each localized language, and just use the catalog
 files.
 
-Starting from version 0.20, I<language> arguments are converted into
-lowercase and have all C<-> replaced by C<_>, so C<zh_TW> and C<zh-tw>
-will both produce a C<zh_tw> subclass.
+This module will convert the I<language> arguments into lowercase,
+and replace all C<-> with C<_>, so C<zh_TW> and C<zh-tw> will both
+map to the C<zh_tw> subclass.
 
 If I<language> begins with C<_>, it is taken as an option that
 controls how lexicons are parsed.  See L</Options> for a list

@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.35.
+signed via the Module::Signature module, version 0.37.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,18 +15,18 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 2c276a0e53760617ead6fe33c03da602e44de23a AUTHORS
-SHA1 db82fcf27d99a7a884587898d8fdffeca785b557 Changes
+SHA1 fea84a5a2db6b70d0d85e2ddad2b50d650685575 Changes
 SHA1 a765fce2d3e3e60d7f9c3da01ea79463c2c43c4d MANIFEST
-SHA1 fc2442d7eb6f21dc7fea4ed7748b44bf881c8c18 META.yml
-SHA1 f068d334b7e35e7d36049685f99a250c5d4ff31d Makefile.PL
+SHA1 7495444526fb17f1412c42636ad3677669ced4e9 META.yml
+SHA1 f5a5553ba3602113896ff5a04d7cd8e530abc0e3 Makefile.PL
 SHA1 2827f314f6758d96b6547dce11a296c8678bf229 README
-SHA1 9bed63e794a19551fda1425acc4303776b26f271 lib/Locale/Maketext/Extract.pm
-SHA1 a02374c698dc6fb38bffe5ae435c9f29d520b488 lib/Locale/Maketext/Lexicon.pm
+SHA1 478d322ebe6e1dd95aa67d9a44c42aaae692ed98 lib/Locale/Maketext/Extract.pm
+SHA1 b7b5e216dbc2e96b2bbb1d7611259771244b4e3b lib/Locale/Maketext/Lexicon.pm
 SHA1 548ef5ac0f447ef02c7b0eb199a5f3d437840b02 lib/Locale/Maketext/Lexicon/Auto.pm
-SHA1 31c5d3f5a3c1daa8d57cc9baabe846cb34baeb42 lib/Locale/Maketext/Lexicon/Gettext.pm
+SHA1 53038eba0160c85e39428f480a8c07a6444bd825 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 747ec4939b0d72da8c7bee5fcdaf5cd21b008d88 lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 5a17028258c93ba6de24dad2870899e8801176a3 lib/Locale/Maketext/Lexicon/Tie.pm
-SHA1 77935728d99128c98ad98e0eabae31da71deced6 script/xgettext.pl
+SHA1 23ae341e8959abd1ec999875864b6ca9696970d2 script/xgettext.pl
 SHA1 5fca2bfebae7666664e73f9f064ffa9dd3334a6f t/0-signature.t
 SHA1 31f8ca782175ec81c6781cdca7cb71c805601b29 t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
@@ -49,7 +49,7 @@ SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.2.3 (FreeBSD)
 
-iD8DBQE/i7sgtLPdNzw1AaARAgA0AJ4oOP1xAzBpGnn6DqfK3rXyWaIhpACeM0uc
-BzLE2PorLM83/MMutaFcPcU=
-=4G/U
+iD8DBQE/1MuPtLPdNzw1AaARAjorAJ0XKmcn4X7QkhPC1RF/LY/gFQw50ACgreJY
+DhBddolKW00Wy7Q2FbRGbwk=
+=I0MI
 -----END PGP SIGNATURE-----

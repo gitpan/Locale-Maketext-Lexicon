@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Extract.pm $ $Author: autrijus $
-# $Revision: #4 $ $Change: 8411 $ $DateTime: 2003/10/14 08:56:43 $ vim: expandtab shiftwidth=4
+# $Revision: #5 $ $Change: 9216 $ $DateTime: 2003/12/08 18:41:04 $ vim: expandtab shiftwidth=4
 
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.02';
+$Locale::Maketext::Extract::VERSION = '0.03';
 
 use strict;
 
@@ -75,7 +75,7 @@ sub new {
 
     header, set_header
     lexicon, set_lexicon, msgstr, set_msgstr
-    entries, set_entries, entry, add_entry
+    entries, set_entries, entry, add_entry, del_entry
     clear
 
 =cut
@@ -92,8 +92,9 @@ sub set_msgstr { $_[0]{lexicon}{$_[1]} = $_[2] }
 sub entries { $_[0]{entries} }
 sub set_entries { $_[0]{entries} = $_[1] || {} }
 
-sub entry { @{$_[0]->entries->{$_[1]}} }
+sub entry { @{$_[0]->entries->{$_[1]} || [] } }
 sub add_entry { push @{$_[0]->entries->{$_[1]}}, $_[2] }
+sub del_entry { delete $_[0]->entries->{$_[1]} }
 
 sub clear {
     $_[0]->set_header;
@@ -120,12 +121,13 @@ sub read_po {
     }
     1 while chomp $header;
 
-    $self->set_header($header);
+    $self->set_header("$header\n");
 
     require Locale::Maketext::Lexicon::Gettext;
     my $lexicon = Locale::Maketext::Lexicon::Gettext->parse(<LEXICON>);
+
     $self->set_lexicon(
-        $verbatim ? $lexicon : { map _to_gettext($_), %$lexicon }
+        $verbatim ? { map _to_gettext($_), %$lexicon } : $lexicon
     );
     close LEXICON;
 }
@@ -137,6 +139,7 @@ sub write_po {
     open LEXICON, ">$file" or die "Can't write to $file$!\n";
 
     print LEXICON $self->header;
+
     foreach my $msgid ($self->msgids) {
         $self->normalize_space($msgid);
         print LEXICON "\n";
@@ -319,12 +322,12 @@ sub normalize_space {
     my $nospace = $msgid;
     $nospace =~ s/ +$//;
 
-    if (!$self->has_msgid($msgid) and $self->has_msgid($nospace)) {
-        $self->set_msgstr(
-            $msgid => $self->msgstr($nospace) .
-                      (' ' x (length($msgid) - length($nospace)))
-        );
-    }
+    return unless (!$self->has_msgid($msgid) and $self->has_msgid($nospace));
+
+    $self->set_msgstr(
+	$msgid => $self->msgstr($nospace) .
+		    (' ' x (length($msgid) - length($nospace)))
+    );
 }
 
 =head2 Lexicon accessors
@@ -432,7 +435,14 @@ sub _escape {
 sub _format {
     my $str = shift;
     return "\"$str\"\n" unless $str =~ /\n/;
-    return join('', "\"\"\n", map "\"$_\\n\"\n", split(/\n/, $str, -1));
+    $str =~ s/\n/\\n"\n"/g;
+    if ($str =~ /\n"$/) {
+        chop $str;
+    }
+    else {
+        $str .= "\"\n";
+    }
+    return qq(""\n"$str);
 }
 
 1;

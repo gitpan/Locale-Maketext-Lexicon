@@ -1,8 +1,9 @@
 #!/usr/bin/perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/script/xgettext.pl $ $Author: autrijus $
-# $Revision: #1 $ $Change: 8355 $ $DateTime: 2003/10/09 18:01:40 $ vim: expandtab shiftwidth=4
+# $Revision: #2 $ $Change: 9216 $ $DateTime: 2003/12/08 18:41:04 $ vim: expandtab shiftwidth=4
 
 use strict;
+use Cwd;
 use Getopt::Std;
 use Pod::Usage;
 use Locale::Maketext::Extract;
@@ -28,12 +29,12 @@ perl-maketext-format> before each entry that has C<%> variables.
 updated C<-> means writing to F<STDOUT>.  If not specified,
 F<messages.po> is used.
 
-[ I<inputfile>... ] is the files to extract messages from.
+[ I<inputfile>... ] are the files to extract messages from.
 
 =head1 DESCRIPTION
 
 This program extracts translatable strings from given input files, or
-STDIN if none are given.
+from STDIN if none are given.
 
 Please see L<Locale::Maketext::Extract> for a list of supported
 input file formats.
@@ -44,7 +45,7 @@ my %opts;
 getopts('hugo:', \%opts) or pod2usage( -verbose => 1, -exitval => 1 );
 pod2usage( -verbose => 2, -exitval => 0 ) if $opts{h};
 
-my $PO = $opts{o} || "messages.po";
+my $PO = Cwd::abs_path($opts{o} || "messages.po");
 @ARGV = ('-') unless @ARGV;
 s!^.[/\\]!! for @ARGV;
 
