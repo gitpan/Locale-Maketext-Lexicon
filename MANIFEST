@@ -10,3 +10,4 @@ lib/Locale/Maketext/Lexicon/Msgcat.pm
 lib/Locale/Maketext/Lexicon/Tie.pm
 t/1-basic.t
 t/messages.mo
+t/gencat.m

@@ -1,4 +1,6 @@
 ____________________________________________________________________________
+0.08 - Oops. Missing t/gencat.m in MANIFEST. (Tatsuhiko Miyagawa)
+
 0.07 - Perl 5.005 now works with File::Temp module. (Tatsuhiko Miyagawa)
      - New backend "Msgcat" added. (plaintext-only, no binary support yet)
      - VERSION strings was missing in backend modules.

@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Auto.pm $ $Author: autrijus $
-# $Revision: #1 $ $Change: 342 $ $DateTime: 2002/07/16 04:05:30 $
+# $Revision: #2 $ $Change: 345 $ $DateTime: 2002/07/16 20:07:35 $
 
 package Locale::Maketext::Lexicon::Auto;
 $Locale::Maketext::Lexicon::Auto::VERSION = '0.01';

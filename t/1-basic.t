@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # $File: //member/autrijus/Locale-Maketext-Lexicon/t/1-basic.t $ $Author: autrijus $
-# $Revision: #2 $ $Change: 339 $ $DateTime: 2002/07/16 02:53:47 $
+# $Revision: #3 $ $Change: 345 $ $DateTime: 2002/07/16 20:07:35 $
 
 use strict;
 use Test::More tests => 20;
