@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/AUTHORS $
-# $Revision: #10 $ $Change: 10138 $ $DateTime: 2004/02/19 18:14:56 $
+# $Revision: #11 $ $Change: 10506 $ $DateTime: 2004/04/21 12:23:27 $
 
 [Credits]
 
@@ -9,6 +9,7 @@ patches or suggestions, or their bug reports or comments have inspired
 the appropriate patches.  Corrections, additions, deletions welcome:
 
 Alain Barbet		(ALIAN)
+Christian Hansen
 Gaal Yahas
 Helmut Lichtenberg
 Hsin-Chan Chien		(HCCHIEN)

@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon.pm $ $Author: autrijus $
-# $Revision: #43 $ $Change: 10407 $ $DateTime: 2004/03/17 13:01:43 $
+# $Revision: #46 $ $Change: 10506 $ $DateTime: 2004/04/21 12:23:27 $
 
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.36';
+$Locale::Maketext::Lexicon::VERSION = '0.37';
 
 use strict;
 
@@ -12,8 +12,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.36 of Locale::Maketext::Lexicon,
-released March 17, 2004.
+This document describes version 0.37 of Locale::Maketext::Lexicon,
+released April 21, 2004.
 
 =head1 SYNOPSIS
 
@@ -181,10 +181,10 @@ sub encoding {
 	$locale_encoding = langinfo(CODESET());
     };
     if (!$locale_encoding) {
-	if ($ENV{LC_ALL} =~ /^([^.]+)\.([^.]+)$/) {
+	foreach my $key (qw( LANGUAGE LC_ALL LC_MESSAGES LANG )) {
+	    $ENV{$key} =~ /^([^.]+)\.([^.:]+)/ or next;
 	    ($country_language, $locale_encoding) = ($1, $2);
-	} elsif ($ENV{LANG} =~ /^([^.]+)\.([^.]+)$/) {
-	    ($country_language, $locale_encoding) = ($1, $2);
+	    last;
 	}
     }
     if (defined $locale_encoding &&
@@ -222,9 +222,9 @@ sub import {
 	while (my ($format, $src) = splice(@$wild_entry, 0, 2)) {
 	    next if ref($src); # XXX: implement globbing for the 'Tie' backend
 
-	    my $pattern = $src;
-            $pattern =~ s/\*(?=[^*]+$)/\([-\\w]+\)/g or next;
-	    $pattern =~ s/\*/.*?/g;
+	    my $pattern = quotemeta($src);
+            $pattern =~ s/\\\*(?=[^*]+$)/\([-\\w]+\)/g or next;
+	    $pattern =~ s/\\\*/.*?/g;
 
 	    require File::Glob;
 	    foreach my $file (File::Glob::bsd_glob($src)) {
