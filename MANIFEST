@@ -1,7 +1,10 @@
+AUTHORS
 Changes
 MANIFEST			This list of files
 Makefile.PL
 README
+SIGNATURE
+bin/messages.po
 bin/xgettext.pl
 lib/Locale/Maketext/Lexicon.pm
 lib/Locale/Maketext/Lexicon/Auto.pm
@@ -9,5 +12,5 @@ lib/Locale/Maketext/Lexicon/Gettext.pm
 lib/Locale/Maketext/Lexicon/Msgcat.pm
 lib/Locale/Maketext/Lexicon/Tie.pm
 t/1-basic.t
-t/messages.mo
 t/gencat.m
+t/messages.mo

@@ -1,13 +1,16 @@
 #!/usr/bin/perl -w
 # $File: //member/autrijus/Locale-Maketext-Lexicon/t/1-basic.t $ $Author: autrijus $
-# $Revision: #3 $ $Change: 345 $ $DateTime: 2002/07/16 20:07:35 $
+# $Revision: #4 $ $Change: 806 $ $DateTime: 2002/08/28 02:14:09 $
 
 use strict;
-use Test::More tests => 20;
+use Test::More tests => 21;
 
 package Hello::L10N;
 use Test::More;
 use Tie::Hash;
+
+my $warned;
+$SIG{__WARN__} = sub { $warned++ };
 
 use_ok(base => 'Locale::Maketext');
 use_ok(
@@ -19,6 +22,8 @@ use_ok(
 	zh_cn	=> ['Msgcat'	=> 't/gencat.m'],
     }
 );
+
+ok(!$warned, 'no warnings on blank lines');
 
 package main;
 
@@ -128,17 +133,21 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+
 #: Hello.pm:10
 msgid "Hello, World!"
 msgstr "Hallo, Welt!"
+
 
 #: Hello.pm:11
 msgid "You have %*(%1,piece) of mail."
 msgstr "Sie haben %*(%1,Poststueck,Poststuecken)."
 
+
 #: Hello.pm:12
 msgid "%1()"
 msgstr "%1()"
+
 
 #: Hello.pm:13
 msgid "%1 %2 %*"

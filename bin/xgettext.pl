@@ -1,5 +1,6 @@
+#!/usr/bin/env perl
 # $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: autrijus $
-# $Revision: #1 $ $Change: 339 $ $DateTime: 2002/07/16 02:53:47 $
+# $Revision: #3 $ $Change: 688 $ $DateTime: 2002/08/17 09:01:20 $
 
 use strict;
 use Regexp::Common;
@@ -58,8 +59,34 @@ foreach my $file (@ARGV) {
     my $filename = $file;
     open _, $file or die $!; $_ = <_>; $filename =~ s'^./'';
 
+    my $line = 1; pos($_) = 0;
+    # Text::Template
+    if (/^STARTTEXT$/m and /^ENDTEXT$/m) {
+	require HTML::Parser;
+	require Lingua::EN::Sentence;
+
+	{
+	    package MyParser;
+	    @MyParser::ISA = 'HTML::Parser';
+	    sub text {
+		my ($self, $text, $is_cdata) = @_;
+		my $sentences = Lingua::EN::Sentence::get_sentences($text) or return;
+		$text =~ s/\n/ /g; $text =~ s/^\s+//; $text =~ s/\s+$//;
+		push @{$file{$text}}, [ $filename, $line ];
+	    }
+	}   
+
+	my $p = MyParser->new;
+	while (m/\G(.*?)^(?:START|END)[A-Z]+$/smg) {
+	    my ($str) = ($1);
+	    $line += ( () = ($& =~ /\n/g) ); # cryptocontext!
+	    $p->parse($str); $p->eof; 
+	}
+	$_ = '';
+    }
+
     # HTML::Mason
-    my $line = 1;
+    $line = 1; pos($_) = 0;
     while (m!\G.*?<&\|/l(?:oc)?(.*?)&>(.*?)</&>!sg) {
 	my ($vars, $str) = ($1, $2);
 	$line += ( () = ($& =~ /\n/g) ); # cryptocontext!
@@ -102,9 +129,9 @@ foreach my $str (sort keys %file) {
 
     $str =~ s/\\/\\\\/g;
     $str =~ s/\"/\\"/g;
-    $str =~ s/\[_(\d+)\]/%$1/g;
-    $str =~ s/\[([A-Za-z#*]\w*)([^\]]+)\]/"%$1(".escape($2).")"/eg;
-    $str =~ s/~([\[\]])/$1/g;
+    $str =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
+    $str =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
+    $str =~ s/~([\~\[\]])/$1/g;
 
     $file{$str} = $entry;
     $Lexicon{$str} ||= '';

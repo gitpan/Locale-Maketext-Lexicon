@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/README $ $Author: autrijus $
-# $Revision: #2 $ $Change: 339 $ $DateTime: 2002/07/16 02:53:47 $
+# $Revision: #3 $ $Change: 807 $ $DateTime: 2002/08/28 02:15:11 $
 
 This is the README file for Locale::Maketext::Lexicon, a module providing
 lexicon-handling backends, for "Locale::Maketext" to read from other
@@ -16,6 +16,7 @@ and the Template Toolkit.
 
 Locale::Maketext::Lexicon uses the standard perl module install process:
 
+cpansign -v             # see the SIGNATURE file for details
 perl Makefile.PL
 make
 make test

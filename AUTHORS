@@ -1,0 +1,15 @@
+# $File: //member/autrijus/Locale-Maketext-Lexicon/AUTHORS $
+# $Revision: #1 $ $Change: 807 $ $DateTime: 2002/08/28 02:15:11 $
+
+[Credits]
+
+Here is a list of people and their CPAN id, extracted from the ChangeLog
+file and the mailing list archives.  These people have either submitted
+patches or suggestions, or their bug reports or comments have inspired
+the appropriate patches.  Corrections, additions, deletions welcome:
+
+Hsin-Chan Chien		(HCCHIEN)
+Jesse Vincent		(JESSE)
+Sean M. Burke		(SBURKE)
+Tatsuhiko Miyagawa	(MIYAGAWA)
+Wei-Hon Chen

@@ -1,5 +1,5 @@
 # $File: //member/autrijus/Locale-Maketext-Lexicon/lib/Locale/Maketext/Lexicon/Gettext.pm $ $Author: autrijus $
-# $Revision: #5 $ $Change: 345 $ $DateTime: 2002/07/16 20:07:35 $
+# $Revision: #6 $ $Change: 806 $ $DateTime: 2002/08/28 02:14:09 $
 
 package Locale::Maketext::Lexicon::Gettext;
 $Locale::Maketext::Lexicon::Gettext::VERSION = '0.03';
@@ -106,8 +106,8 @@ sub parse {
 	    $var{$1} = 1;
 	} :
 
-	/^ *$/				? do {	# interpolate string escapes
-	    push @ret, map { transform($_) } @var{'msgid', 'msgstr'}
+	/^ *$/ && %var			? do {	# interpolate string escapes
+	    push @ret, (map transform($_), @var{'msgid', 'msgstr'})
 		if length $var{msgstr};
 	    push @metadata, parse_metadata($var{msgstr})
 		if $var{msgid} eq '';

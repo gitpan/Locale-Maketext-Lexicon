@@ -1,0 +1,102 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-07-16 17:27+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+
+#: /home/autrijus/ab:12
+msgid "(YAS), a non-profit, 501(c)(3) organization based in Holland, Michigan."
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid ", and holds the copyright on"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid ", the international"
+msgstr ""
+
+#: /home/autrijus/ab:16
+msgid "Background"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "Kevin Lenzo (chairman)"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "Kurt De Maagd (secretary)"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "Nathan Torkington"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "Perl 6 and Parrot"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "Perl Mongers"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "The"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "The Perl Foundation"
+msgstr ""
+
+#: /home/autrijus/ab:12
+msgid "The Perl Foundation is dedicated to the advancement of the Perl programming language through open discussion, collaboration, design, and code.  The Foundation is a unit of the"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "The board consists of three members:"
+msgstr ""
+
+#: /home/autrijus/ab:3
+msgid "Welcome"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "Yet Another Perl Conferences"
+msgstr ""
+
+#: /home/autrijus/ab:12 /home/autrijus/ab:44
+msgid "Yet Another Society"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "coordinates the efforts of numerous grass-roots Perl-based groups including the"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "in consultation with other leaders within the Perl community."
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "is a non-profit organization for the advancement of collaborative efforts in Computer Science and Information Technology."
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "perl.org"
+msgstr ""
+
+#: /home/autrijus/ab:44
+msgid "perlmonks"
+msgstr ""
