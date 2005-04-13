@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.48';
+$Locale::Maketext::Lexicon::VERSION = '0.49';
 
 use strict;
 
@@ -9,8 +9,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.48 of Locale::Maketext::Lexicon,
-released March 14, 2005.
+This document describes version 0.49 of Locale::Maketext::Lexicon,
+released April 13, 2005.
 
 =head1 SYNOPSIS
 
@@ -273,7 +273,12 @@ sub import {
                 next;
             }
 
-            my @content = $class->lexicon_get($src, scalar caller, $lang);
+            local $@;
+            my @content = eval {
+                $class->lexicon_get($src, scalar caller, $lang);
+            };
+            next if $@ and $@ eq 'next';
+            die $@ if $@;
 
             no strict 'refs';
             eval "use $class\::$format; 1" or die $@;
@@ -419,8 +424,9 @@ sub lexicon_get_ {
         map { File::Spec->catfile($_, @subpath, $src) } @INC;
     } -1 .. $#path)[-1] unless -e $src;
 
-    die "cannot find $_[1] (called by $_[2]) in \@INC" unless -e $src;
-    $fh->open($src) or die $!;
+    defined $src or die 'next';
+
+    $fh->open($src) or die "Cannot read $src (called by $caller): $!";
     binmode($fh);
     return <$fh>;
 }
