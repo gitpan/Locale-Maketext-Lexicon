@@ -46,7 +46,7 @@ sub run {
             wanted      => sub {
                 return if
                     ( -d ) ||
-                    ( $File::Find::dir =~ 'lib/blib|lib/t/autogen|var|m4|local' ) ||
+                    ( $File::Find::dir =~ m!\b(?:blib|autogen|var|m4|local|CVS|\.svn)\b! ) ||
                     ( /\.po$|\.bak$|~|,D|,B$/i ) ||
                     ( /^[\.#]/ );
                 push @ARGV, $File::Find::name;

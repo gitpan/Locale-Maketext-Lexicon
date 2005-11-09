@@ -249,8 +249,8 @@ sub extract {
         $_ = substr($_, pos($_)) if (pos($_));
         my $line = $orig - (() = ((my $__ = $_) =~ /\n/g));
 
-        # maketext or loc or _
-        $state == NUL && m/\b(translate|maketext|gettext|__?|loc|x)/gc
+        # various ways to spell the localization function
+        $state == NUL && m/\b(translate|maketext|gettext|__?|loc(?:ali[sz]e)?|x)/gc
                       && do { $state = BEG; redo };
         $state == BEG && m/^([\s\t\n]*)/gc && redo;
 
