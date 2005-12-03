@@ -4,10 +4,13 @@ use strict;
 use vars qw( @ISA @EXPORT_OK );
 
 use Cwd;
+use Config ();
 use File::Find;
 use Getopt::Long;
 use Locale::Maketext::Extract;
 use Exporter;
+
+use constant HAS_SYMLINK => ($Config::Config{d_symlink} ? 0 : 1);
 
 @ISA = 'Exporter';
 @EXPORT_OK = 'xgettext';
@@ -51,7 +54,7 @@ sub run {
                     ( /^[\.#]/ );
                 push @ARGV, $File::Find::name;
             },
-            follow      => 1,
+            follow      => HAS_SYMLINK,
         }, $dir );
     }
 

@@ -1,3 +1,9 @@
+[Changes for 0.51 - 2005-12-03]
+
+* Locale::Maketext::Extract::Run's use of File::Find::find with
+  (follow => 1) may break on systems without symbolic links.
+  Reported by Brian Cassidy.
+
 [Changes for 0.50 - 2005-11-04]
 
 * Per suggestion from Sava Chankov, add the (quite outdated) webl10n

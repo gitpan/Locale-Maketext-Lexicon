@@ -14,15 +14,15 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 b63bc5f5c67cb657f6a96425ba65b62606203ba4 AUTHORS
-SHA1 d9ff80c4dff0031edf8a96a8b66804a264f69c78 Changes
+SHA1 bafcc5f1e1f4842fc8b0480320a0b2022ddbd253 AUTHORS
+SHA1 d74c5c650dfd5649ad4d5ee972689d30f3f3529e Changes
 SHA1 9fc111f77b35af517645e4a6ffc7576019289087 MANIFEST
-SHA1 7b27d12a40cdc0a12e9b6baed91eec2310f5b448 META.yml
+SHA1 8eb77f66baaedeeab0f1570cd66b998c52ef0766 META.yml
 SHA1 a709d8b569c3fc575d785bfa691998b4d00716d2 Makefile.PL
 SHA1 c8de33b05914584c4dc5983c8ef098bae6292cbf README
 SHA1 32b1e227a532a33b3e666796e02b82c7589fdb51 docs/webl10n.html
 SHA1 ac162f84669f539d273d4fbb75efdf892e1cbead docs/webl10n.zh-tw.html
-SHA1 c66494a04f48519efebf2a0ec9b52eeadc7fd2a4 inc/Module/Install.pm
+SHA1 014bc8da033c1ff45d83d925ff658aa5fea343d8 inc/Module/Install.pm
 SHA1 a7f7e2bfb0ac6f8ad965832ef3a246a7bd433058 inc/Module/Install/Base.pm
 SHA1 7b0e82ea99187c2121bfc8fe590de8363e8100d7 inc/Module/Install/Can.pm
 SHA1 d097dedadac0edcafbee3a14c262e24089f5795e inc/Module/Install/Fetch.pm
@@ -32,8 +32,8 @@ SHA1 8c7eb61d081ec7783836d72ad81c0536df65dec0 inc/Module/Install/Scripts.pm
 SHA1 8ee248d67d4c61a4f01e6a96c41afbd93be4c9ef inc/Module/Install/Win32.pm
 SHA1 3c099dd7fb73a49bcc489b152c3ca3c7a1b36427 inc/Module/Install/WriteAll.pm
 SHA1 4fd140f86cf87abadc99fceb146c30683b164f8d lib/Locale/Maketext/Extract.pm
-SHA1 5db7c45c9ab0a1111499cbf07df0ef4fd7628494 lib/Locale/Maketext/Extract/Run.pm
-SHA1 7027ffc2dcfacd671e1eb86ef6ac26484ed3d27c lib/Locale/Maketext/Lexicon.pm
+SHA1 51911a1ff02100ac4eceb4bae0b1b6ee5ce213f3 lib/Locale/Maketext/Extract/Run.pm
+SHA1 6b66854a597fa69fdeeeb4ecd86c6ba5e3078357 lib/Locale/Maketext/Lexicon.pm
 SHA1 ecd3f4fa6b71c62b61420bdf4f175c351edee301 lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 23d21cf4819640a5addeca8b4fcbab15558050bd lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 e87b5fe4995756623fc1296368f01e2d8441dda2 lib/Locale/Maketext/Lexicon/Msgcat.pm
@@ -60,7 +60,7 @@ SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.2 (FreeBSD)
 
-iD8DBQFDazL5tLPdNzw1AaARAkZnAJ0VnyX1QZ7hwGc+Eg6wVQE/oBFJXACeMGhJ
-4SlA4svEkgixx0AuqGOASKs=
-=EhdE
+iD8DBQFDkYNLtLPdNzw1AaARAgKwAKCsn4EFE0+J/ashcnn0Yfew3gvdbACgtU3x
+S1p4sn4sa28HKQcXonuZ8pI=
+=jCyr
 -----END PGP SIGNATURE-----
