@@ -15,9 +15,9 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 bafcc5f1e1f4842fc8b0480320a0b2022ddbd253 AUTHORS
-SHA1 d74c5c650dfd5649ad4d5ee972689d30f3f3529e Changes
+SHA1 fa015590f9bbf43d2a463429eae7e7b49b797282 Changes
 SHA1 9fc111f77b35af517645e4a6ffc7576019289087 MANIFEST
-SHA1 8eb77f66baaedeeab0f1570cd66b998c52ef0766 META.yml
+SHA1 e97d665c8554e7bece29f429aa112a62888257d6 META.yml
 SHA1 a709d8b569c3fc575d785bfa691998b4d00716d2 Makefile.PL
 SHA1 c8de33b05914584c4dc5983c8ef098bae6292cbf README
 SHA1 32b1e227a532a33b3e666796e02b82c7589fdb51 docs/webl10n.html
@@ -31,9 +31,9 @@ SHA1 2f9a6d1fe7413b0c41760664d3a2d7f23793911a inc/Module/Install/Metadata.pm
 SHA1 8c7eb61d081ec7783836d72ad81c0536df65dec0 inc/Module/Install/Scripts.pm
 SHA1 8ee248d67d4c61a4f01e6a96c41afbd93be4c9ef inc/Module/Install/Win32.pm
 SHA1 3c099dd7fb73a49bcc489b152c3ca3c7a1b36427 inc/Module/Install/WriteAll.pm
-SHA1 4fd140f86cf87abadc99fceb146c30683b164f8d lib/Locale/Maketext/Extract.pm
-SHA1 51911a1ff02100ac4eceb4bae0b1b6ee5ce213f3 lib/Locale/Maketext/Extract/Run.pm
-SHA1 6b66854a597fa69fdeeeb4ecd86c6ba5e3078357 lib/Locale/Maketext/Lexicon.pm
+SHA1 0fb9e532d2b6210d7d3f528abe80c94bb2844d78 lib/Locale/Maketext/Extract.pm
+SHA1 951f711c045792c28610bec55d6f6185b1fd7549 lib/Locale/Maketext/Extract/Run.pm
+SHA1 86789f0eb028f234c66733b9366e74a474fb2a63 lib/Locale/Maketext/Lexicon.pm
 SHA1 ecd3f4fa6b71c62b61420bdf4f175c351edee301 lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 23d21cf4819640a5addeca8b4fcbab15558050bd lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 e87b5fe4995756623fc1296368f01e2d8441dda2 lib/Locale/Maketext/Lexicon/Msgcat.pm
@@ -60,7 +60,7 @@ SHA1 f406bdaaef403ba024f6d5f2be50d3fe821c7dc5 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.2 (FreeBSD)
 
-iD8DBQFDkYNLtLPdNzw1AaARAgKwAKCsn4EFE0+J/ashcnn0Yfew3gvdbACgtU3x
-S1p4sn4sa28HKQcXonuZ8pI=
-=jCyr
+iD8DBQFDkk2dtLPdNzw1AaARArWTAKCb93rVNjn5EmBOQF+C2PCA7OndawCdEnzJ
++cf5i4dh5Av79RNPWDsQjyM=
+=MbNb
 -----END PGP SIGNATURE-----

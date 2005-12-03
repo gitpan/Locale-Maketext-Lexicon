@@ -1,3 +1,7 @@
+[Changes for 0.52 - 2005-12-04]
+
+* Christian Hansen pointed out 0.51's fix was bass ackwards.
+
 [Changes for 0.51 - 2005-12-03]
 
 * Locale::Maketext::Extract::Run's use of File::Find::find with

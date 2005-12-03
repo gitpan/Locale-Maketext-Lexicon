@@ -10,7 +10,7 @@ use Getopt::Long;
 use Locale::Maketext::Extract;
 use Exporter;
 
-use constant HAS_SYMLINK => ($Config::Config{d_symlink} ? 0 : 1);
+use constant HAS_SYMLINK => ($Config::Config{d_symlink} ? 1 : 0);
 
 @ISA = 'Exporter';
 @EXPORT_OK = 'xgettext';
