@@ -66,7 +66,7 @@ sub run {
     foreach my $dir (@{$opts{p}||['.']}) {
         foreach my $po (@po) {
             my $Ext = Locale::Maketext::Extract->new;
-            $Ext->read_po($po, $opts{u}) if -r $po;
+            $Ext->read_po($po, $opts{u}) if -r $po and -s _;
             $Ext->extract_file($_) for grep !/\.po$/i, @ARGV;
             $Ext->compile($opts{u}) or next;
 
