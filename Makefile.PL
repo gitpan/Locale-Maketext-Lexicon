@@ -3,7 +3,7 @@
 use 5.005;
 use inc::Module::Install;
 
-author		('Autrijus Tang <autrijus@autrijus.org>');
+author		('Audrey Tang <autrijus@autrijus.org>');
 abstract	('Use other catalog formats in Maketext');
 name		('Locale-Maketext-Lexicon');
 version_from	('lib/Locale/Maketext/Lexicon.pm',);

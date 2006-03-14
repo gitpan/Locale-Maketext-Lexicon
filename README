@@ -6,25 +6,25 @@ the "Tie" interface.
 For extracting translatable strings from source files, a "xgettext.pl"
 utility is also installed by default.
 
-You can also read my presentation "Web Localization in Perl" online at
-http://www.autrijus.org/webl10n/.  It gives an overview for the localization
-process, features a comparison between Gettext, Msgcat and Maketext, and
-talks about my experiences at localizing web applications based on HTML::Mason
-and the Template Toolkit.
+You can also read my presentation "Web Localization in Perl" in the docs/
+directory.  It gives an overview for the localization process, features
+a comparison between Gettext, Msgcat and Maketext, and talks about my
+experiences at localizing web applications based on HTML::Mason and the
+Template Toolkit.
 
 * Installation
 
 Locale::Maketext::Lexicon uses the standard perl module install process:
 
-cpansign -v             # see the SIGNATURE file for details
-perl Makefile.PL
-make
-make test
-make install
+    cpansign -v         # optional; see the SIGNATURE file for details
+    perl Makefile.PL
+    make                # or 'nmake' on Win32
+    make test
+    make install
 
 * Copyright
 
-Copyright 2002, 2003, 2004 by Autrijus Tang <autrijus@autrijus.org>.
+Copyright 2002-2006 by Audrey Tang <autrijus@autrijus.org>.
 
 All rights reserved.  You can redistribute and/or modify
 this bundle under the same terms as Perl itself.

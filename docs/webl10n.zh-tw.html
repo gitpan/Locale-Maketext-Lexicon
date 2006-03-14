@@ -98,7 +98,7 @@ P.right {text-align: right}
 <table border=2 align=center>
 <caption align=bottom><font size=-1>列表2. 翻譯英文的網頁</font></caption>
 <tr><td><PRE>
-&lt;html&gt;&lt;head&gt;&lt;title&gt;<B>Autrijus.Home</B>&lt;/title&gt;&lt;/head&gt;
+&lt;html&gt;&lt;head&gt;&lt;title&gt;<B>Audrey.Home</B>&lt;/title&gt;&lt;/head&gt;
 &lt;body&gt;<B>Sorry, this page is under construction.</B>&lt;/body&gt;&lt;/html&gt;
 </PRE></td></tr></table>
 
@@ -199,7 +199,7 @@ P.right {text-align: right}
 use CGI ':standard'; <i># 此程式的模版系統（Templating System）</i>
 foreach my $language (qw(zh_tw en de fr)) {
     open OUT, "&gt;index.html.$language" or die $!;
-    print OUT start_html({ title =&gt; _(<b>"Autrijus.Home"</b>) }),
+    print OUT start_html({ title =&gt; _(<b>"Audrey.Home"</b>) }),
 	      _(<b>"Sorry, this page is under construction."</b>),
 	      end_html;        
     sub _ { some_function($language, @_) } <i># XXX: 需補上本土化架構</i>
@@ -255,7 +255,7 @@ Msgcat是最早的本土化架構，也是XPG3╱XPG4標準的一部份，因此
 <caption align=bottom><font size=-1>列表4. <tt>Msgcat</tt> 詞典檔</font></caption>
 <tr><td><PRE>
 $set <b>7</b> <i># $Id: nls/de/index.pl.m</i>
-<b>1</b> Autrijus'.Haus
+<b>1</b> Audrey'.Haus
 <b>2</b> Wir bitten um Entschudigung. Diese Seite ist im Aufbau.
 </PRE></td></tr></table>
 
@@ -286,7 +286,7 @@ $set <b>7</b> <i># $Id: nls/de/index.pl.m</i>
 </tr><tr>
 <td align="center" bgcolor=black><font color="white">1</font></td>
 <td><i>...</i></td><td><i>...</i></td><td><i>...</i></td><td><i>...</i></td><td><i>...</i></td><td><i>...</i></td>
-<td><tt>Autrijus'.Haus</tt></td>
+<td><tt>Audrey'.Haus</tt></td>
 <td><i>...</i></td><td><i>...</i></td>
 </tr><tr>
 <td align="center" bgcolor=black><font color="white">2</font></td>
@@ -309,11 +309,11 @@ use Locale::Msgcat;
 my $cat = Locale::Msgcat-&gt;new;
 $cat-&gt;catopen("nls/$language.cat", 1); <i># 想成是二維陣列</i>
 sub _ { $cat-&gt;catgets(<b>7</b>, @_) } <i># <b>7</b> 是 index.html 的集合編號（set_id）</i>
-print _(<b>1</b>, "Autrijus.House");  <i># <b>1</b> 是這串文字的詢息編號（msg_id）</i>
+print _(<b>1</b>, "Audrey.House");  <i># <b>1</b> 是這串文字的詢息編號（msg_id）</i>
 </PRE></td></tr></table>
 
 <p>
-要注意的是，祗有第一個參數（<tt>msg_id</tt>）有作用；接在後面的<tt>"Autrijus.House"</tt>祗是作為查詢失敗時的預設傳回值，以及讓人比較容易看懂而已。
+要注意的是，祗有第一個參數（<tt>msg_id</tt>）有作用；接在後面的<tt>"Audrey.House"</tt>祗是作為查詢失敗時的預設傳回值，以及讓人比較容易看懂而已。
 
 <p>
 因為<tt>set_id</tt>及<tt>msg_id</tt>的組合必須獨一無二、不能更改，因此更新時祗能刪除某個編號，而無法重複利用。這項特性往往造成更新困難，正如Drepper等人在GNU <tt>gettext</tt>說明文件裡指出的：
@@ -363,8 +363,8 @@ Gettext不需要為每份源碼檔案準備各自的詞典，而是為整個專�
 <caption align=bottom><font size=-1>列表8. <tt>Gettext</tt> 詞典檔</font></caption>
 <tr><td><PRE>
 #: index.pl:4
-msgid "Autrijus.Home"
-msgstr "Autrijus'.Haus"
+msgid "Audrey.Home"
+msgstr "Audrey'.Haus"
 
 #: index.pl:5
 msgid "Sorry, this site is under construction."

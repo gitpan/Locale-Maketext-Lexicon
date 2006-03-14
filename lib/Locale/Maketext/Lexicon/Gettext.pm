@@ -260,11 +260,11 @@ L<Locale::Maketext>, L<Locale::Maketext::Lexicon>
 
 =head1 AUTHORS
 
-Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
+Audrey Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002, 2003, 2004 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002, 2003, 2004 by Audrey Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

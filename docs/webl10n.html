@@ -6,7 +6,7 @@ P.right {text-align: right}
 
 <h1>Web Localization in Perl</h1>
 <p class="right" align="right">
-Autrijus Tang<br>
+Audrey Tang<br>
 OurInternet, Inc.<br>
 July 2002
 
@@ -101,7 +101,7 @@ One day, I decided to translate it for my English-speaking friends:
 <table border=2 align=center>
 <caption align=bottom><font size=-1>Listing 2. Translated page in English</font></caption>
 <tr><td><PRE>
-&lt;html&gt;&lt;head&gt;&lt;title&gt;<B>Autrijus.Home</B>&lt;/title&gt;&lt;/head&gt;
+&lt;html&gt;&lt;head&gt;&lt;title&gt;<B>Audrey.Home</B>&lt;/title&gt;&lt;/head&gt;
 &lt;body&gt;<B>Sorry, this page is under construction.</B>&lt;/body&gt;&lt;/html&gt;
 </PRE></td></tr></table>
 
@@ -202,7 +202,7 @@ As the long-established Web development language of choice, Perl offers a bewild
 use CGI ':standard'; <i># our templating system</i>
 foreach my $language (qw(zh_tw en de fr)) {
     open OUT, "&gt;index.html.$language" or die $!;
-    print OUT start_html({ title =&gt; _(<b>"Autrijus.Home"</b>) }),
+    print OUT start_html({ title =&gt; _(<b>"Audrey.Home"</b>) }),
 	      _(<b>"Sorry, this page is under construction."</b>),
 	      end_html;        
     sub _ { some_function($language, @_) } <i># XXX: put L10n framework here</i>
@@ -258,7 +258,7 @@ For each page or source file, <tt>Msgcat</tt> requires us to make a lexicon file
 <caption align=bottom><font size=-1>Listing 4. A <tt>Msgcat</tt> lexicon</font></caption>
 <tr><td><PRE>
 $set <b>7</b> <i># $Id: nls/de/index.pl.m</i>
-<b>1</b> Autrijus'.Haus
+<b>1</b> Audrey'.Haus
 <b>2</b> Wir bitten um Entschudigung. Diese Seite ist im Aufbau.
 </PRE></td></tr></table>
 
@@ -289,7 +289,7 @@ It is best to imagine the internals of the binary lexicon as a two-dimensional a
 </tr><tr>
 <td align="center" bgcolor=black><font color="white">1</font></td>
 <td><i>...</i></td><td><i>...</i></td><td><i>...</i></td><td><i>...</i></td><td><i>...</i></td><td><i>...</i></td>
-<td><tt>Autrijus'.Haus</tt></td>
+<td><tt>Audrey'.Haus</tt></td>
 <td><i>...</i></td><td><i>...</i></td>
 </tr><tr>
 <td align="center" bgcolor=black><font color="white">2</font></td>
@@ -312,11 +312,11 @@ use Locale::Msgcat;
 my $cat = Locale::Msgcat-&gt;new;
 $cat-&gt;catopen("nls/$language.cat", 1); <i># it's like a 2D array</i>
 sub _ { $cat-&gt;catgets(<b>7</b>, @_) } <i># <b>7</b> is the set_id for index.html</i>
-print _(<b>1</b>, "Autrijus.House");  <i># <b>1</b> is the msg_id for this text</i>
+print _(<b>1</b>, "Audrey.House");  <i># <b>1</b> is the msg_id for this text</i>
 </PRE></td></tr></table>
 
 <p>
-Note that only the <tt>msg_id</tt> matters here; the string <tt>"Autrijus.House"</tt> is only used as an optional fall-back when the lookup failed, as well as to improve the program's readability.
+Note that only the <tt>msg_id</tt> matters here; the string <tt>"Audrey.House"</tt> is only used as an optional fall-back when the lookup failed, as well as to improve the program's readability.
 
 <p>
 Because <tt>set_id</tt> and <tt>msg_id</tt> must both be <em>unique</em> and <em>immutable</em>, future revision may only delete entries, and never reassign the number to represent other strings.  This characteristic makes revisions very costly, as observed by Drepper et al in the GNU gettext manuals:
@@ -371,8 +371,8 @@ Instead of requiring one lexicon for each source file, <tt>Gettext</tt> maintain
 <caption align=bottom><font size=-1>Listing 8. A <tt>Gettext</tt> lexicon</font></caption>
 <tr><td><PRE>
 #: index.pl:4
-msgid "Autrijus.Home"
-msgstr "Autrijus'.Haus"
+msgid "Audrey.Home"
+msgstr "Audrey'.Haus"
 
 #: index.pl:5
 msgid "Sorry, this site is under construction."

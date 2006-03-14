@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.53';
+$Locale::Maketext::Lexicon::VERSION = '0.54';
 
 use strict;
 
@@ -9,8 +9,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.53 of Locale::Maketext::Lexicon,
-released December 5, 2005.
+This document describes version 0.54 of Locale::Maketext::Lexicon,
+released March 14, 2006.
 
 =head1 SYNOPSIS
 
@@ -287,6 +287,8 @@ sub import {
                 if (ref(tied %{"$export\::Lexicon"}) eq __PACKAGE__) {
                     tied(%{"$export\::Lexicon"})->_force;
                 }
+                # clear the memoized cache for old entries:
+                Locale::Maketext->clear_isa_scan;
                 # be very careful not to pollute the possibly tied lexicon
                 *{"$export\::Lexicon"} = {
                     %{"$export\::Lexicon"},
@@ -459,11 +461,11 @@ L<Locale::Maketext::Lexicon::Tie>
 
 =head1 AUTHORS
 
-Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
+Audrey Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002, 2003, 2004, 2005 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002-2006 by Audrey Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

@@ -8,6 +8,7 @@ use strict;
 use Test;
 
 BEGIN {
+    %ENV = ();
     plan(tests => 0), exit
 	unless eval { require Encode::compat; 1 }
 	    or eval { require Encode; 1 }
@@ -102,7 +103,7 @@ eval {
 # 11
 ok($@, "");
 # 12
-ok($_, "Big5"); # XXX: was "UTF-8";
+ok($_, "UTF-8");
 
 # Turn to UTF-8
 eval {
