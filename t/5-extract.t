@@ -1,7 +1,7 @@
 #! /usr/bin/perl -w
 use lib '../lib';
 use strict;
-use Test::More tests => 21;
+use Test::More tests => 22;
 
 use_ok('Locale::Maketext::Extract');
 my $Ext = Locale::Maketext::Extract->new;
@@ -36,6 +36,8 @@ extract_ok(qq(_("foobar\n"))	=> "foobar\n",	    'Trailing literal \n in qq');
 extract_ok(q(_('foo\bar'))	=> 'foo\\\\bar',    'Escaped \ in q');
 extract_ok(q(_('foo\\\\bar'))	=> 'foo\\\\bar',    'Normalized \\\\ in q');
 extract_ok(q(_("foo\bar"))	=> 'foo\bar',	    'Interpolated \t in qq');
+
+extract_ok(q([% loc( 'foo "bar" baz' ) %]) => 'foo \\"bar\\" baz', 'Escaped double quote in text');
 
 sub extract_ok {
     my ($text, $result, $info, $verbatim) = @_;

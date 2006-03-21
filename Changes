@@ -1,3 +1,9 @@
+[Changes for 0.55 - 2006-03-22]
+
+* Locale::Maketext::Extract: Fix a long-standing bug that caused
+  double-escaping of backslashes and double quotes in loc strings.
+  Contributed by: Brian Cassidy
+
 [Changes for 0.54 - 2006-03-14]
 
 * When importing into an already defined lexicon and merging with its

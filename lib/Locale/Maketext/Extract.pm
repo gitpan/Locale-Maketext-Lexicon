@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.10';
+$Locale::Maketext::Extract::VERSION = '0.11';
 
 use strict;
 
@@ -449,8 +449,7 @@ sub _escape {
 
 sub _format {
     my $str = shift;
-    $str =~ s/\\/\\\\/g;
-    $str =~ s/"/\\"/g;
+
     return "\"$str\"\n" unless $str =~ /\n/;
     my $multi_line = ($str =~ /\n(?!\z)/);
     $str =~ s/\n/\\n"\n"/g;

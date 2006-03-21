@@ -15,9 +15,9 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 bafcc5f1e1f4842fc8b0480320a0b2022ddbd253 AUTHORS
-SHA1 a0f62d7c2ae8db22b95ea98e9d6366eded9f2e5a Changes
+SHA1 ce23bb97cd18b3f9bec5ba356526be79ee38b6b1 Changes
 SHA1 9fc111f77b35af517645e4a6ffc7576019289087 MANIFEST
-SHA1 0527b7600b0e52332a20a0213ee771355aec5935 META.yml
+SHA1 a9c76d28f1cee94d14fb3ab8cdb5852439194cf5 META.yml
 SHA1 6b44d4c491da64ff3ef67c7c9ba95c5527213187 Makefile.PL
 SHA1 645e193bbce96a989073284b0a8a85a36d22eabd README
 SHA1 7fdfd4cbb0192d65e96e99e9b1b430eb749e5c4f docs/webl10n.html
@@ -31,9 +31,9 @@ SHA1 c8c9737da19baa15ffa7d9d5037913f64b592189 inc/Module/Install/Metadata.pm
 SHA1 267e57a7b78351d5fa424fc4b8c595025a89305d inc/Module/Install/Scripts.pm
 SHA1 b97304e2a5c405d950eeaa4afd09c6b5507571c3 inc/Module/Install/Win32.pm
 SHA1 73a588d58f7ad0a6a9ed0ea80c48fa12f234a02c inc/Module/Install/WriteAll.pm
-SHA1 e8a7a600f5aa5ca7c3def1db558e2592a369930a lib/Locale/Maketext/Extract.pm
+SHA1 54896a5027576432b05367a9da22e0277c0ee470 lib/Locale/Maketext/Extract.pm
 SHA1 0025981eb723f2e37f20862e1743811cd5110ead lib/Locale/Maketext/Extract/Run.pm
-SHA1 00026ecc20c6bc09235600851644b8f8ea34fd0c lib/Locale/Maketext/Lexicon.pm
+SHA1 edf63c6e0bf3a88b199bdae0ad0607aa96383a92 lib/Locale/Maketext/Lexicon.pm
 SHA1 5c7d2f3f472dbfdf7e67c1bcca03e6cebaf9c4ba lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 c1bccd14e323d360ef853afeee2edbcff3b498ad lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 39bf2e1851c0660805353dd8e1e2b701a02289ad lib/Locale/Maketext/Lexicon/Msgcat.pm
@@ -43,7 +43,7 @@ SHA1 e3e3f633358d38e285fe2118a2aae85e4e697fa1 t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
 SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
 SHA1 07e68cea617f91bb9dbbd9ce0b8fdd0a486f3125 t/4-encodings.t
-SHA1 358bb88695b7782e6167a81a33f57c1142fde042 t/5-extract.t
+SHA1 c96b39da6dd40406898c9a7eefaebfc92947398c t/5-extract.t
 SHA1 20689d41baa53f44caf0bc8ef8fdefcda77d82f9 t/T_L10N.pm
 SHA1 9e9ad7041b84d302c577810aaba9ba76bceb2b2b t/gencat.m
 SHA1 d5a3581bbbec3df38f7c47dc82edfbdb0964bebd t/locale/en/LC_MESSAGES/test.mo
@@ -60,7 +60,7 @@ SHA1 0cf7f59919ea9842c8ba1c33f6b1cf33265f54a2 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.2 (FreeBSD)
 
-iD8DBQFEFhT8tLPdNzw1AaARAjbqAJ4maPLrEvQyaL72U7a0R8RP6wyl9ACcCo6H
-pXGVuvDJRKoRrYkn6PEjfvM=
-=249W
+iD8DBQFEIH3EtLPdNzw1AaARAhQZAJ4s8A1PaLxVXT98ANEp3HdlqpdlKwCcCRvr
+LV4q9mCPpcMnGSMaLJAwvIY=
+=aWiJ
 -----END PGP SIGNATURE-----
