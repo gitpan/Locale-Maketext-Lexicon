@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.55';
+$Locale::Maketext::Lexicon::VERSION = '0.56';
 
 use strict;
 
@@ -9,8 +9,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.55 of Locale::Maketext::Lexicon,
-released March 22, 2006.
+This document describes version 0.56 of Locale::Maketext::Lexicon,
+released April 2, 2006.
 
 =head1 SYNOPSIS
 
@@ -21,7 +21,12 @@ lexicons:
     use base 'Locale::Maketext';
     use Locale::Maketext::Lexicon {
         '*' => [Gettext => '/usr/local/share/locale/*/LC_MESSAGES/hello.mo'],
-        _decode => 1,   # decode lexicon entries into utf8-strings
+        ### Uncomment to decode lexicon entries into Unicode strings
+        # _decode => 1,
+        ### Uncomment to fallback when a key is missing from lexicons
+        # _auto   => 1,
+        ### Uncomment to use %1 / %quant(%1) instead of [_1] / [quant, _1]
+        # _style  => 'gettext',
     };
 
 Explicitly specify languages, during compile- or run-time:
@@ -120,6 +125,12 @@ the filename, the last one is used as the language name.
 =head2 Options
 
 =over 4
+
+=item C<_auto>
+
+If set to a true value, missing lookups on lexicons are handled
+silently, as if an C<Auto> lexicon has been appended on all
+language lexicons.
 
 =item C<_decode>
 
@@ -305,8 +316,37 @@ sub import {
                 };
             }
 
-            push(@{"$export\::ISA"}, scalar caller) if length $lang;
+            length $lang or next;
+
+            # Avoid re-entry
+            my $caller = caller();
+            next if $export->isa($caller);
+
+            push(@{"$export\::ISA"}, scalar caller);
+
+            if (my $style = option('style')) {
+                my $cref = $class->can(lc("_style_$style"))->( $class, $export->can('maketext') )
+                  or die "Unknown style: $style";
+
+                # Avoid redefinition warnings
+                local $SIG{__WARN__} = sub { 1 };
+                *{"$export\::maketext"} = $cref;
+            }
         }
+    }
+}
+
+sub _style_gettext {
+    my ($self, $orig) = @_;
+
+    sub {
+        my $lh  = shift;
+        my $str = shift;
+        $str =~ s/[\~\[\]]/~$&/g;
+        $str =~ s{(^|[^%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)}
+                {"$1\[$2,"._unescape($3)."]"}eg;
+        $str =~ s/(^|[^%\\])%(\d+|\*)/$1\[_$2]/g;
+        return $orig->($lh, $str, @_);
     }
 }
 
@@ -323,6 +363,9 @@ sub TIEHASH {
         if (!$args->{Done}++) {
             local *Opts = $args->{Opts};
             *{$args->{Export}} = $args->{Class}->parse(@{$args->{Content}});
+            if (option('auto')) {
+                (\%{$args->{Export}})->{'_AUTO'} = 1;
+            }
         }
         return \%{$args->{Export}};
     }
@@ -461,11 +504,11 @@ L<Locale::Maketext::Lexicon::Tie>
 
 =head1 AUTHORS
 
-Audrey Tang E<lt>autrijus@autrijus.orgE<gt>
+Audrey Tang E<lt>audreyt@audreyt.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002-2006 by Audrey Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2002-2006 by Audrey Tang E<lt>audreyt@audreyt.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.

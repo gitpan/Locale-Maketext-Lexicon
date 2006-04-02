@@ -1,3 +1,13 @@
+[Changes for 0.56 - 2006-04-02]
+
+* Locale::Maketext::Lexicon: Specifying the new "_auto => 1" option
+  now turns on _AUTO fallback handling for all language handles.
+  Requested by: Jesse Vincent
+
+* Locale::Maketext::Lexicon: Specifying the new "_style => 'gettext'"
+  option makes "%1" and "%quant(%1)" to be used for interpolation,
+  instead of "[_1]" and "[quant,_1]".
+
 [Changes for 0.55 - 2006-03-22]
 
 * Locale::Maketext::Extract: Fix a long-standing bug that caused

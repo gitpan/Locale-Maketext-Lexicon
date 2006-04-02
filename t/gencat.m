@@ -1,4 +1,4 @@
-$ by Audrey Tang <autrijus@autrijus.org>
+$ by Audrey Tang <audreyt@audreyt.org>
 $set 1 # $Id: //member/autrijus/Locale-Maketext-Lexicon/t/gencat.m#1 $
 1 First string
 2 Second \
