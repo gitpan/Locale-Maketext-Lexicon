@@ -11,4 +11,4 @@ no_index:
 requires: 
   Locale::Maketext: 0.01
   Test::More: 0.01
-version: 0.56
+version: 0.57

@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.56';
+$Locale::Maketext::Lexicon::VERSION = '0.57';
 
 use strict;
 
@@ -9,8 +9,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.56 of Locale::Maketext::Lexicon,
-released April 2, 2006.
+This document describes version 0.57 of Locale::Maketext::Lexicon,
+released April 11, 2006.
 
 =head1 SYNOPSIS
 
@@ -342,12 +342,25 @@ sub _style_gettext {
     sub {
         my $lh  = shift;
         my $str = shift;
-        $str =~ s/[\~\[\]]/~$&/g;
-        $str =~ s{(^|[^%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)}
-                {"$1\[$2,"._unescape($3)."]"}eg;
-        $str =~ s/(^|[^%\\])%(\d+|\*)/$1\[_$2]/g;
+        $str =~ s{([\~\[\]])}{~$1}g;
+        $str =~ s{  ([%\\]%)                        # 1 - escaped sequence
+                 |  % 
+                        (?:
+                            ([A-Za-z#*]\w*)         # 2 - function call
+                                \(([^\)]*)\)        # 3 - arguments
+                        |
+                            (\d+|\*)                # 4 - variable
+                        )
+                 }
+                 {$1 ? $1 : $2 ? "\[$2,"._unescape($3)."]" : "[_$4]"}egx;
         return $orig->($lh, $str, @_);
     }
+}
+
+sub _unescape {
+    my $str = shift;
+    $str =~ s/(^|,)%(\d+|\*)(,|$)/$1_$2$3/g;
+    return $str;
 }
 
 sub TIEHASH {

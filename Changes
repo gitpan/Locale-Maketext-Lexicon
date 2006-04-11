@@ -1,3 +1,9 @@
+[Changes for 0.57 - 2006-04-11]
+
+* Locale::Maketext::Locale: The "_style => 'gettext'" option was
+  broken for function forms such as "%quant(%1)", as well as
+  adjacent variables such as "%1%2%3".
+
 [Changes for 0.56 - 2006-04-02]
 
 * Locale::Maketext::Lexicon: Specifying the new "_auto => 1" option

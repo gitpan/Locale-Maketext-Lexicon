@@ -15,9 +15,9 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 bafcc5f1e1f4842fc8b0480320a0b2022ddbd253 AUTHORS
-SHA1 73c042f4738619efc1922175975ef84cbff99bdb Changes
+SHA1 3a96423391ec2801ab739206f961c19a69f4589b Changes
 SHA1 cb553170340336a90ab7c46e1df5e29e989d6289 MANIFEST
-SHA1 57a4df81f88790f074406f523c112dc8cdf5a4db META.yml
+SHA1 b1b16fb7e8f5d5e295edf60ae72dd53ad674293d META.yml
 SHA1 64e5fe7c5d7914f2306cbb68db417d396b2655bc Makefile.PL
 SHA1 ea3de9e13f98b6daffc6d5fdf21f9d6e069a23ae README
 SHA1 7fdfd4cbb0192d65e96e99e9b1b430eb749e5c4f docs/webl10n.html
@@ -26,14 +26,14 @@ SHA1 2717bafc00ef3ee340b9025b8294ba14e8fcfb94 inc/Module/Install.pm
 SHA1 e7c1c86f57b6778f4bdc7fd8c1b950e60ef41bc0 inc/Module/Install/Base.pm
 SHA1 e1829448769445cdaac384a888bf9ccf42e0d89a inc/Module/Install/Can.pm
 SHA1 70aa5e2055e8e38b4eecc5fc8c91762c0e97f551 inc/Module/Install/Fetch.pm
-SHA1 d4b0d06207e3639c215ed1dbb8eaa5c703cf8be5 inc/Module/Install/Makefile.pm
+SHA1 6db0f3caa66d11dd527a96931cf9869915383bf3 inc/Module/Install/Makefile.pm
 SHA1 0807e79d6dbfda4fcd3db0fc7df2e33e0cba263b inc/Module/Install/Metadata.pm
 SHA1 567fde53d9f24db2ab823d1031dec5e48f55def6 inc/Module/Install/Scripts.pm
 SHA1 4da0a1fce2339cc3f8c296c7716480d2564d9470 inc/Module/Install/Win32.pm
 SHA1 9a903a1d178954ad864c7dcc98f9fa5c005d1553 inc/Module/Install/WriteAll.pm
 SHA1 b2e9f710c3d2ee8151c42cfdd8c1d498a45bf938 lib/Locale/Maketext/Extract.pm
 SHA1 0025981eb723f2e37f20862e1743811cd5110ead lib/Locale/Maketext/Extract/Run.pm
-SHA1 e4ec8fb812f23ffd19dbb4ec674d95fd775becd0 lib/Locale/Maketext/Lexicon.pm
+SHA1 826be9f6bda73ba4080a2ea69f38bc814f7b940a lib/Locale/Maketext/Lexicon.pm
 SHA1 5a38f8b2e40db1afeee52bfe8c8005d8d528b7d2 lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 ccd5ba340e5d75144806c36f30414c4331566c93 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 524332f2a2e34ef004d64ba086982e762a86af2d lib/Locale/Maketext/Lexicon/Msgcat.pm
@@ -60,7 +60,7 @@ SHA1 432f00120e1b8f5e9b2de46908885d0cb848d58c t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.2 (FreeBSD)
 
-iD8DBQFEL/FatLPdNzw1AaARAjyaAJ0drG0sPtwn1Bhs2jbIgXkfxKfHKQCgijgP
-CQseYdgfKqBm7KSmvTehQuk=
-=WJvf
+iD8DBQFEO58atLPdNzw1AaARAnPAAJ9+nTEqYl3Uhlp/Dr2ge843uSoWiACfQeb0
+lfOuVD2H9G3UzNSkiXEZ+7M=
+=6oTd
 -----END PGP SIGNATURE-----
