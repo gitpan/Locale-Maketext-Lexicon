@@ -193,19 +193,32 @@ sub transform {
             : Encode::encode($OutputEncoding, $str)
     }
 
-    $str =~ s/([~\[\]])/~$1/g;
-    $str =~ s/(?<![%\\])%([A-Za-z#*]\w*)\(([^\)]*)\)/[$1,~~~$2~~~]/g;
-    $str = join('', map {
-        /^~~~.*~~~$/ ? unescape(substr($_, 3, -3)) : $_
-    } split(/(~~~.*?~~~)/, $str));
-    $str =~ s/(?<![%\\])%(\d+|\*)/\[_$1]/g;
-
-    return $str;
+    return _gettext_to_maketext($str);
 }
 
-sub unescape {
+sub _gettext_to_maketext {
+    my $str = shift;
+    $str =~ s{([\~\[\]])}{~$1}g;
+    $str =~ s{
+        ([%\\]%)                        # 1 - escaped sequence
+    |
+        %   (?:
+                ([A-Za-z#*]\w*)         # 2 - function call
+                    \(([^\)]*)\)        # 3 - arguments
+            |
+                ([1-9]\d*|\*)           # 4 - variable
+            )
+    }{
+        $1 ? $1
+           : $2 ? "\[$2,"._unescape($3)."]"
+                : "[_$4]"
+    }egx;
+    $str;
+}
+
+sub _unescape {
     join(',', map {
-        /^%(?:\d+|\*)$/ ? ("_" . substr($_, 1)) : $_
+        /\A(\s*)%([1-9]\d*|\*)(\s*)\z/ ? "$1_$2$3" : $_
     } split(/,/, $_[0]));
 }
 

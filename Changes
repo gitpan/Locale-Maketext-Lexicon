@@ -1,3 +1,21 @@
+[Changes for 0.58 - 2006-04-13]
+
+* Locale::Maketext::Extract: Direct calls to ->write_po now
+  escapes the msg strings by default (reverting to <=0.54
+  behaviour), but calls via xgettext.pl (and ::Extract::Run)
+  now always specify the "verbatim" flag to ->write_po, so
+  users of extraction tools are still free from double escaping.
+  Requested by: Thierry Vignaud
+
+* Locale::Maketext::Extract: Allow the "# loc" marker at the
+  end of a statement:
+    say "foo"; # loc
+  previously it only worked on closing brackets and commas.
+
+* Locale::Maketext::Lexicon: The "gettext" style no longer parses
+  "%0" as a variable.  Also allows spaces between function arguments:
+    %quant(%1, %2)
+
 [Changes for 0.57 - 2006-04-11]
 
 * Locale::Maketext::Locale: The "_style => 'gettext'" option was

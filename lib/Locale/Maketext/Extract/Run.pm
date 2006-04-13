@@ -71,7 +71,9 @@ sub run {
             $Ext->compile($opts{u}) or next;
 
             chdir $dir;
-            $Ext->write_po($po, $opts{g});
+
+            use constant ALWAYS_VERBATIM => 1;
+            $Ext->write_po($po, $opts{g}, ALWAYS_VERBATIM);
             chdir $cwd;
         }
     }

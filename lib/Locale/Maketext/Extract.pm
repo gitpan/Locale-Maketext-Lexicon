@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.11';
+$Locale::Maketext::Extract::VERSION = '0.12';
 
 use strict;
 
@@ -99,8 +99,7 @@ sub clear {
 
 =head2 PO File manipulation
 
-    read_po
-    write_po
+=head3 method read_po ($file, $verbatim?)
 
 =cut
 
@@ -127,8 +126,12 @@ sub read_po {
     close LEXICON;
 }
 
+=head3 method write_po ($file, $add_format?, $verbatim?)
+
+=cut
+
 sub write_po {
-    my ($self, $file, $add_format) = @_;
+    my ($self, $file, $add_format, $verbatim) = @_;
 
     local *LEXICON;
     open LEXICON, ">$file" or die "Can't write to $file$!\n";
@@ -141,7 +144,7 @@ sub write_po {
         print LEXICON $self->msg_positions($msgid);
         print LEXICON $self->msg_variables($msgid);
         print LEXICON $self->msg_format($msgid) if $add_format;
-        print LEXICON $self->msg_out($msgid);
+        print LEXICON $self->msg_out($msgid, $verbatim);
     }
 }
 
@@ -221,7 +224,7 @@ sub extract {
 
     # Comment-based mark: "..." # loc
     $line = 1; pos($_) = 0;
-    while (m/\G(.*?($quoted)[\}\)\],]*\s*\#\s*loc\s*$)/smog) {
+    while (m/\G(.*?($quoted)[\}\)\],;]*\s*\#\s*loc\s*$)/smog) {
         my $str = substr($2, 1, -1);
         $line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
         $str  =~ s/\\(["'])/$1/g;
@@ -230,7 +233,7 @@ sub extract {
 
     # Comment-based pair mark: "..." => "..." # loc_pair
     $line = 1; pos($_) = 0;
-    while (m/\G(.*?(\w+)\s*=>\s*($quoted)[\}\)\],]*\s*\#\s*loc_pair\s*$)/smg) {
+    while (m/\G(.*?(\w+)\s*=>\s*($quoted)[\}\)\],;]*\s*\#\s*loc_pair\s*$)/smg) {
         my $key = $2;
         my $val = substr($3, 1, -1);
         $line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
@@ -378,15 +381,21 @@ sub msg_variables {
 
 sub msg_format {
     my ($self, $msgid) = @_;
-    return "#, perl-maketext-format\n" if $msgid =~ /%(?:\d|\w+\([^\)]*\))/;
+    return "#, perl-maketext-format\n" if $msgid =~ /%(?:[1-9]\d*|\w+\([^\)]*\))/;
     return '';
 }
 
 sub msg_out {
-    my ($self, $msgid) = @_;
+    my ($self, $msgid, $verbatim) = @_;
+    my $msgstr = $self->msgstr($msgid);
+
+    if (!$verbatim) {
+        $msgid =~ s/(?=[\\"])/\\/g;
+        $msgstr =~ s/(?=[\\"])/\\/g;
+    }
 
     return "msgid "  . _format($msgid) .
-           "msgstr " . _format($self->msgstr($msgid));
+           "msgstr " . _format($msgstr);
 }
 
 =head2 Internal utilities
@@ -431,7 +440,7 @@ sub _to_gettext {
     }
     return $text if $verbatim;
 
-    $text =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
+    $text =~ s/((?<!~)(?:~~)*)\[_([1-9]\d*)\]/$1%$2/g;
     $text =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*),([^\]]+)\]/$1%$2("""$3""")/g;
     $text = join('', map {
         /^""".*"""$/ ? _escape(substr($_, 3, -3)) : $_
@@ -443,7 +452,7 @@ sub _to_gettext {
 
 sub _escape {
     my $text = shift;
-    $text =~ s/\b_(\d+)/%$1/g;
+    $text =~ s/\b_([1-9]\d*)/%$1/g;
     return $text;
 }
 
@@ -482,7 +491,7 @@ Audrey Tang E<lt>audreyt@audreyt.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2003, 2004 by Audrey Tang E<lt>audreyt@audreyt.orgE<gt>.
+Copyright 2003, 2004, 2005, 2006 by Audrey Tang E<lt>audreyt@audreyt.orgE<gt>.
 
 This program is free software; you can redistribute it and/or 
 modify it under the same terms as Perl itself.
