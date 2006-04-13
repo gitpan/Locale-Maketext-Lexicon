@@ -26,7 +26,7 @@ sub run {
     Getopt::Long::GetOptions( \%opts,
         'f|files-from:s@',
         'D|directory:s@',
-        'u|unescaped',
+        'u|use-gettext-style|unescaped',
         'g|gnu-gettext',
         'o|output:s@',
         'd|default-domain:s',
@@ -59,21 +59,19 @@ sub run {
     }
 
     @ARGV = ('-') unless @ARGV;
-    s!^.[/\\]!! for @ARGV;
+    s!^\.[/\\]!! for @ARGV;
 
     my $cwd = getcwd();
 
     foreach my $dir (@{$opts{p}||['.']}) {
         foreach my $po (@po) {
             my $Ext = Locale::Maketext::Extract->new;
-            $Ext->read_po($po, $opts{u}) if -r $po and -s _;
+            $Ext->read_po($po) if -r $po and -s _;
             $Ext->extract_file($_) for grep !/\.po$/i, @ARGV;
             $Ext->compile($opts{u}) or next;
 
             chdir $dir;
-
-            use constant ALWAYS_VERBATIM => 1;
-            $Ext->write_po($po, $opts{g}, ALWAYS_VERBATIM);
+            $Ext->write_po($po, $opts{g});
             chdir $cwd;
         }
     }

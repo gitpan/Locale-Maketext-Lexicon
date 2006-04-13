@@ -28,6 +28,7 @@ t/2-lmg.t
 t/3-big-endian.t
 t/4-encodings.t
 t/5-extract.t
+t/6-gettext.t
 t/gencat.m
 t/locale/en/LC_MESSAGES/test.mo
 t/locale/en/LC_MESSAGES/test_be.mo

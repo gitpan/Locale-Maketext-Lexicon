@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.12';
+$Locale::Maketext::Extract::VERSION = '0.20';
 
 use strict;
 
@@ -12,7 +12,11 @@ Locale::Maketext::Extract - Extract translatable strings from source
     my $Ext = Locale::Maketext::Extract->new;
     $Ext->read_po('messages.po');
     $Ext->extract_file($_) for <*.pl>;
-    $Ext->compile;
+
+    # Set $entries_are_in_gettext_format if the .pl files above use
+    # loc('%1') instead of loc('[_1]')
+    $Ext->compile($entries_are_in_gettext_format);
+
     $Ext->write_po('messages.po');
 
 =head1 DESCRIPTION
@@ -63,7 +67,7 @@ Strings inside {{...}} are extracted.
 
 sub new {
     my $class = shift;
-    bless({ header => '', entries => {}, lexicon => {}, @_ }, $class);
+    bless({ header => '', entries => {}, compiled_entries => {}, lexicon => {}, @_ }, $class);
 }
 
 =head2 Accessors
@@ -71,6 +75,8 @@ sub new {
     header, set_header
     lexicon, set_lexicon, msgstr, set_msgstr
     entries, set_entries, entry, add_entry, del_entry
+    compiled_entries, set_compiled_entries, compiled_entry,
+    add_compiled_entry, del_compiled_entry
     clear
 
 =cut
@@ -87,24 +93,32 @@ sub set_msgstr { $_[0]{lexicon}{$_[1]} = $_[2] }
 sub entries { $_[0]{entries} }
 sub set_entries { $_[0]{entries} = $_[1] || {} }
 
+sub compiled_entries { $_[0]{compiled_entries} }
+sub set_compiled_entries { $_[0]{compiled_entries} = $_[1] || {} }
+
 sub entry { @{$_[0]->entries->{$_[1]} || [] } }
 sub add_entry { push @{$_[0]->entries->{$_[1]}}, $_[2] }
 sub del_entry { delete $_[0]->entries->{$_[1]} }
+
+sub compiled_entry { @{$_[0]->compiled_entries->{$_[1]} || [] } }
+sub add_compiled_entry { push @{$_[0]->compiled_entries->{$_[1]}}, $_[2] }
+sub del_compiled_entry { delete $_[0]->compiled_entries->{$_[1]} }
 
 sub clear {
     $_[0]->set_header;
     $_[0]->set_lexicon;
     $_[0]->set_entries;
+    $_[0]->set_compiled_entries;
 }
 
 =head2 PO File manipulation
 
-=head3 method read_po ($file, $verbatim?)
+=head3 method read_po ($file)
 
 =cut
 
 sub read_po {
-    my ($self, $file, $verbatim) = @_;
+    my ($self, $file) = @_;
     my $header = '';
 
     local *LEXICON;
@@ -118,20 +132,24 @@ sub read_po {
     $self->set_header("$header\n");
 
     require Locale::Maketext::Lexicon::Gettext;
-    my $lexicon = Locale::Maketext::Lexicon::Gettext->parse($_, <LEXICON>);
-
-    $self->set_lexicon(
-        $verbatim ? { map _to_gettext($_), %$lexicon } : $lexicon
+    my $lexicon = (
+        defined($_)
+            ? Locale::Maketext::Lexicon::Gettext->parse($_, <LEXICON>)
+            : {}
     );
+
+    # Internally the lexicon is in gettext format already.
+    $self->set_lexicon( { map _maketext_to_gettext($_), %$lexicon } );
+
     close LEXICON;
 }
 
-=head3 method write_po ($file, $add_format?, $verbatim?)
+=head3 method write_po ($file, $add_format_marker?)
 
 =cut
 
 sub write_po {
-    my ($self, $file, $add_format, $verbatim) = @_;
+    my ($self, $file, $add_format_marker) = @_;
 
     local *LEXICON;
     open LEXICON, ">$file" or die "Can't write to $file$!\n";
@@ -143,8 +161,8 @@ sub write_po {
         print LEXICON "\n";
         print LEXICON $self->msg_positions($msgid);
         print LEXICON $self->msg_variables($msgid);
-        print LEXICON $self->msg_format($msgid) if $add_format;
-        print LEXICON $self->msg_out($msgid, $verbatim);
+        print LEXICON $self->msg_format($msgid) if $add_format_marker;
+        print LEXICON $self->msg_out($msgid);
     }
 }
 
@@ -305,34 +323,44 @@ sub extract_file {
 
 =head2 Compilation
 
-    compile
-    normalize_space
+=head3 compile($entries_are_in_gettext_style?)
+
+Merges the C<entries> into C<compiled_entries>.
+
+If C<$entries_are_in_gettext_style> is true, the previously extracted entries
+are assumed to be in the B<Gettext> style (e.g. C<%1>).
+
+Otherwise they are assumed to be in B<Maketext> style (e.g. C<[_1]>) and are
+converted into B<Gettext> style before merging into C<compiled_entries>.
+
+The C<entries> are I<not> cleared after each compilation; use
+C<->set_entries()> to clear them if you need to extract from sources with
+varying styles.
 
 =cut
 
 sub compile {
-    my ($self, $verbatim) = @_;
+    my ($self, $entries_are_in_gettext_style) = @_;
     my $entries = $self->entries;
     my $lexicon = $self->lexicon;
+    my $comp    = $self->compiled_entries;
 
-    foreach my $str (sort keys %$entries) {
-        my $ostr    = $str;
-        my $entry   = $entries->{$str};
-        my $lexi    = $lexicon->{$ostr};
-
-        $str  = _to_gettext($str, $verbatim);
-        $lexi = _to_gettext($lexi, $verbatim);
-
-        $lexicon->{$str} ||= '';
-        next if $ostr eq $str;
-
-        $lexicon->{$str} ||= $lexi;
-        delete $entries->{$ostr}; delete $lexicon->{$ostr};
-        $entries->{$str} = $entry;
+    while (my ($k, $v) = each %$entries) {
+        my $compiled_key = (
+            ($entries_are_in_gettext_style)
+                ? $k
+                : _maketext_to_gettext($k)
+        );
+        $comp->{ $compiled_key } = $v;
+        $lexicon->{ $compiled_key } = '' unless exists $lexicon->{$compiled_key};
     }
 
     return %$lexicon;
 }
+
+=head3 normalize_space
+
+=cut
 
 my %Escapes = map {("\\$_" => eval("qq(\\$_)"))} qw(t r f b a e);
 sub normalize_space {
@@ -361,7 +389,7 @@ sub has_msgid { length $_[0]->msgstr($_[1]) }
 
 sub msg_positions {
     my ($self, $msgid) = @_;
-    my %files = (map { ( " $_->[0]:$_->[1]" => 1 ) } $self->entry($msgid));
+    my %files = (map { ( " $_->[0]:$_->[1]" => 1 ) } $self->compiled_entry($msgid));
     return join('', '#:', sort(keys %files), "\n");
 }
 
@@ -370,7 +398,7 @@ sub msg_variables {
     my $out = '';
 
     my %seen;
-    foreach my $entry ( grep { $_->[2] } $self->entry($msgid) ) {
+    foreach my $entry ( grep { $_->[2] } $self->compiled_entry($msgid) ) {
         my ($file, $line, $var) = @$entry;
         $var =~ s/^\s*,\s*//; $var =~ s/\s*$//;
         $out .= "#. ($var)\n" unless !length($var) or $seen{$var}++;
@@ -386,13 +414,8 @@ sub msg_format {
 }
 
 sub msg_out {
-    my ($self, $msgid, $verbatim) = @_;
+    my ($self, $msgid) = @_;
     my $msgstr = $self->msgstr($msgid);
-
-    if (!$verbatim) {
-        $msgid =~ s/(?=[\\"])/\\/g;
-        $msgstr =~ s/(?=[\\"])/\\/g;
-    }
 
     return "msgid "  . _format($msgid) .
            "msgstr " . _format($msgstr);
@@ -401,7 +424,7 @@ sub msg_out {
 =head2 Internal utilities
 
     _default_header
-    _to_gettext
+    _maketext_to_gettext
     _escape
     _format
 
@@ -428,23 +451,14 @@ msgstr ""
 .
 }
 
-sub _to_gettext {
-    my ($text, $verbatim) = @_;
+sub _maketext_to_gettext {
+    my $text = shift;
     return '' unless defined $text;
 
-    $text =~ s/\\/\\\\/g;
-    $text =~ s/\"/\\"/g;
-
-    while (my ($char, $esc) = each %Escapes) {
-        $text =~ s/$esc/$char/g;
-    }
-    return $text if $verbatim;
-
-    $text =~ s/((?<!~)(?:~~)*)\[_([1-9]\d*)\]/$1%$2/g;
-    $text =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*),([^\]]+)\]/$1%$2("""$3""")/g;
-    $text = join('', map {
-        /^""".*"""$/ ? _escape(substr($_, 3, -3)) : $_
-    } split(/(""".*?""")/, $text));
+    $text =~ s{((?<!~)(?:~~)*)\[_([1-9]\d*|\*)\]}
+              {$1%$2}g;
+    $text =~ s{((?<!~)(?:~~)*)\[([A-Za-z#*]\w*),([^\]]+)\]} 
+              {"$1%$2(" . _escape($3) . ')'}eg;
 
     $text =~ s/~([\~\[\]])/$1/g;
     return $text;
@@ -458,6 +472,12 @@ sub _escape {
 
 sub _format {
     my $str = shift;
+
+    $str =~ s/(?=[\\"])/\\/g;
+
+    while (my ($char, $esc) = each %Escapes) {
+        $str =~ s/$esc/$char/g;
+    }
 
     return "\"$str\"\n" unless $str =~ /\n/;
     my $multi_line = ($str =~ /\n(?!\z)/);

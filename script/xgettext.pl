@@ -42,6 +42,14 @@ Add I<DIRECTORY> to list for input files search.
 
 =back
 
+=head2 Input file format:
+
+=item B<-u>, B<--use-gettext-style>
+
+Specifies that the source programs uses the B<Gettext> style (e.g.
+C<%1>) instead of the B<Maketext> style (e.g. C<[_1]>) in its
+localization calls.
+
 =head2 Output file location:
 
 =over 4
@@ -64,12 +72,6 @@ Output files will be placed in directory I<DIR>.
 =head2 Output details:
 
 =over 4
-
-=item B<-u>, B<--unescaped>
-
-Disables conversion from B<Maketext> format to B<Gettext> format -- i.e.
-leave all brackets alone.  This is useful if you are also using the
-B<Gettext> syntax in your program.
 
 =item B<-g>, B<--gnu-gettext>
 

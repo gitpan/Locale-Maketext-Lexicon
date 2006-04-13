@@ -1,3 +1,33 @@
+[Changes for 0.60 - 2006-04-13]
+
+* Locale::Maketext::Extract: Bump version to 0.20.
+  No functionality changes to Locale::Maketext::Lexicon; all changes
+  in this release are to Locale::Maketext::Extract.
+
+* The ->compile call now moves ->entries into ->compiled_entries,
+  instead of mutating them in-place.  This allows repeated cycles
+  of ->extract/->compile calls before the final ->write_po.
+
+* Consequently, in the ->read_po/->write_po API, the "$verbatim" flag
+  is now ignored.
+
+* ->read_po no longer fails on empty PO files.
+
+* The return values of ->msgids/->msgstr are now always in gettext
+  style and never in maketext style.
+
+* In xgettext.pl, the -u flag (specifies the style of the source
+  programs as gettext instead of the default maketext) now has nothing
+  to do with output escaping.  This closes another long-standing
+  bug of "vanishing backslashes" when the same .po file is written
+  once with -u and once without.
+
+* The --unescaped flag to "xgettext.pl" is deprecated and renamed
+  to the more appropriate "--use-gettext-style".
+
+* Locale::Maketext::Extract::Run now accepts single-letter directory
+  names instead of erroneously stripping them out.
+
 [Changes for 0.58 - 2006-04-13]
 
 * Locale::Maketext::Extract: Direct calls to ->write_po now
