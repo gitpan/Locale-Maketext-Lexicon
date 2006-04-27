@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon::Msgcat;
-$Locale::Maketext::Lexicon::Msgcat::VERSION = '0.02';
+$Locale::Maketext::Lexicon::Msgcat::VERSION = '0.03';
 
 use strict;
 
@@ -109,15 +109,27 @@ L<Locale::Maketext>, L<Locale::Maketext::Lexicon>
 
 =head1 AUTHORS
 
-Audrey Tang E<lt>audreyt@audreyt.orgE<gt>
+Audrey Tang E<lt>cpan@audreyt.orgE<gt>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT (The "MIT" License)
 
-Copyright 2002, 2003, 2004 by Audrey Tang E<lt>audreyt@audreyt.orgE<gt>.
+Copyright 2002, 2003, 2004 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
 
-This program is free software; you can redistribute it and/or 
-modify it under the same terms as Perl itself.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is fur-
+nished to do so, subject to the following conditions:
 
-See L<http://www.perl.com/perl/misc/Artistic.html>
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FIT-
+NESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE X
+CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 =cut

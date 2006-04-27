@@ -1,3 +1,12 @@
+[Changes for 0.61 - 2006-04-27]
+
+* LICENSING CHANGE: This compilation and all individual files in it
+  are now under the permissive "MIT" license.  See the COPYRIGHT
+  section in README for the new terms.
+
+* Repair Perl 5.005 compatibility in the build system.
+  Reported By: Rong-En Fan
+
 [Changes for 0.60 - 2006-04-13]
 
 * Locale::Maketext::Extract: Bump version to 0.20.

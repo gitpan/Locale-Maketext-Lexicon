@@ -1,8 +1,8 @@
 abstract: Use other catalog formats in Maketext
-author: Audrey Tang <audreyt@audreyt.org>
+author: Audrey Tang <cpan@audreyt.org>
 distribution_type: module
 generated_by: Module::Install version 0.62
-license: perl
+license: mit
 name: Locale-Maketext-Lexicon
 no_index: 
   directory: 
@@ -10,5 +10,5 @@ no_index:
     - t
 requires: 
   Locale::Maketext: 0.01
-  Test::More: 0.01
-version: 0.60
+  perl: 5.004
+version: 0.61

@@ -3,15 +3,13 @@
 use 5.005;
 use inc::Module::Install;
 
-author		('Audrey Tang <audreyt@audreyt.org>');
-abstract	('Use other catalog formats in Maketext');
-name		('Locale-Maketext-Lexicon');
-version_from	('lib/Locale/Maketext/Lexicon.pm',);
-license		('perl');
-install_script	('script/xgettext.pl');
-requires	(
-    'Test::More'	=> '0.01',
-    'Locale::Maketext'	=> '0.01',
-);
+author          'Audrey Tang <cpan@audreyt.org>';
+abstract        'Use other catalog formats in Maketext';
+name            'Locale-Maketext-Lexicon';
+license         'mit';
+all_from        'lib/Locale/Maketext/Lexicon.pm';
+install_script  'script/xgettext.pl';
+requires        'Locale::Maketext' => '0.01';
+include_deps    'Test::More';
 
-WriteAll( sign => 1 );
+sign; WriteAll;
