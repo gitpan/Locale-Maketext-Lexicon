@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.61';
+$Locale::Maketext::Lexicon::VERSION = '0.62';
 
 use 5.004;
 use strict;
@@ -10,8 +10,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.61 of Locale::Maketext::Lexicon,
-released April 27, 2006.
+This document describes version 0.62 of Locale::Maketext::Lexicon,
+released June 15, 2006.
 
 =head1 SYNOPSIS
 
@@ -231,8 +231,8 @@ sub import {
         # a hashref with $lang as keys, [$format, $src ...] as values
         %entries = %{$_[0]};
     }
-    elsif (@_ % 2) {
-        %entries = ( '' => [ @_ ] );
+    elsif (@_ % 2 == 0) {
+        %entries = ( '' => [ splice @_, 0, 2 ], @_ );
     }
 
     # expand the wildcard entry

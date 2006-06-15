@@ -1,3 +1,11 @@
+[Changes for 0.62 - 2006-06-15]
+
+* For the longest time, direct import of Locale::Maketext::Lexicon
+  from within localization classes (such as MyApp::I18N::zh_tw) was
+  untested and broken.  It now works the way described in the SYNOPSIS
+  section of the Locale::Maketext::Lexicon documentation.
+  Contributed by: Yann Kerherve
+
 [Changes for 0.61 - 2006-04-27]
 
 * LICENSING CHANGE: This compilation and all individual files in it
