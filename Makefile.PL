@@ -6,7 +6,7 @@ use inc::Module::Install;
 author          'Audrey Tang <cpan@audreyt.org>';
 abstract        'Use other catalog formats in Maketext';
 name            'Locale-Maketext-Lexicon';
-license         'mit';
+license         'MIT';
 all_from        'lib/Locale/Maketext/Lexicon.pm';
 install_script  'script/xgettext.pl';
 requires        'Locale::Maketext' => '0.01';

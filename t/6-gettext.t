@@ -21,6 +21,7 @@ use_ok(
 	    'Msgcat'	=> 't/gencat.m',
 	    'Gettext'   => 't/messages.po',
 	],
+	ru	=> ['Gettext'	=> 't/notexist.po'],
         _style => 'gettext',
     },
 );
@@ -29,6 +30,7 @@ ok(!$warned, 'no warnings on blank lines');
 
 Locale::Maketext::Lexicon->import({
     de_de => ['Gettext'	=> \*::DATA],
+    ru    => ['Gettext'	=> 't/notexist.po'],
     _use_fuzzy => 1,
 });
 

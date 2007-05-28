@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.21';
+$Locale::Maketext::Extract::VERSION = '0.22';
 
 use strict;
 
@@ -179,6 +179,9 @@ use constant PAR  => 2;
 use constant QUO1 => 3;
 use constant QUO2 => 4;
 use constant QUO3 => 5;
+use constant QUO4 => 6;
+use constant QUO5 => 7;
+
 sub extract {
     my $self = shift;
     my $file = shift;
@@ -219,6 +222,7 @@ sub extract {
         $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
         $self->add_entry($str, [ $file, $line, $vars ]);
     }
+    # HTML Mason, with <%_()%>
 
     # Template Toolkit
     $line = 1; pos($_) = 0;
@@ -271,32 +275,45 @@ sub extract {
         my $line = $orig - (() = ((my $__ = $_) =~ /\n/g));
 
         # various ways to spell the localization function
-        $state == NUL && m/\b(translate|maketext|gettext|__?|loc(?:ali[sz]e)?|x)/gc
-                      && do { $state = BEG; redo };
-        $state == BEG && m/^([\s\t\n]*)/gc && redo;
+        $state == NUL  && m/\b(translate|maketext|gettext|__?|loc(?:ali[sz]e)?|x)/gc
+                       && do { $state = BEG; redo };
+        $state == BEG  && m/^([\s\t\n]*)/gc && redo;
 
         # begin ()
-        $state == BEG && m/^([\S\(])\s*/gc
-                      && do { $state = ( ($1 eq '(') ? PAR : NUL); redo };
+        $state == BEG  && m/^([\S\(])\s*/gc
+                       && do { $state = ( ($1 eq '(') ? PAR : NUL); redo };
 
         # begin or end of string
-        $state == PAR  && m/^(\')/gc      && do { $state = $quo = QUO1;   redo };
-        $state == QUO1 && m/^([^\']+)/gc  && do { $str  .= $1;            redo };
-        $state == QUO1 && m/^\'/gc        && do { $state = PAR;           redo };
+        $state == PAR  && m/^(\')/gc        && do { $state = $quo = QUO1;   redo };
+        $state == QUO1 && m/^([^'\\]+)/gc   && do { $str  .= $1; redo };
+        $state == QUO1 && m/^((?:\\.)+)/gcs && do { $str  .= $1; redo };
+        $state == QUO1 && m/^\'/gc          && do { $state = PAR;           redo };
 
-        $state == PAR  && m/^\"/gc        && do { $state = $quo = QUO2;   redo };
-        $state == QUO2 && m/^([^\"]+)/gc  && do { $str  .= $1;            redo };
-        $state == QUO2 && m/^\"/gc        && do { $state = PAR;           redo };
+        $state == PAR  && m/^\"/gc          && do { $state = $quo = QUO2;   redo };
+        $state == QUO2 && m/^([^"\\]+)/gc   && do { $str  .= $1; redo };
+        $state == QUO2 && m/^((?:\\.)+)/gcs && do { $str  .= $1; redo };
+        $state == QUO2 && m/^\"/gc          && do { $state = PAR;           redo };
 
-        $state == PAR  && m/^\`/gc        && do { $state = $quo = QUO3;   redo };
-        $state == QUO3 && m/^([^\`]*)/gc  && do { $str  .= $1;            redo };
-        $state == QUO3 && m/^\`/gc        && do { $state = PAR;           redo };
+        $state == PAR  && m/^\`/gc          && do { $state = $quo = QUO3;   redo };
+        $state == QUO3 && m/^([^\`]*)/gc    && do { $str  .= $1;            redo };
+        $state == QUO3 && m/^\`/gc          && do { $state = PAR;           redo };
+
+        $state == PAR  && m/^qq\{/gc        && do { $state = $quo = QUO4;   redo };
+        $state == QUO4 && m/^([^\}]*)/gc    && do { $str  .= $1;            redo };
+        $state == QUO4 && m/^\}/gc          && do { $state = PAR;           redo };
+        
+        
+        $state == PAR  && m/^q\{/gc         && do { $state = $quo = QUO5;   redo };
+        $state == QUO5 && m/^([^\}]*)/gc    && do { $str  .= $1;            redo };
+        $state == QUO5 && m/^\}/gc          && do { $state = PAR;           redo };
 
         # end ()
-        $state == PAR && m/^\s*[\)]/gc && do {
+        #
+        
+        $state == PAR  && m/^\s*[\)]/gc     && do {
             $state = NUL; 
             $vars =~ s/[\n\r]//g if ($vars);
-            if ($quo == QUO1) {
+            if (($quo == QUO1) || ($quo == QUO5) ){
                 $str =~ s/\\([\\'])/$1/g; # normalize q strings
             }
             else {
@@ -308,7 +325,7 @@ sub extract {
         };
 
         # a line of vars
-        $state == PAR && m/^([^\)]*)/gc && do { $vars .= "$1\n"; redo };
+        $state == PAR  && m/^([^\)]*)/gc    && do { $vars .= "$1\n"; redo };
     }
 }
 
@@ -509,25 +526,30 @@ L<xgettext.pl>, L<Locale::Maketext>, L<Locale::Maketext::Lexicon>
 
 Audrey Tang E<lt>cpan@audreyt.orgE<gt>
 
-=head1 COPYRIGHT (The "MIT" License)
+=head1 COPYRIGHT
 
-Copyright 2003, 2004, 2005, 2006 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+Copyright 2003, 2004, 2005, 2006, 2007 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+
+This software is released under the MIT license cited below.
+
+=head2 The "MIT" License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is fur-
-nished to do so, subject to the following conditions:
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FIT-
-NESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE X
-CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
 
 =cut

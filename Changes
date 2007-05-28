@@ -1,3 +1,15 @@
+[Changes for 0.64 - 2007-05-28]
+
+* Locale::Maketext::Extract: Extraction wasn't able to deal with escaped
+  quotes within single- and double-quoted strings.  (Bump version to 0.22.)
+  Contributed by: Matthew O'Connor
+
+[Changes for 0.63 - 2007-02-07]
+
+* Locale::Maketext::Lexicon used to generated mysteriouse error "next at ..."
+  instead of skipping the locale, when the requested .po file does not exist.
+  Contributed by: Ruslan U. Zakirov
+
 [Changes for 0.62 - 2006-06-15]
 
 * For the longest time, direct import of Locale::Maketext::Lexicon

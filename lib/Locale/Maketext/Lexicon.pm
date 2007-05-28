@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.62';
+$Locale::Maketext::Lexicon::VERSION = '0.64';
 
 use 5.004;
 use strict;
@@ -10,8 +10,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.62 of Locale::Maketext::Lexicon,
-released June 15, 2006.
+This document describes version 0.64 of Locale::Maketext::Lexicon,
+released May 28, 2007.
 
 =head1 SYNOPSIS
 
@@ -289,7 +289,7 @@ sub import {
             my @content = eval {
                 $class->lexicon_get($src, scalar caller, $lang);
             };
-            next if $@ and $@ eq 'next';
+            next if $@ and $@ =~ /^next\b/;
             die $@ if $@;
 
             no strict 'refs';
@@ -505,25 +505,30 @@ L<Locale::Maketext::Lexicon::Tie>
 
 Audrey Tang E<lt>cpan@audreyt.orgE<gt>
 
-=head1 COPYRIGHT (The "MIT" License)
+=head1 COPYRIGHT
 
-Copyright 2002-2006 by Audrey Tang <cpan@audreyt.org>.
+Copyright 2002, 2003, 2004, 2005, 2006, 2007 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+
+This software is released under the MIT license cited below.
+
+=head2 The "MIT" License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is fur-
-nished to do so, subject to the following conditions:
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FIT-
-NESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE X
-CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
 
 =cut
