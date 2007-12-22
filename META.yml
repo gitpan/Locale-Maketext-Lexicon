@@ -1,8 +1,9 @@
 --- 
 abstract: Use other catalog formats in Maketext
-author: Audrey Tang <cpan@audreyt.org>
+author: 
+  - Audrey Tang <cpan@audreyt.org>
 distribution_type: module
-generated_by: Module::Install version 0.64
+generated_by: Module::Install version 0.68
 license: MIT
 meta-spec: 
   url: http://module-build.sourceforge.net/META-spec-v1.3.html
@@ -15,4 +16,4 @@ no_index:
 requires: 
   Locale::Maketext: 0.01
   perl: 5.004
-version: 0.64
+version: 0.65

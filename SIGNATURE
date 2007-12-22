@@ -15,34 +15,35 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 81c677a805827bf5cee403196d398d01ee84b53f AUTHORS
-SHA1 4c3a8cee9d3353f898409bd050fa0cba7ad7835a Changes
-SHA1 0f9f4723e7dcb24009f60933353bb6c71323df9d MANIFEST
-SHA1 41f8c6c722b647d0fa4122cd25f2a1f1e6ed1fa3 META.yml
+SHA1 abb8fe88d429a0e9ff933007e2a4bfaf1ca0114a Changes
+SHA1 a954b8f9dc3f07767ec68f0cf0dca739aacd8a55 MANIFEST
+SHA1 2c6e5734cc51eca73895a4767aa250ad2ec661ce META.yml
 SHA1 fa0bad8af854f2b377311c90380a55edef614941 Makefile.PL
 SHA1 f58c6ea60a6a26c247095c0a8a3f4df714cffb91 README
 SHA1 7fdfd4cbb0192d65e96e99e9b1b430eb749e5c4f docs/webl10n.html
 SHA1 f18225dc7b3944df8aa37337907918fedb9e0385 docs/webl10n.zh-tw.html
-SHA1 9b2f9d83bcf77860f53a0c07c90a4a59ad9f5df1 inc/Module/Install.pm
-SHA1 abe32855d75ab13747cf65765af9947b7a8c3057 inc/Module/Install/Base.pm
-SHA1 95b81d1e91bd634467bf633571eff4420e9c04eb inc/Module/Install/Can.pm
-SHA1 1fe98c63cf9d7271c8cb4183ba230f152df69e26 inc/Module/Install/Fetch.pm
-SHA1 0606a8b02a420600bc3e2b65ab82f70266784926 inc/Module/Install/Include.pm
-SHA1 93377fa09ca119814598134291e2d1f6640168c3 inc/Module/Install/Makefile.pm
-SHA1 42aaa6f422c82f72e140041727235f0fac8debf8 inc/Module/Install/Metadata.pm
-SHA1 b384bd42bc6263dc56d04a884ef4e5fe340049f8 inc/Module/Install/Scripts.pm
-SHA1 0c2118868ef82ac517eb6d9c3bd93e6eb9bbf83e inc/Module/Install/Win32.pm
-SHA1 e827d6d43771032fa3df35c0ad5e5698d0e54cda inc/Module/Install/WriteAll.pm
-SHA1 ae96dc4c051a202e5db3fa73133e6183ee4910b2 inc/Test/Builder.pm
-SHA1 a9037004a2c3096d77169a16da95743eeb813539 inc/Test/Builder/Module.pm
-SHA1 45d0149fee8d12082d0aa00fd9202f4b29126824 inc/Test/More.pm
+SHA1 7e2cfa1b9efe0d502ee57717649c90ba4bd28ba9 inc/Module/Install.pm
+SHA1 6e1392d80a0f239eecd5664f7f21f922cedb9329 inc/Module/Install/Base.pm
+SHA1 f69417fe831d9cc22a78f00a617afadceade4d81 inc/Module/Install/Can.pm
+SHA1 c61d02895330310048bf388881b5e2e064031561 inc/Module/Install/Fetch.pm
+SHA1 4933b00c3a646da8d223c6957f94552bbd62f8c6 inc/Module/Install/Include.pm
+SHA1 54fcbed19232ec959bb17cfb4410599afc7f0779 inc/Module/Install/Makefile.pm
+SHA1 7d3be9b158e37b2b2c22084740099955623b1d56 inc/Module/Install/Metadata.pm
+SHA1 92b109a1c78889f8d03eb2b2a1e0c5ea73b7ae72 inc/Module/Install/Scripts.pm
+SHA1 0a8b66180229ba2f9deaea1fedd0aacf7a7ace6b inc/Module/Install/Win32.pm
+SHA1 d3352eb33fe43a5f3ead513f645224fe34d73bc9 inc/Module/Install/WriteAll.pm
+SHA1 fb711fed1e4269f7569da5d09980648acf47a750 inc/Test/Builder.pm
+SHA1 028954a5cb377df3f660a7ade8631c265df026cc inc/Test/Builder/Module.pm
+SHA1 0781d008b60551d1bd74d56bf065861f4d84cf9d inc/Test/More.pm
+SHA1 f8e70396a1f3e0b34668d08871d7519321995283 inc/attributes.pm
 SHA1 481ad7a7ea25f5bc2f5c9117545aa8979e480fea lib/Locale/Maketext/Extract.pm
 SHA1 ae1c100252e17e5963a0e07a1505746d3e851515 lib/Locale/Maketext/Extract/Run.pm
-SHA1 f064232cb9283ae58443b943b07c9d78f6bd5fe8 lib/Locale/Maketext/Lexicon.pm
-SHA1 ede1e4f51794d9e22f7e6fde42ccbb2b4860bcf2 lib/Locale/Maketext/Lexicon/Auto.pm
-SHA1 0a8cd56a730bacf09b650df0a21f4327700c27a2 lib/Locale/Maketext/Lexicon/Gettext.pm
-SHA1 ed35311adf474c929a9d0fe623f24c48b89452bd lib/Locale/Maketext/Lexicon/Msgcat.pm
-SHA1 580a041c6a26f06301aa9a7a6dc1f49c70d2388d lib/Locale/Maketext/Lexicon/Tie.pm
-SHA1 778fb2c1b14fc765294298363c1408a56476b876 script/xgettext.pl
+SHA1 9b5c816344ba880e4124efd390c467bbf70f9b9c lib/Locale/Maketext/Lexicon.pm
+SHA1 80f70b4290f107d76a11032eb161106ed8877f0f lib/Locale/Maketext/Lexicon/Auto.pm
+SHA1 d3598903e065636bf5f927ab075773ca74af57d2 lib/Locale/Maketext/Lexicon/Gettext.pm
+SHA1 aa70e8728c63c0165aea0280e85b8db7be70650f lib/Locale/Maketext/Lexicon/Msgcat.pm
+SHA1 b7b970b5ce31515a45e164cb520021e6dbacf8f9 lib/Locale/Maketext/Lexicon/Tie.pm
+SHA1 754f3979a24a74eaadf31bff04b453f58b9f73cf script/xgettext.pl
 SHA1 13740c467c28f580446481f6cc9e2522b6b7a2fa t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
 SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
@@ -66,7 +67,7 @@ SHA1 aa2cafa6c6699e00f77491d3df07a6d5db8931b1 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.3 (Darwin)
 
-iD8DBQFGWpZGtLPdNzw1AaARAvMnAJ9kbGL339iENxPMrWktRTnExtuZoQCeLos/
-4d5GLBV0c6IwZv59bjkQ7a8=
-=CAqF
+iD8DBQFHbTJ7tLPdNzw1AaARAsQNAJ40U0nFKRjATBL3sqXK6vR9xbzQUwCdH8tw
+HER5KzOsvjFJoomD+9r+gyQ=
+=ziUb
 -----END PGP SIGNATURE-----

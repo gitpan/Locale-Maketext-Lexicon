@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon::Gettext;
-$Locale::Maketext::Lexicon::Gettext::VERSION = '0.15';
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.16';
 
 use strict;
 
@@ -87,8 +87,8 @@ value to the C<_allow_empty> option:
 
 my ($InputEncoding, $OutputEncoding, $DoEncoding);
 
-sub input_encoding { $InputEncoding };
-sub output_encoding { $OutputEncoding };
+sub input_encoding  { $InputEncoding }
+sub output_encoding { $OutputEncoding }
 
 sub parse {
     my $self = shift;
@@ -102,77 +102,94 @@ sub parse {
 
     # Check for magic string of MO files
     return parse_mo(join('', @_))
-        if ($_[0] =~ /^\x95\x04\x12\xde/ or $_[0] =~ /^\xde\x12\x04\x95/);
+      if ($_[0] =~ /^\x95\x04\x12\xde/ or $_[0] =~ /^\xde\x12\x04\x95/);
 
-    local $^W;  # no 'uninitialized' warnings, please.
+    local $^W;    # no 'uninitialized' warnings, please.
 
     require Locale::Maketext::Lexicon;
-    my $UseFuzzy = Locale::Maketext::Lexicon::option('use_fuzzy');
+    my $UseFuzzy   = Locale::Maketext::Lexicon::option('use_fuzzy');
     my $AllowEmpty = Locale::Maketext::Lexicon::option('allow_empty');
-    my $process = sub {
-            if ( length($var{msgstr}) and ($UseFuzzy or !$var{fuzzy}) ) {
-                push @ret, (map transform($_), @var{'msgid', 'msgstr'});
-            }
-            elsif ( $AllowEmpty ) {
-                push @ret, (transform($var{msgid}), '');
-            }
-            push @metadata, parse_metadata($var{msgstr})
-                if $var{msgid} eq '';
-            %var = ();
+    my $process    = sub {
+        if (length($var{msgstr}) and ($UseFuzzy or !$var{fuzzy})) {
+            push @ret, (map transform($_), @var{ 'msgid', 'msgstr' });
+        }
+        elsif ($AllowEmpty) {
+            push @ret, (transform($var{msgid}), '');
+        }
+        push @metadata, parse_metadata($var{msgstr})
+          if $var{msgid} eq '';
+        %var = ();
     };
 
     # Parse PO files
     foreach (@_) {
-        s/[\015\012]*\z//; # fix CRLF issues
+        s/[\015\012]*\z//;    # fix CRLF issues
 
-        /^(msgid|msgstr) +"(.*)" *$/    ? do {  # leading strings
+        /^(msgid|msgstr) +"(.*)" *$/
+          ? do {              # leading strings
             $var{$1} = $2;
             $key = $1;
-        } :
+          }
+          :
 
-        /^"(.*)" *$/                    ? do {  # continued strings
+          /^"(.*)" *$/
+          ? do {              # continued strings
             $var{$key} .= $1;
-        } :
+          }
+          :
 
-        /^#, +(.*) *$/                  ? do {  # control variables
+          /^#, +(.*) *$/
+          ? do {              # control variables
             $var{$_} = 1 for split(/,\s+/, $1);
-        } :
+          }
+          :
 
-        /^ *$/ && %var                  ? do {  # interpolate string escapes
-		$process->($_);
-        } : ();
+          /^ *$/ && %var
+          ? do {              # interpolate string escapes
+            $process->($_);
+          }
+          : ();
     }
+
     # do not silently skip last entry
     $process->() if keys %var != 0;
 
-    push @ret, map { transform($_) } @var{'msgid', 'msgstr'}
-        if length $var{msgstr};
+    push @ret, map { transform($_) } @var{ 'msgid', 'msgstr' }
+      if length $var{msgstr};
     push @metadata, parse_metadata($var{msgstr})
-        if $var{msgid} eq '';
+      if $var{msgid} eq '';
 
-    return {@metadata, @ret};
+    return { @metadata, @ret };
 }
 
 sub parse_metadata {
     return map {
-        (/^([^\x00-\x1f\x80-\xff :=]+):\s*(.*)$/) ?
-            ($1 eq 'Content-Type') ? do {
-                my $enc = $2;
-                if ($enc =~ /\bcharset=\s*([-\w]+)/i) {
-                    $InputEncoding = $1 || '';
-                    $OutputEncoding = Locale::Maketext::Lexicon::encoding() || '';
-                    $InputEncoding = 'utf8' if $InputEncoding =~ /^utf-?8$/i;
-                    $OutputEncoding = 'utf8' if $OutputEncoding =~ /^utf-?8$/i;
-                    if ( Locale::Maketext::Lexicon::option('decode') and
-                        (!$OutputEncoding or $InputEncoding ne $OutputEncoding)) {
-                        require Encode::compat if $] < 5.007001;
-                        require Encode;
-                        $DoEncoding = 1;
-                    }
-                }
-                ("__Content-Type", $enc);
-            } : ("__$1", $2)
-        : ();
+            (/^([^\x00-\x1f\x80-\xff :=]+):\s*(.*)$/)
+          ? ($1 eq 'Content-Type')
+              ? do {
+                  my $enc = $2;
+                  if ($enc =~ /\bcharset=\s*([-\w]+)/i) {
+                      $InputEncoding = $1 || '';
+                      $OutputEncoding = Locale::Maketext::Lexicon::encoding()
+                        || '';
+                      $InputEncoding = 'utf8' if $InputEncoding =~ /^utf-?8$/i;
+                      $OutputEncoding = 'utf8'
+                        if $OutputEncoding =~ /^utf-?8$/i;
+                      if (
+                          Locale::Maketext::Lexicon::option('decode')
+                          and ( !$OutputEncoding
+                              or $InputEncoding ne $OutputEncoding)
+                        )
+                      {
+                          require Encode::compat if $] < 5.007001;
+                          require Encode;
+                          $DoEncoding = 1;
+                      }
+                  }
+                  ("__Content-Type", $enc);
+              }
+              : ("__$1", $2)
+          : ();
     } split(/\r*\n+\r*/, transform(pop));
 }
 
@@ -180,17 +197,19 @@ sub transform {
     my $str = shift;
 
     if ($DoEncoding and $InputEncoding) {
-        $str = ($InputEncoding eq 'utf8')
-            ? Encode::decode_utf8($str)
-            : Encode::decode($InputEncoding, $str)
+        $str =
+          ($InputEncoding eq 'utf8')
+          ? Encode::decode_utf8($str)
+          : Encode::decode($InputEncoding, $str);
     }
 
     $str =~ s/\\([0x]..|c?.)/qq{"\\$1"}/eeg;
 
     if ($DoEncoding and $OutputEncoding) {
-        $str = ($OutputEncoding eq 'utf8')
-            ? Encode::encode_utf8($str)
-            : Encode::encode($OutputEncoding, $str)
+        $str =
+          ($OutputEncoding eq 'utf8')
+          ? Encode::encode_utf8($str)
+          : Encode::encode($OutputEncoding, $str);
     }
 
     return _gettext_to_maketext($str);
@@ -217,9 +236,9 @@ sub _gettext_to_maketext {
 }
 
 sub _unescape {
-    join(',', map {
-        /\A(\s*)%([1-9]\d*|\*)(\s*)\z/ ? "$1_$2$3" : $_
-    } split(/,/, $_[0]));
+    join(',',
+        map { /\A(\s*)%([1-9]\d*|\*)(\s*)\z/ ? "$1_$2$3" : $_ }
+          split(/,/, $_[0]));
 }
 
 # This subroutine was derived from Locale::Maketext::Gettext::readmo()
@@ -233,27 +252,35 @@ sub parse_mo {
     return if unpack($tmpl, substr($content, 4, 4)) > 0;
 
     my ($num, $offo, $offt);
+
     # Number of strings
     $num = unpack $tmpl, substr($content, 8, 4);
+
     # Offset to the beginning of the original strings
     $offo = unpack $tmpl, substr($content, 12, 4);
+
     # Offset to the beginning of the translated strings
     $offt = unpack $tmpl, substr($content, 16, 4);
 
     my (@metadata, @ret);
     for (0 .. $num - 1) {
         my ($len, $off, $stro, $strt);
+
         # The first word is the length of the string
-        $len = unpack $tmpl, substr($content, $offo+$_*8, 4);
+        $len = unpack $tmpl, substr($content, $offo + $_ * 8, 4);
+
         # The second word is the offset of the string
-        $off = unpack $tmpl, substr($content, $offo+$_*8+4, 4);
+        $off = unpack $tmpl, substr($content, $offo + $_ * 8 + 4, 4);
+
         # Original string
         $stro = substr($content, $off, $len);
 
         # The first word is the length of the string
-        $len = unpack $tmpl, substr($content, $offt+$_*8, 4);
+        $len = unpack $tmpl, substr($content, $offt + $_ * 8, 4);
+
         # The second word is the offset of the string
-        $off = unpack $tmpl, substr($content, $offt+$_*8+4, 4);
+        $off = unpack $tmpl, substr($content, $offt + $_ * 8 + 4, 4);
+
         # Translated string
         $strt = substr($content, $off, $len);
 
@@ -262,7 +289,7 @@ sub parse_mo {
         push @ret, (map transform($_), $stro, $strt) if length $strt;
     }
 
-    return {@metadata, @ret};
+    return { @metadata, @ret };
 }
 
 1;
@@ -275,25 +302,30 @@ L<Locale::Maketext>, L<Locale::Maketext::Lexicon>
 
 Audrey Tang E<lt>cpan@audreyt.orgE<gt>
 
-=head1 COPYRIGHT (The "MIT" License)
+=head1 COPYRIGHT
 
-Copyright 2002, 2003, 2004 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+Copyright 2002, 2003, 2004, 2007 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+
+This software is released under the MIT license cited below.
+
+=head2 The "MIT" License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is fur-
-nished to do so, subject to the following conditions:
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FIT-
-NESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE X
-CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
 
 =cut

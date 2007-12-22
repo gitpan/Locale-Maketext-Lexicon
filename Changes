@@ -1,3 +1,14 @@
+[Changes for 0.65 - 2007-12-22]
+
+* Perl 5.9.5+ is pickier about what "being used only once" means,
+  so we make sure to avoid that warning.
+  Contributed by: Alex Vandiver
+
+* Also restore compatibility with Perl 5.005 and earlier by avoiding
+  the "no warnings" pragma.
+
+* Tidied up code style, documentation, copyright years, etc.
+
 [Changes for 0.64 - 2007-05-28]
 
 * Locale::Maketext::Extract: Extraction wasn't able to deal with escaped

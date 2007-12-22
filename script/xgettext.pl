@@ -44,11 +44,15 @@ Add I<DIRECTORY> to list for input files search.
 
 =head2 Input file format:
 
+=over 4
+
 =item B<-u>, B<--use-gettext-style>
 
 Specifies that the source programs uses the B<Gettext> style (e.g.
 C<%1>) instead of the B<Maketext> style (e.g. C<[_1]>) in its
 localization calls.
+
+=back
 
 =head2 Output file location:
 
