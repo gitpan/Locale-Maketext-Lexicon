@@ -1,7 +1,7 @@
 #! /usr/bin/perl -w
 use lib '../lib';
 use strict;
-use Test::More tests => 28;
+use Test::More tests => 29;
 
 use_ok('Locale::Maketext::Extract');
 my $Ext = Locale::Maketext::Extract->new;
@@ -44,6 +44,8 @@ extract_ok(q(_(q{foo\bar}))                => 'foo\\bar',    'Escaped \ in q');
 extract_ok(q(_(q{foo\\\\bar}))             => 'foo\\bar',    'Normalized \\\\ in q');
 extract_ok(q(_(qq{foo\bar}))               => "foo\bar",          'Interpolated \b in qq');
 
+# HTML::FormFu test
+extract_ok('    content_loc: foo bar'          => "foo bar",    "html-formfu extraction");
 
 extract_ok(
     q(my $x = loc('I "think" you\'re a cow.') . "\n";) => 'I "think" you\'re a cow.', 

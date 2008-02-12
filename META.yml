@@ -16,4 +16,4 @@ no_index:
 requires: 
   Locale::Maketext: 0.01
   perl: 5.004
-version: 0.65
+version: 0.66

@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon::Auto;
-$Locale::Maketext::Lexicon::Auto::VERSION = '0.04';
+$Locale::Maketext::Lexicon::Auto::VERSION = '0.10';
 
 use strict;
 
@@ -34,7 +34,7 @@ FAILURE> for how to prevent it.
 =cut
 
 sub parse {
-    return { _AUTO => 1 };
+    +{ _AUTO => 1 };
 }
 
 1;

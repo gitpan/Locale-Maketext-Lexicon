@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.22';
+$Locale::Maketext::Extract::VERSION = '0.23';
 
 use strict;
 
@@ -50,6 +50,14 @@ are extracted.
 =item Text::Template
 
 Sentences between C<STARTxxx> and C<ENDxxx> are extracted individually.
+
+=item HTML::FormFu
+
+HTML::FormFu uses a config-file to generate forms, with built in 
+support for localizing errors, labels etc.
+
+We extract the text after C<_loc: >:
+    content_loc: this is the string
 
 =item Generic Template
 
@@ -233,6 +241,14 @@ sub extract {
         $vars =~ s/\)\s*$//;
         $self->add_entry($str, [ $file, $line, $vars ]);
     }
+
+    # HTML::FormFu config-files
+    $line = 1; pos($_) = 0;
+    while (m/\G(.*?_loc:\s+(.*))/sg) {
+        my ($str) = $2;
+        $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
+        $self->add_entry($str, [ $file, $line ]);
+    }    
 
     # Generic Template:
     $line = 1; pos($_) = 0;
@@ -528,7 +544,7 @@ Audrey Tang E<lt>cpan@audreyt.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2003, 2004, 2005, 2006, 2007 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+Copyright 2003-2008 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
 
 This software is released under the MIT license cited below.
 
