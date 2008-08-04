@@ -14,12 +14,13 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 81c677a805827bf5cee403196d398d01ee84b53f AUTHORS
-SHA1 073b48b62af6cb1f7887ef6a47cc91e9e319f823 Changes
-SHA1 a954b8f9dc3f07767ec68f0cf0dca739aacd8a55 MANIFEST
-SHA1 353c68f79a042ae9b421072192fee9fa74f67088 META.yml
-SHA1 fa0bad8af854f2b377311c90380a55edef614941 Makefile.PL
-SHA1 70e3f7cd11da87ff03ae9dc33ee3298157f9b649 README
+SHA1 fc252c495595a771e93f5a399dc0c3467dd1dbfd AUTHORS
+SHA1 48fa296e725ffed4734b7783b56d1065c7f79146 Changes
+SHA1 aceae4714f2f2dc94c0d5e28b22ff3bc7a0c05ae MANIFEST
+SHA1 ff64a729c6469e1d1ce8edccb4072672bdce4d17 MANIFEST.SKIP
+SHA1 356a68dfc6427c163ecc377b18e8e01584209447 META.yml
+SHA1 a1891bd7e13ee2a0dab5a4b30beeb3232b3c5cac Makefile.PL
+SHA1 46e61787de11ec39a40176c94d38337d62b55850 README
 SHA1 7fdfd4cbb0192d65e96e99e9b1b430eb749e5c4f docs/webl10n.html
 SHA1 f18225dc7b3944df8aa37337907918fedb9e0385 docs/webl10n.zh-tw.html
 SHA1 7e2cfa1b9efe0d502ee57717649c90ba4bd28ba9 inc/Module/Install.pm
@@ -32,15 +33,16 @@ SHA1 7d3be9b158e37b2b2c22084740099955623b1d56 inc/Module/Install/Metadata.pm
 SHA1 92b109a1c78889f8d03eb2b2a1e0c5ea73b7ae72 inc/Module/Install/Scripts.pm
 SHA1 0a8b66180229ba2f9deaea1fedd0aacf7a7ace6b inc/Module/Install/Win32.pm
 SHA1 d3352eb33fe43a5f3ead513f645224fe34d73bc9 inc/Module/Install/WriteAll.pm
-SHA1 98cd56704e09b57d9ba121b45d976c3d09a9f19c inc/Test/Builder.pm
-SHA1 6e95f0ebeb31abc5608a987e88edf2e2427912c4 inc/Test/Builder/Module.pm
-SHA1 1296aa4ac787d6df9f9679d2bae4851ffef63e5a inc/Test/More.pm
-SHA1 f8e70396a1f3e0b34668d08871d7519321995283 inc/attributes.pm
-SHA1 3e27ca42e11927b55d483164017c54befa72cd6a lib/Locale/Maketext/Extract.pm
+SHA1 8b1cc43f1fc02b371cf5232e7071d3c2697f9f78 inc/PerlIO.pm
+SHA1 4f29a27c21fbf9808140f69496e8c26f586c7ab6 inc/Test/Builder.pm
+SHA1 15260d018c2f7dd0dc9705a621684149742e7a5f inc/Test/Builder/Module.pm
+SHA1 0b8387e071b32d2d595715e303e18c3d4579ca33 inc/Test/More.pm
+SHA1 a3b43f30a4aa19adb8cda1ceaf5b19da0a5e1cae inc/attributes.pm
+SHA1 c4dc4784071672c0219610781148eb3e39ee2f57 lib/Locale/Maketext/Extract.pm
 SHA1 ae1c100252e17e5963a0e07a1505746d3e851515 lib/Locale/Maketext/Extract/Run.pm
-SHA1 7f5c5483642c2ab88a96e15ce835c1ad5c7e030a lib/Locale/Maketext/Lexicon.pm
+SHA1 653380897e102c66167fcdeacb129a86700f69e8 lib/Locale/Maketext/Lexicon.pm
 SHA1 6d18ec954610e5bef54e3521dc57db781aee84e2 lib/Locale/Maketext/Lexicon/Auto.pm
-SHA1 d3598903e065636bf5f927ab075773ca74af57d2 lib/Locale/Maketext/Lexicon/Gettext.pm
+SHA1 90e71ed81f8c69e6263df5fdfdef379bf0a6bfc2 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 aa70e8728c63c0165aea0280e85b8db7be70650f lib/Locale/Maketext/Lexicon/Msgcat.pm
 SHA1 b7b970b5ce31515a45e164cb520021e6dbacf8f9 lib/Locale/Maketext/Lexicon/Tie.pm
 SHA1 754f3979a24a74eaadf31bff04b453f58b9f73cf script/xgettext.pl
@@ -50,8 +52,10 @@ SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
 SHA1 07e68cea617f91bb9dbbd9ce0b8fdd0a486f3125 t/4-encodings.t
 SHA1 0305386868418e95ba3ceebadb1299aa744ed433 t/5-extract.t
 SHA1 00c15dd4ee62792ab292386b641194fad9d1bf11 t/6-gettext.t
+SHA1 142639c38f04d8c5104f44015b71a7737b56603f t/7-comments.t
 SHA1 ce5c72c3bc2c78bbf8da1a0d73b08523c5d03025 t/99-bug-import-for-subclasses.t
 SHA1 20689d41baa53f44caf0bc8ef8fdefcda77d82f9 t/T_L10N.pm
+SHA1 fe25b5831350ff59dbae644a47e3f2393c631edd t/comments.po
 SHA1 6d8a7e12768ceae4ac44405c2374fc6b573e3a6d t/gencat.m
 SHA1 d5a3581bbbec3df38f7c47dc82edfbdb0964bebd t/locale/en/LC_MESSAGES/test.mo
 SHA1 76f5af7c51893120382ede3d2ef00c98d0c34b2f t/locale/en/LC_MESSAGES/test_be.mo
@@ -65,9 +69,9 @@ SHA1 ce40b0a4b57820b7104df00049d69b6653a55c64 t/locale/zh_TW/LC_MESSAGES/test_ut
 SHA1 6910777b47e5f73042aa40d210a5f9485510f52d t/messages.mo
 SHA1 aa2cafa6c6699e00f77491d3df07a6d5db8931b1 t/messages.po
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.3 (Darwin)
+Version: GnuPG v1.4.9 (Darwin)
 
-iD8DBQFHsZdbtLPdNzw1AaARAmMIAJ9iSpRJp0uG5QAau0zpULYNKBKzRACeJ7TP
-e/8qskWLXivHQSyUU3QhJ0o=
-=6mss
+iEYEARECAAYFAkiXLFwACgkQEi9d9xCOQEZWUACgtH+/HZcs08myXwzj5eS+8D3k
+1kIAoMKz+GpJceNWCULWbo+0S4XoEyVu
+=aj9i
 -----END PGP SIGNATURE-----

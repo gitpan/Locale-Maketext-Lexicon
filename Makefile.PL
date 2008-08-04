@@ -12,4 +12,4 @@ install_script  'script/xgettext.pl';
 requires        'Locale::Maketext' => '0.01';
 include_deps    'Test::More';
 
-sign; WriteAll;
+WriteAll( sign => 1, meta => 1);

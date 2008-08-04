@@ -1,7 +1,7 @@
 #line 1
 package attributes;
 
-our $VERSION = 0.08;
+our $VERSION = 0.06;
 
 @EXPORT_OK = qw(get reftype);
 @EXPORT = ();
@@ -24,6 +24,7 @@ sub carp {
 #sub _fetch_attrs ($) ;
 #sub _guess_stash ($) ;
 #sub _modify_attrs ;
+#sub _warn_reserved () ;
 #
 # The extra trips through newATTRSUB in the interpreter wipe out any savings
 # from avoiding the BEGIN block.  Just do the bootstrap now.
@@ -43,10 +44,9 @@ sub import {
     my @badattrs;
     if ($pkgmeth) {
 	my @pkgattrs = _modify_attrs($svref, @attrs);
-	@badattrs = $pkgmeth->($home_stash, $svref, @pkgattrs);
+	@badattrs = $pkgmeth->($home_stash, $svref, @attrs);
 	if (!@badattrs && @pkgattrs) {
-            require warnings;
-	    return unless warnings::enabled('reserved');
+	    return unless _warn_reserved;
 	    @pkgattrs = grep { m/\A[[:lower:]]+(?:\z|\()/ } @pkgattrs;
 	    if (@pkgattrs) {
 		for my $attr (@pkgattrs) {

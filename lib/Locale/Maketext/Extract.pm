@@ -115,6 +115,7 @@ sub del_compiled_entry { delete $_[0]->compiled_entries->{$_[1]} }
 sub clear {
     $_[0]->set_header;
     $_[0]->set_lexicon;
+    $_[0]->set_comments;
     $_[0]->set_entries;
     $_[0]->set_compiled_entries;
 }
@@ -140,16 +141,29 @@ sub read_po {
     $self->set_header("$header\n");
 
     require Locale::Maketext::Lexicon::Gettext;
-    my $lexicon = (
-        defined($_)
-            ? Locale::Maketext::Lexicon::Gettext->parse($_, <LEXICON>)
-            : {}
-    );
+    my $lexicon = {};
+    my $comments = {};
+
+    if (defined($_)) {
+        ($lexicon, $comments) = Locale::Maketext::Lexicon::Gettext->parse($_, <LEXICON>);
+    }
 
     # Internally the lexicon is in gettext format already.
     $self->set_lexicon( { map _maketext_to_gettext($_), %$lexicon } );
+    $self->set_comments( $comments );
 
     close LEXICON;
+}
+
+sub msg_comment {
+    my $self = shift;
+    my $msgid = shift;
+    my $comment = $self->{comments}->{$msgid};
+    return $comment;
+}
+
+sub set_comments {
+    $_[0]->{comments}=$_[1];
 }
 
 =head3 method write_po ($file, $add_format_marker?)
@@ -167,6 +181,10 @@ sub write_po {
     foreach my $msgid ($self->msgids) {
         $self->normalize_space($msgid);
         print LEXICON "\n";
+        if (my $comment = $self->msg_comment($msgid)) {
+            my @lines = split "\n", $comment;
+            print LEXICON map {"# $_\n"} @lines;
+        }
         print LEXICON $self->msg_positions($msgid);
         print LEXICON $self->msg_variables($msgid);
         print LEXICON $self->msg_format($msgid) if $add_format_marker;

@@ -94,6 +94,7 @@ sub parse {
     my $self = shift;
     my (%var, $key, @ret);
     my @metadata;
+    my @comments;
 
     $InputEncoding = $OutputEncoding = $DoEncoding = undef;
 
@@ -116,8 +117,11 @@ sub parse {
         elsif ($AllowEmpty) {
             push @ret, (transform($var{msgid}), '');
         }
-        push @metadata, parse_metadata($var{msgstr})
-          if $var{msgid} eq '';
+        if ($var{msgid} eq '') {
+            push @metadata, parse_metadata($var{msgstr});
+        } else {
+            push  @comments, transform($var{msgid}), $var{msgcomment};
+        }
         %var = ();
     };
 
@@ -138,6 +142,12 @@ sub parse {
           }
           :
 
+          /^# (.*)$/
+          ? do {              # user comments
+              $var{msgcomment} .= $1 . "\n";
+          }
+          :
+
           /^#, +(.*) *$/
           ? do {              # control variables
             $var{$_} = 1 for split(/,\s+/, $1);
@@ -149,6 +159,7 @@ sub parse {
             $process->($_);
           }
           : ();
+
     }
 
     # do not silently skip last entry
@@ -159,7 +170,11 @@ sub parse {
     push @metadata, parse_metadata($var{msgstr})
       if $var{msgid} eq '';
 
-    return { @metadata, @ret };
+    return wantarray
+        ? ( { @metadata, @ret }, { @comments } )
+        : ( { @metadata, @ret } )
+        ;
+
 }
 
 sub parse_metadata {
