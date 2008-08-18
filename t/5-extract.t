@@ -1,7 +1,7 @@
 #! /usr/bin/perl -w
 use lib '../lib';
 use strict;
-use Test::More tests => 29;
+use Test::More tests => 43;
 
 use_ok('Locale::Maketext::Extract');
 my $Ext = Locale::Maketext::Extract->new;
@@ -58,12 +58,152 @@ extract_ok(
     "Handle escaped double quotes"
 );
 
+extract_ok(q(_("","car"))                  => '',            'ignore empty string');
+extract_ok(q(_("0"))                       => '',            'ignore zero');
+
+extract_ok(<<'__EXAMPLE__'                 => 'foo bar baz',   'trim the string (tt)');
+[% |loc -%]
+foo bar baz
+[%- END %]
+__EXAMPLE__
+
+extract_ok(<<'__EXAMPLE__'                 => "123\n",       "Simple extraction (heredoc)");
+_(<<__LOC__);
+123
+__LOC__
+__EXAMPLE__
+
+extract_ok(<<'__EXAMPLE__'                 => "foo\\\$bar\\\'baz\n", "No escaped of \$ and \' in singlequoted terminator (heredoc)");
+_(<<'__LOC__');
+foo\$bar\'baz
+__LOC__
+__EXAMPLE__
+
+extract_ok(<<'__EXAMPLE__'                 => "foo\$bar\n",  "Normalized \$ in doublequoted terminator (heredoc)");
+_(<<"__LOC__");
+foo\$bar
+__LOC__
+__EXAMPLE__
+
+extract_ok(<<'__EXAMPLE__'                 => "foo\nbar\n",  "multilines (heredoc)");
+_(<<__LOC__);
+foo
+bar
+__LOC__
+__EXAMPLE__
+
+extract_ok(<<'__EXAMPLE__'                 => "example\n",   "null identifier (heredoc)");
+_(<<"");
+example
+
+__EXAMPLE__
+
+extract_ok(<<'__EXAMPLE__'                 => "example\n",   "end() after the heredoc (heredoc)");
+_(<<__LOC__
+example
+__LOC__
+);
+__EXAMPLE__
+
+write_po_ok(<<'__EXAMPLE__'                => <<'__EXPECTED__', "null identifier with end after the heredoc (heredoc)");
+_(<<""
+example
+
+);
+__EXAMPLE__
+#: :1
+msgid "example\n"
+msgstr ""
+__EXPECTED__
+
+write_po_ok(<<'__EXAMPLE__'                => <<'__EXPECTED__', "q with multilines with args");
+_(q{example %1
+with multilines
+},20);
+__EXAMPLE__
+#: :1
+#. (20)
+msgid ""
+"example %1\n"
+"with multilines\n"
+msgstr ""
+__EXPECTED__
+
+write_po_ok(<<'__EXAMPLE__'                => <<'__EXPECTED__', "null terminator with multilines with args (heredoc)");
+_(<<"", 15)
+example %1
+with multilines
+
+__EXAMPLE__
+#: :1
+#. (15)
+msgid ""
+"example %1\n"
+"with multilines\n"
+msgstr ""
+__EXPECTED__
+
+write_po_ok(<<'__EXAMPLE__'                => <<'__EXPECTED__', "null terminator with end after the heredoc with args (heredoc)");
+_(<<"", 10)
+example %1
+
+__EXAMPLE__
+#: :1
+#. (10)
+msgid "example %1\n"
+msgstr ""
+__EXPECTED__
+
+write_po_ok(<<'__EXAMPLE__'                => <<'__EXPECTED__', "two _() calls (heredoc)");
+_(<<"", 10)
+example1 %1
+
+_(<<"", 5)
+example2 %1
+
+__EXAMPLE__
+#: :1
+#. (10)
+msgid "example1 %1\n"
+msgstr ""
+
+#: :4
+#. (5)
+msgid "example2 %1\n"
+msgstr ""
+__EXPECTED__
+
 sub extract_ok {
     my ($text, $expected, $info, $verbatim) = @_;
     $Ext->extract('' => $text);
     $Ext->compile($verbatim);
     my $result =  join('', %{$Ext->lexicon});
     is($result, $expected, $info );
+    $Ext->clear;
+}
+
+sub write_po_ok {
+    my ($text, $expected, $info, $verbatim) = @_;
+    my $po_file = 't/5-extract.po';
+
+    # create .po
+    $Ext->extract('' => $text);
+    $Ext->compile($verbatim);
+    $Ext->write_po($po_file);
+
+    # read .po
+    open(my $po_handle,'<',$po_file) or die("Cannot open $po_file: $!");
+    local $/ = undef;
+    my $result = <$po_handle>;
+    close($po_handle);
+    unlink($po_file) or die("Cannot unlink $po_file: $!");
+
+    # cut the header from result
+    my $start_expected = length($Ext->header);
+    $start_expected++  if( $start_expected < length($result) );
+
+    # check result vs expected
+    is(substr($result, $start_expected), $expected, $info );
     $Ext->clear;
 }
 

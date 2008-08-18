@@ -1,3 +1,10 @@
+
+[Changes for 0.68 - 2008-08-18]
+
+* Locale::Maketext::Extract: Support for other forms of localization in 
+  TT templates and TT HEREDOCS.
+  Contributed by: Felix Antonius Wilhelm Ostmann
+
 [Changes for 0.67 - 2008-08-04]
 
 * Locale::Maketext::Extract: Support in Extract.pm and Lexicon/Gettext.pm

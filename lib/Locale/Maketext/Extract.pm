@@ -202,11 +202,14 @@ sub write_po {
 use constant NUL  => 0;
 use constant BEG  => 1;
 use constant PAR  => 2;
+use constant HERE =>10;
 use constant QUO1 => 3;
 use constant QUO2 => 4;
 use constant QUO3 => 5;
 use constant QUO4 => 6;
 use constant QUO5 => 7;
+use constant QUO6 => 8;
+use constant QUO7 => 9;
 
 sub extract {
     my $self = shift;
@@ -252,11 +255,13 @@ sub extract {
 
     # Template Toolkit
     $line = 1; pos($_) = 0;
-    while (m!\G(.*?\[%\s*\|l(?:oc)?(.*?)\s*%\](.*?)\[%\s*END\s*%\])!sg) {
-        my ($vars, $str) = ($2, $3);
+    while (m!\G(.*?\[%-?\s*\|l(?:oc)?(.*?)\s*(-?)%\](.*?)\[%(-?)\s*END\s*-?%\])!sg) { 
+        my ($vars, $trim_start, $str, $trim_end) = ($2, $3, $4, $5);
         $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
         $vars =~ s/^\s*\(//;
         $vars =~ s/\)\s*$//;
+        $trim_start && $str =~ s/^\s+//;
+        $trim_end   && $str =~ s/\s+$//;
         $self->add_entry($str, [ $file, $line, $vars ]);
     }
 
@@ -300,7 +305,7 @@ sub extract {
     }
 
     # Perl code:
-    my ($state,$str,$vars,$quo)=(0);
+    my ($state,$str,$vars,$quo,$heredoc)=(0);
     pos($_) = 0;
     my $orig = 1 + (() = ((my $__ = $_) =~ /\n/g));
 
@@ -341,6 +346,22 @@ sub extract {
         $state == QUO5 && m/^([^\}]*)/gc    && do { $str  .= $1;            redo };
         $state == QUO5 && m/^\}/gc          && do { $state = PAR;           redo };
 
+        # find heredoc terminator, then get the heredoc and go back to current position
+        $state == PAR  && m/^<<\s*\'/gc     && do { $state    = $quo = QUO6; $heredoc = '';    redo };
+        $state == QUO6 && m/^([^'\\\n]+)/gc && do { $heredoc .= $1;                            redo };
+        $state == QUO6 && m/^((?:\\.)+)/gc  && do { $heredoc .= $1;                            redo };
+        $state == QUO6 && m/^\'/gc          && do { $state    = HERE; $heredoc =~ s/\\\'/\'/g; redo };
+
+        $state == PAR  && m/^<<\s*\"/gc     && do { $state    = $quo = QUO7; $heredoc = '';    redo };
+        $state == QUO7 && m/^([^"\\\n]+)/gc && do { $heredoc .= $1;                            redo };
+        $state == QUO7 && m/^((?:\\.)+)/gc  && do { $heredoc .= $1;                            redo };
+        $state == QUO7 && m/^\"/gc          && do { $state    = HERE; $heredoc =~ s/\\\"/\"/g; redo };
+
+        $state == PAR  && m/^<<(\w*)/gc     && do { $state = HERE; $quo = QUO7; $heredoc = $1; redo };
+
+        # jump ahaid and get the heredoc, then s/// also reset the pos and we are back at the current pos
+        $state == HERE && m/^.*\r?\n/gc     && s/\G(.*?\r?\n)$heredoc(\r?\n)//s && do { $state = PAR; $str .= $1; redo };
+
         # end ()
         #
         
@@ -348,13 +369,14 @@ sub extract {
             $state = NUL; 
             $vars =~ s/[\n\r]//g if ($vars);
             if (($quo == QUO1) || ($quo == QUO5) ){
-                $str =~ s/\\([\\'])/$1/g; # normalize q strings
+                $str =~ s/\\([\\'])/$1/g if ($str); # normalize q strings
             }
-            else {
-                $str =~ s/(\\(?:[0x]..|c?.))/"qq($1)"/eeg; # normalize qq / qx strings
+            elsif ($quo != QUO6) {
+                $str =~ s/(\\(?:[0x]..|c?.))/"qq($1)"/eeg if ($str); # normalize qq / qx strings
             }
-            push @{$entries->{$str}}, [ $file, $line - (() = $str =~ /\n/g), $vars] if ($str);
-            undef $str; undef $vars;
+            # heredoc loosing the terminating line, so decrement one more line for heredoc
+            push @{$entries->{$str}}, [ $file, $line - (() = $str =~ /\n/g) - defined($heredoc), $vars] if ($str);
+            undef $str; undef $vars; undef $heredoc;
             redo;
         };
 

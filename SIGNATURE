@@ -15,7 +15,7 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 fc252c495595a771e93f5a399dc0c3467dd1dbfd AUTHORS
-SHA1 48fa296e725ffed4734b7783b56d1065c7f79146 Changes
+SHA1 f24aa41ce543b1f43d169e6934f5809678283cd2 Changes
 SHA1 aceae4714f2f2dc94c0d5e28b22ff3bc7a0c05ae MANIFEST
 SHA1 ff64a729c6469e1d1ce8edccb4072672bdce4d17 MANIFEST.SKIP
 SHA1 356a68dfc6427c163ecc377b18e8e01584209447 META.yml
@@ -38,9 +38,9 @@ SHA1 4f29a27c21fbf9808140f69496e8c26f586c7ab6 inc/Test/Builder.pm
 SHA1 15260d018c2f7dd0dc9705a621684149742e7a5f inc/Test/Builder/Module.pm
 SHA1 0b8387e071b32d2d595715e303e18c3d4579ca33 inc/Test/More.pm
 SHA1 a3b43f30a4aa19adb8cda1ceaf5b19da0a5e1cae inc/attributes.pm
-SHA1 c4dc4784071672c0219610781148eb3e39ee2f57 lib/Locale/Maketext/Extract.pm
+SHA1 5a7cd466299257b71bef50aaf30190688666e7ec lib/Locale/Maketext/Extract.pm
 SHA1 ae1c100252e17e5963a0e07a1505746d3e851515 lib/Locale/Maketext/Extract/Run.pm
-SHA1 653380897e102c66167fcdeacb129a86700f69e8 lib/Locale/Maketext/Lexicon.pm
+SHA1 3d989e0d2384244be42eeb402a12f78f6a799377 lib/Locale/Maketext/Lexicon.pm
 SHA1 6d18ec954610e5bef54e3521dc57db781aee84e2 lib/Locale/Maketext/Lexicon/Auto.pm
 SHA1 90e71ed81f8c69e6263df5fdfdef379bf0a6bfc2 lib/Locale/Maketext/Lexicon/Gettext.pm
 SHA1 aa70e8728c63c0165aea0280e85b8db7be70650f lib/Locale/Maketext/Lexicon/Msgcat.pm
@@ -50,7 +50,7 @@ SHA1 13740c467c28f580446481f6cc9e2522b6b7a2fa t/1-basic.t
 SHA1 812a92de30302293470bb12512fdb9b4e0271f4c t/2-lmg.t
 SHA1 2e6e1f69fef9c3868bc2d9d323888ef843851e73 t/3-big-endian.t
 SHA1 07e68cea617f91bb9dbbd9ce0b8fdd0a486f3125 t/4-encodings.t
-SHA1 0305386868418e95ba3ceebadb1299aa744ed433 t/5-extract.t
+SHA1 311294a744904066fb5f367cd566300239961003 t/5-extract.t
 SHA1 00c15dd4ee62792ab292386b641194fad9d1bf11 t/6-gettext.t
 SHA1 142639c38f04d8c5104f44015b71a7737b56603f t/7-comments.t
 SHA1 ce5c72c3bc2c78bbf8da1a0d73b08523c5d03025 t/99-bug-import-for-subclasses.t
@@ -71,7 +71,7 @@ SHA1 aa2cafa6c6699e00f77491d3df07a6d5db8931b1 t/messages.po
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (Darwin)
 
-iEYEARECAAYFAkiXLFwACgkQEi9d9xCOQEZWUACgtH+/HZcs08myXwzj5eS+8D3k
-1kIAoMKz+GpJceNWCULWbo+0S4XoEyVu
-=aj9i
+iEYEARECAAYFAkipcOsACgkQEi9d9xCOQEb38gCdF8w/BVgREIlJ6vpEKkcJfymq
+91kAoIhgdXQe8GAf4UPZb08w1Seh+Jz7
+=NvJd
 -----END PGP SIGNATURE-----

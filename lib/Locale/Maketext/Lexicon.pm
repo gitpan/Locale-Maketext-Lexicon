@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.67';
+$Locale::Maketext::Lexicon::VERSION = '0.68';
 
 use 5.004;
 use strict;
@@ -10,8 +10,8 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-This document describes version 0.67 of Locale::Maketext::Lexicon,
-released August 4, 2008.
+This document describes version 0.68 of Locale::Maketext::Lexicon,
+released August 18, 2008.
 
 =head1 SYNOPSIS
 
