@@ -1,4 +1,13 @@
-[Changes for 0.72 - 2007-10-10]
+[Changes for 0.73 - 2008-10-28]
+ * Locale::Maketext::Extract::Plugin::TextTemplate
+   - renamed MyParser to Locale::Maketext::Extract::Plugin::TextTemplate::Parser
+     to avoid namespace clashes
+ * CPANTS improvements
+   - Updated the Makefile to list all mentioned modules
+   - Added a LICENSE file
+   - added a Test::Pod test
+
+[Changes for 0.72 - 2008-10-10]
 
 Contributed by: Clinton Gormley (DRTECH)
 
