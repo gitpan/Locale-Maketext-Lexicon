@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract::Run;
-$Locale::Maketext::Lexicon::Extract::Run::VERSION = '0.30';
+$Locale::Maketext::Lexicon::Extract::Run::VERSION = '0.32';
 
 use strict;
 use vars qw( @ISA @EXPORT_OK );
@@ -58,6 +58,7 @@ sub run {
     foreach my $file ( @{ $opts{f} || [] } ) {
         open FILE, $file or die "Cannot open $file: $!";
         while (<FILE>) {
+            chomp;
             push @ARGV, $_ if -r and !-d;
         }
     }

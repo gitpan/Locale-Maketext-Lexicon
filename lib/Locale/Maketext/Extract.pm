@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.31';
+$Locale::Maketext::Extract::VERSION = '0.32';
 
 use strict;
 
@@ -350,7 +350,7 @@ sub read_po {
 
     my $header = '';
 
-    local *LEXICON;
+    local (*LEXICON,$_);
     open LEXICON, $file or die $!;
     while (<LEXICON>) {
         ( 1 .. /^$/ ) or last;
