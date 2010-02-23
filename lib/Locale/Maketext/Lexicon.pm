@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.77';
+$Locale::Maketext::Lexicon::VERSION = '0.78';
 
 use 5.004;
 use strict;
@@ -304,7 +304,7 @@ sub import {
             no strict 'refs';
             eval "use $class\::$format; 1" or die $@;
 
-            if ( defined %{"$export\::Lexicon"} ) {
+            if ( %{"$export\::Lexicon"} ) {
                 if ( ref( tied %{"$export\::Lexicon"} ) eq __PACKAGE__ ) {
                     tied( %{"$export\::Lexicon"} )->_force;
                 }
