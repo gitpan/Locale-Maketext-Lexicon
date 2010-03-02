@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!perl
 
 use 5.005;
 use inc::Module::Install;

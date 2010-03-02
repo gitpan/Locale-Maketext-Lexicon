@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon::Tie;
-$Locale::Maketext::Lexicon::Tie::VERSION = '0.04';
+$Locale::Maketext::Lexicon::Tie::VERSION = '0.05';
 
 use strict;
 use Symbol ();
@@ -35,7 +35,7 @@ sub parse {
     # Load the target module into memory
     {
         no strict 'refs';
-        eval "use $mod; 1" or die $@ unless defined %{"$mod\::"};
+        eval "use $mod; 1" or die $@ unless %{"$mod\::"};
     }
 
     # Perform the actual tie
