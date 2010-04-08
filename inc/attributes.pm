@@ -1,7 +1,7 @@
 #line 1
 package attributes;
 
-our $VERSION = 0.08;
+our $VERSION = 0.09;
 
 @EXPORT_OK = qw(get reftype);
 @EXPORT = ();
@@ -92,5 +92,5 @@ sub require_version { goto &UNIVERSAL::VERSION }
 __END__
 #The POD goes here
 
-#line 417
+#line 494
 

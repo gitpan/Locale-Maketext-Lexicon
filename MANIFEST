@@ -36,7 +36,7 @@ lib/Locale/Maketext/Lexicon/Msgcat.pm
 lib/Locale/Maketext/Lexicon/Tie.pm
 LICENSE
 Makefile.PL
-MANIFEST			This list of files
+MANIFEST            This list of files
 MANIFEST.SKIP
 META.yml
 README
@@ -68,4 +68,5 @@ t/locale/zh_TW/LC_MESSAGES/test_be.mo
 t/locale/zh_TW/LC_MESSAGES/test_utf8.mo
 t/messages.mo
 t/messages.po
+t/preload.t
 t/T_L10N.pm

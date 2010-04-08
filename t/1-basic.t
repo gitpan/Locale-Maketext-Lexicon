@@ -11,23 +11,23 @@ $SIG{__WARN__} = sub { $warned++ };
 
 use_ok( base => 'Locale::Maketext' );
 use_ok( 'Locale::Maketext::Lexicon' => {
-                                    en    => ['Auto'],
-                                    fr    => [ 'Tie' => ['Tie::StdHash'] ],
-                                    de    => [ 'Gettext' => \*::DATA ],
-                                    zh_tw => [ 'Gettext' => 't/messages.mo' ],
-                                    zh_cn => [ 'Msgcat' => 't/gencat.m' ],
-                                    zh_hk => [ 'Msgcat'  => 't/gencat.m',
-                                               'Gettext' => 't/messages.po',
-                                    ],
-        }
-);
+    en    => ['Auto'],
+    fr    => [ 'Tie' => ['Tie::StdHash'] ],
+    de    => [ 'Gettext' => \*::DATA ],
+    zh_tw => [ 'Gettext' => 't/messages.mo' ],
+    zh_cn => [ 'Msgcat' => 't/gencat.m' ],
+    zh_hk => [
+        'Msgcat'  => 't/gencat.m',
+        'Gettext' => 't/messages.po',
+    ],
+} );
 
 ok( !$warned, 'no warnings on blank lines' );
 
-Locale::Maketext::Lexicon->import( { de_de      => [ 'Gettext' => \*::DATA ],
-                                     _use_fuzzy => 1,
-                                   }
-);
+Locale::Maketext::Lexicon->import( {
+    de_de      => [ 'Gettext' => \*::DATA ],
+    _use_fuzzy => 1,
+} );
 
 package main;
 

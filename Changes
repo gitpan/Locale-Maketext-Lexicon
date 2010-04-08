@@ -1,3 +1,11 @@
+[Changes for 0.80 - 2010-04-08]
+* Locale::Maketext::Lexicon
+    - Added the _preload option, which forces parsing of the lexicon
+      as soon as it is loaded. Improves memory usage and performance
+      in a prefork environment
+
+      Thanks to Ruslan Zakirov for the patch
+
 [Changes for 0.79 - 2010-03-02]
 
  * Locale::Maketext::Lexicon::Tie
