@@ -99,6 +99,8 @@ __PO__
             - content_loc:
                 - foo
                 - bar
+            - content_loc: [foo, bar]
+            - content_loc: {foo: bar}
     value_loc: other
 
 __YAML__
@@ -106,7 +108,8 @@ __YAML__
 msgid "baz"
 msgstr ""
 
-#: :2
+#. (bar)
+#: :12 :2 :9
 msgid "foo"
 msgstr ""
 
@@ -126,7 +129,7 @@ msgstr ""
 msgid "nest_2"
 msgstr ""
 
-#: :12
+#: :14
 msgid "other"
 msgstr ""
 __PO__
@@ -148,89 +151,104 @@ __EXAMPLE__
     write_po_ok( q([% l(string) %]) => '', 'TT l function - no string' );
 
     write_po_ok(
-          q([% l('string') %]) => <<'__EXAMPLE__', 'TT l function - no arg' );
+        q([% l('string') %]) => <<'__EXAMPLE__', 'TT l function - no arg' );
 #: :1
 msgid "string"
 msgstr ""
 __EXAMPLE__
 
-    write_po_ok( q([% l('string',arg) %]) =>
-                     <<'__EXAMPLE__', 'TT l function - variable arg' );
+    write_po_ok(
+        q([% l('string',arg) %]) =>
+            <<'__EXAMPLE__', 'TT l function - variable arg' );
 #. (arg)
 #: :1
 msgid "string"
 msgstr ""
 __EXAMPLE__
 
-    write_po_ok( q([% l('string','arg') %]) =>
-                     <<'__EXAMPLE__', 'TT l function - literal arg' );
+    write_po_ok(
+        q([% l('string','arg') %]) =>
+            <<'__EXAMPLE__', 'TT l function - literal arg' );
 #. ("arg")
 #: :1
 msgid "string"
 msgstr ""
 __EXAMPLE__
 
-    write_po_ok( q([% string | l %]) => '',
-                 'TT l inline filter - no string' );
+    write_po_ok(
+        q([% string | l %]) => '',
+        'TT l inline filter - no string'
+    );
 
-    write_po_ok( q([% 'string' | l %]) =>
-                     <<'__EXAMPLE__', 'TT l inline filter - no arg' );
+    write_po_ok(
+        q([% 'string' | l %]) =>
+            <<'__EXAMPLE__', 'TT l inline filter - no arg' );
 #: :1
 msgid "string"
 msgstr ""
 __EXAMPLE__
 
-    write_po_ok( q([% 'string' | l('arg')  %]) =>
-                     <<'__EXAMPLE__', 'TT l inline filter - literal arg' );
+    write_po_ok(
+        q([% 'string' | l('arg')  %]) =>
+            <<'__EXAMPLE__', 'TT l inline filter - literal arg' );
 #. ("arg")
 #: :1
 msgid "string"
 msgstr ""
 __EXAMPLE__
 
-    write_po_ok( q([% 'string' | l(arg)  %]) =>
-                     <<'__EXAMPLE__', 'TT l inline filter - variable arg' );
+    write_po_ok(
+        q([% 'string' | l(arg)  %]) =>
+            <<'__EXAMPLE__', 'TT l inline filter - variable arg' );
 #. (arg)
 #: :1
 msgid "string"
 msgstr ""
 __EXAMPLE__
 
-    write_po_ok( q([% |l %][% string %][% END %]) => '',
-                 'TT l block filter - no string' );
+    write_po_ok(
+        q([% |l %][% string %][% END %]) => '',
+        'TT l block filter - no string'
+    );
 
 SKIP: {
         skip "Can't handle directive embedded in text blocks", 1;
 
-        write_po_ok( q([% |l %] string [% var %][% END %]) => '',
-                     'TT l block filter - embedded directive' );
+        write_po_ok(
+            q([% |l %] string [% var %][% END %]) => '',
+            'TT l block filter - embedded directive'
+        );
     }
 
-    write_po_ok( q([% |l %]string[% END %]) =>
-                     <<'__EXAMPLE__', 'TT l block filter - no arg' );
+    write_po_ok(
+        q([% |l %]string[% END %]) =>
+            <<'__EXAMPLE__', 'TT l block filter - no arg' );
 #: :1
 msgid "string"
 msgstr ""
 __EXAMPLE__
 
-    write_po_ok( q([% |l('arg') %]string[% END %]) =>
-                     <<'__EXAMPLE__', 'TT l block filter - literal arg' );
+    write_po_ok(
+        q([% |l('arg') %]string[% END %]) =>
+            <<'__EXAMPLE__', 'TT l block filter - literal arg' );
 #. ("arg")
 #: :1
 msgid "string"
 msgstr ""
 __EXAMPLE__
 
-    write_po_ok( q([% |l(arg) %]string[% END %]) =>
-                     <<'__EXAMPLE__', 'TT l block filter - variable arg' );
+    write_po_ok(
+        q([% |l(arg) %]string[% END %]) =>
+            <<'__EXAMPLE__', 'TT l block filter - variable arg' );
 #. (arg)
 #: :1
 msgid "string"
 msgstr ""
 __EXAMPLE__
 
-    write_po_ok( q([% FILTER l(arg) %]string[% END %]) =>
-                     <<'__EXAMPLE__', 'TT block FILTER - variable arg' );
+    write_po_ok(
+        q([% FILTER l(arg) %]string[% END %]) =>
+            <<'__EXAMPLE__', 'TT block FILTER - variable arg' );
 #. (arg)
 #: :1
 msgid "string"
@@ -241,16 +259,18 @@ __EXAMPLE__
     my $Old_Ext = $Ext;
     $Ext = Locale::Maketext::Extract->new( plugins => { tt2 => '*' } );
 
-    write_po_ok( q([% loc('string',arg) %]) =>
-                     <<'__EXAMPLE__', 'TT loc function - variable arg' );
+    write_po_ok(
+        q([% loc('string',arg) %]) =>
+            <<'__EXAMPLE__', 'TT loc function - variable arg' );
 #. (arg)
 #: :1
 msgid "string"
 msgstr ""
 __EXAMPLE__
 
-    write_po_ok( q([% 'string' | loc('arg')  %]) =>
-                     <<'__EXAMPLE__', 'TT loc inline filter - literal arg' );
+    write_po_ok(
+        q([% 'string' | loc('arg')  %]) =>
+            <<'__EXAMPLE__', 'TT loc inline filter - literal arg' );
 #. ("arg")
 #: :1
 msgid "string"
@@ -273,7 +293,7 @@ msgstr ""
 __EXAMPLE__
 
     write_po_ok(
-            <<'__TT__' => <<'__EXAMPLE__', 'TT multiline filter with chomp' );
+        <<'__TT__' => <<'__EXAMPLE__', 'TT multiline filter with chomp' );
 [%- | l(arg1,arg2) -%]
 my string
 [%- END -%]
@@ -284,17 +304,25 @@ msgid "my string"
 msgstr ""
 __EXAMPLE__
 
-    extract_ok( q([% l('catted ' _ 'string') %]) => "catted string",
-                "TT catted string" );
+    extract_ok(
+        q([% l('catted ' _ 'string') %]) => "catted string",
+        "TT catted string"
+    );
     extract_ok( q([% l('catted ' _ string) %]) => "", "TT catted dir 1" );
     extract_ok( q([% l('catted ' _ string) %]) => "", "TT catted dir 2" );
 
-    extract_ok( q([% l("embedded ${string}") %]) => "",
-                "TT embedded string 1" );
-    extract_ok( q([% l("embedded \${string}") %]) => 'embedded ${string}',
-                "TT embedded string 2" );
-    extract_ok( q([% l('embedded ${string}') %]) => 'embedded ${string}',
-                "TT embedded string 3" );
+    extract_ok(
+        q([% l("embedded ${string}") %]) => "",
+        "TT embedded string 1"
+    );
+    extract_ok(
+        q([% l("embedded \${string}") %]) => 'embedded ${string}',
+        "TT embedded string 2"
+    );
+    extract_ok(
+        q([% l('embedded ${string}') %]) => 'embedded ${string}',
+        "TT embedded string 3"
+    );
 
     write_po_ok( <<'__TT__' => <<'__EXAMPLE__', 'TT quoted - 1' );
 [% l('my \ string', 'my \ string') %]
@@ -511,27 +539,32 @@ SKIP: {
 
     extract_ok( qq(key: _"string"\n) => "string", "YAML double quotes" );
     extract_ok( qq(key: _'string'\n) => "string", "YAML single quotes" );
-    extract_ok( qq(key: _"str"ing"\n) => 'str"ing',
-                "YAML embedded double quote" );
+    extract_ok(
+        qq(key: _"str"ing"\n) => 'str"ing',
+        "YAML embedded double quote"
+    );
 
     extract_ok(
-           qq( key: { s1: _"string_1", s2: _'string_2', s3: _'string'3'}\n) =>
-               q(string_1string'3string_2),
-           'YAML inline hash'
+        qq( key: { s1: _"string_1", s2: _'string_2', s3: _'string'3'}\n) =>
+            q(string_1string'3string_2),
+        'YAML inline hash'
     );
 
-    extract_ok( qq( - _"string_1"\n - _'string_2'\n - _'string'3'\n) =>
-                    q(string_1string'3string_2),
-                'YAML array'
+    extract_ok(
+        qq( - _"string_1"\n - _'string_2'\n - _'string'3'\n) =>
+            q(string_1string'3string_2),
+        'YAML array'
     );
 
-    extract_ok( qq(key: [ _"string_1", _'string_2', _'string'3' ]\n) =>
-                    q(string_1string'3string_2),
-                'YAML Inline arrays'
+    extract_ok(
+        qq(key: [ _"string_1", _'string_2', _'string'3' ]\n) =>
+            q(string_1string'3string_2),
+        'YAML Inline arrays'
     );
 
-    write_po_ok( qq(---\nkey: _"string"\n---\nkey2: _"string2"\n\n\n\n) =>
-                     <<'__EXAMPLE__', 'YAML multiple docs' );
+    write_po_ok(
+        qq(---\nkey: _"string"\n---\nkey2: _"string2"\n\n\n\n) =>
+            <<'__EXAMPLE__', 'YAML multiple docs' );
 #: :2
 msgid "string"
 msgstr ""

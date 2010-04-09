@@ -30,6 +30,7 @@ for localizing errors, labels etc.
 We extract the text after any key which ends in C<_loc>:
 
     content_loc: this is the string
+    message_loc: ['Max length [_1]', 10]
 
 =head1 KNOWN FILE TYPES
 
@@ -86,7 +87,7 @@ sub new {
 #===================================
     my $class = shift;
     my $self  = $class->SUPER::new(@_);
-    $self->{found}       = [];
+    $self->{found} = [];
     return $self;
 }
 
@@ -95,11 +96,20 @@ sub _check_key {
 #===================================
     my $self = shift;
     my ( $key, $value, $line ) = @_;
-    if ( $key && $key =~ /_loc$/ && defined $value && !ref $value ) {
-        push @{ $self->{found} }, [ $value, $line ];
+    my ( $str, $vars );
+    if ( ref $value ) {
+        return if ref $value ne 'ARRAY';
+        $str = shift @$value;
+        $vars = join( ', ', @$value );
     }
-
-    return;
+    else {
+        $str = $value;
+    }
+    return
+        unless $key
+            && $key =~ /_loc$/
+            && defined $str;
+    push @{ $self->{found} }, [ $str, $line, $vars ];
 }
 
 #===================================
@@ -111,7 +121,7 @@ sub _parse_mapping {
     $self->anchor2node->{$anchor} = $mapping;
     my $key;
     while ( not $self->done
-            and $self->indent == $self->offset->[ $self->level ] )
+        and $self->indent == $self->offset->[ $self->level ] )
     {
 
         # If structured key:
@@ -194,7 +204,7 @@ sub _parse_inline_mapping {
 sub _parse_next_line {
 #===================================
     my $self = shift;
-    $self->{_start_line}  = $self->line;
+    $self->{_start_line} = $self->line;
     $self->SUPER::_parse_next_line(@_);
 }
 
