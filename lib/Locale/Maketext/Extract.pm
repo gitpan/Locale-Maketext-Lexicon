@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.36';
+$Locale::Maketext::Extract::VERSION = '0.37';
 
 use strict;
 use Locale::Maketext::Lexicon();
@@ -97,8 +97,8 @@ Valid forms are:
   [% 'string' | l(arg1,argn) %]
   [% l('string',arg1,argn) %]
 
-  FILTER and | are interchangable
-  l and loc are interchangable
+  FILTER and | are interchangeable
+  l and loc are interchangeable
   args are optional
 
 =item Text::Template (plugin: text)
@@ -123,6 +123,7 @@ support for localizing errors, labels etc.
 
 We extract the text after C<_loc: >:
     content_loc: this is the string
+    message_loc: ['Max string length: [_1]', 10]
 
 =item Generic Template (plugin: generic)
 

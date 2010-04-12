@@ -1,3 +1,9 @@
+[Changes for 0.82 - 2010-04-12]
+* Locale::Maketext::Extract::Plugin::Base
+* Locale::Maketext::Extract::Plugin::TT2
+* Locale::Maketext::Extract
+    - fixed some spelling errors - thanks to Ansgar Burchardt for the patch
+
 [Changes for 0.81 - 2010-04-09]
 * Locale::Maketext::Extract::PLugin::FormFu
     - the plugin now understands YAML of the form:

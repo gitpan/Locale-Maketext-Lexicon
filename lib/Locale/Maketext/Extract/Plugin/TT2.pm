@@ -40,9 +40,9 @@ Valid formats are:
 
 =back
 
-l and loc are interchangable.
+l and loc are interchangeable.
 
-| and FILTER are interchangable.
+| and FILTER are interchangeable.
 
 =head1 KNOWN FILE TYPES
 
