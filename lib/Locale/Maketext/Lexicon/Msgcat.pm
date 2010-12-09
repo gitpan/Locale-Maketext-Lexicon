@@ -44,6 +44,7 @@ sub parse {
     # Set up the msgcat handler
     {
         no strict 'refs';
+        no warnings 'once';
         *{Locale::Maketext::msgcat} = \&_msgcat;
     }
 

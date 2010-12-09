@@ -49,10 +49,12 @@ t/5-extract.t
 t/51-perlextract.t
 t/55-runextract.t
 t/6-gettext.t
+t/61-badcharset.t
 t/7-roundtrip.t
 t/8-plugin-args.t
 t/9-bug-import-for-subclasses.t
 t/91-pod_test.t
+t/badcharset.po
 t/comments.po
 t/gencat.m
 t/lib/Myi18n.pm

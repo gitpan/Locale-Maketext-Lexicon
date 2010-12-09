@@ -1,3 +1,11 @@
+[Changes for 0.83 - 2010-12-09]
+* Locale::Maketext::Lexicon
+    - remove the local $@ when loading PO files - made it difficult
+      to debug errors when loading PO's
+
+      Thanks to Ton Voon for the patch
+      https://rt.cpan.org/Ticket/Display.html?id=63722
+
 [Changes for 0.82 - 2010-04-12]
 * Locale::Maketext::Extract::Plugin::Base
 * Locale::Maketext::Extract::Plugin::TT2
