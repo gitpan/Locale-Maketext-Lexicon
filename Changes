@@ -1,3 +1,11 @@
+[Changes for 0.84 - 2010-12-24]
+* Changed the minimum version of Locale::Maketext to 1.17, to avoid error
+  reports from recent Perl versions, which still have an old Locale::Maketext
+
+* Locale::Maketext::Extract
+    - added a fix from Ivan Bessarov to avoid uninit warnings when msgids
+      contain trailing spaces
+
 [Changes for 0.83 - 2010-12-09]
 * Locale::Maketext::Lexicon
     - remove the local $@ when loading PO files - made it difficult

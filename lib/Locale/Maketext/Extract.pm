@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.37';
+$Locale::Maketext::Extract::VERSION = '0.38';
 
 use strict;
 use Locale::Maketext::Lexicon();
@@ -590,7 +590,10 @@ sub normalize_space {
 =cut
 
 sub msgids    { sort keys %{ $_[0]{lexicon} } }
-sub has_msgid { length $_[0]->msgstr( $_[1] ) }
+sub has_msgid {
+    my $msg_str = $_[0]->msgstr( $_[1] );
+    return defined $msg_str ? length $msg_str : 0;
+}
 
 sub msg_positions {
     my ( $self, $msgid ) = @_;
