@@ -1,3 +1,12 @@
+[Changes for 0.84 - 2011-02-11]
+* Changed Locale::Maketext::Extract::Run to ignore:
+   - .git/
+   - unix pipes
+   - binary files
+
+   Thanks to audreyt for the patch
+   https://github.com/audreyt/locale-maketext-lexicon/commit/1e4d112d435daa7b72eb8b49208f3b2e3185bc22
+
 [Changes for 0.84 - 2010-12-24]
 * Changed the minimum version of Locale::Maketext to 1.17, to avoid error
   reports from recent Perl versions, which still have an old Locale::Maketext
