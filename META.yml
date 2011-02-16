@@ -4,12 +4,11 @@ author:
   - 'Audrey Tang <cpan@audreyt.org>'
 build_requires:
   ExtUtils::MakeMaker: 6.42
-  Test::More: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.95'
-license: MIT
+generated_by: 'Module::Install version 1.00'
+license: mit
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -27,6 +26,8 @@ recommends:
   YAML: 0.66
   YAML::Loader: 0.66
 requires:
-  Locale::Maketext: 0.01
+  Locale::Maketext: 1.17
   perl: 5.005
-version: 0.82
+resources:
+  license: http://opensource.org/licenses/mit-license.php
+version: 0.86

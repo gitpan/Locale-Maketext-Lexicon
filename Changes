@@ -1,4 +1,7 @@
-[Changes for 0.84 - 2011-02-11]
+[Changes for 0.86 - 2011-02-16]
+* Bumped version because the META file was showing an old version number.
+
+[Changes for 0.85 - 2011-02-11]
 * Changed Locale::Maketext::Extract::Run to ignore:
    - .git/
    - unix pipes
