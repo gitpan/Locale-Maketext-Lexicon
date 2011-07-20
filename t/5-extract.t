@@ -1,7 +1,7 @@
 #! /usr/bin/perl -w
 use lib '../lib';
 use strict;
-use Test::More tests => 64;
+use Test::More tests => 74;
 
 use_ok('Locale::Maketext::Extract');
 my $Ext = Locale::Maketext::Extract->new();
@@ -32,6 +32,434 @@ __EXPECTED__
 
 #### END WRAPPING TESTS ############
 $Ext->{wrap} = 0;
+
+
+#### BEGIN HTML::Mason (aka Mason 1) TESTS ############
+SKIP: {
+    skip( 'HTML::Mason unavailable', 5 ) unless eval { require HTML::Mason };
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "HTML::Mason simple" );
+<&|/l&>string1</&>
+<&|/loc&>string2</&>
+__EXAMPLE__
+#: :1
+msgid "string1"
+msgstr ""
+
+#: :2
+msgid "string2"
+msgstr ""
+__EXPECTED__
+
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "HTML::Mason simple with spaces" );
+<&| /l&>string1</&>
+<&|/l &>string2</&>
+<&| /l &>string3</&>
+<&| /loc&>string4</&>
+<&|/loc &>string5</&>
+<&| /loc &>string6</&>
+__EXAMPLE__
+#: :1
+msgid "string1"
+msgstr ""
+
+#: :2
+msgid "string2"
+msgstr ""
+
+#: :3
+msgid "string3"
+msgstr ""
+
+#: :4
+msgid "string4"
+msgstr ""
+
+#: :5
+msgid "string5"
+msgstr ""
+
+#: :6
+msgid "string6"
+msgstr ""
+__EXPECTED__
+
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "HTML::Mason one argument" );
+<&|/l,arg1=>value1&>string1</&>
+<&|/loc,arg1=>value1&>string2</&>
+__EXAMPLE__
+#. (arg1=>value1)
+#: :1
+msgid "string1"
+msgstr ""
+
+#. (arg1=>value1)
+#: :2
+msgid "string2"
+msgstr ""
+__EXPECTED__
+
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "HTML::Mason one argument with spaces" );
+<&|/l, arg1=>value1&>string1</&>
+<&|/loc, arg1=>value1&>string2</&>
+<&|/l ,arg1=>value1&>string3</&>
+<&|/loc ,arg1=>value1&>string4</&>
+<&|/l , arg1=>value1&>string5</&>
+<&|/loc , arg1=>value1&>string6</&>
+<&| /l , arg1=>value1 &>string7</&>
+<&| /loc , arg1=>value1 &>string8</&>
+__EXAMPLE__
+#. (arg1=>value1)
+#: :1
+msgid "string1"
+msgstr ""
+
+#. (arg1=>value1)
+#: :2
+msgid "string2"
+msgstr ""
+
+#. (arg1=>value1)
+#: :3
+msgid "string3"
+msgstr ""
+
+#. (arg1=>value1)
+#: :4
+msgid "string4"
+msgstr ""
+
+#. (arg1=>value1)
+#: :5
+msgid "string5"
+msgstr ""
+
+#. (arg1=>value1)
+#: :6
+msgid "string6"
+msgstr ""
+
+#. (arg1=>value1)
+#: :7
+msgid "string7"
+msgstr ""
+
+#. (arg1=>value1)
+#: :8
+msgid "string8"
+msgstr ""
+__EXPECTED__
+
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "HTML::Mason two arguments" );
+<&|/l,arg1=>value1,arg2=>value2&>string1</&>
+<&|/loc,arg1=>value1,arg2=>value2&>string2</&>
+__EXAMPLE__
+#. (arg1=>value1,arg2=>value2)
+#: :1
+msgid "string1"
+msgstr ""
+
+#. (arg1=>value1,arg2=>value2)
+#: :2
+msgid "string2"
+msgstr ""
+__EXPECTED__
+
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "HTML::Mason two arguments with spaces" );
+<&|/l ,arg1=>value1,arg2=>value2&>string1</&>
+<&|/loc ,arg1=>value1,arg2=>value2&>string2</&>
+<&|/l , arg1=>value1,arg2=>value2&>string3</&>
+<&|/loc , arg1=>value1,arg2=>value2&>string4</&>
+<&|/l , arg1=>value1, arg2=>value2&>string5</&>
+<&|/loc , arg1=>value1, arg2=>value2&>string6</&>
+<&| /l , arg1=>value1, arg2=>value2 &>string7</&>
+<&| /loc , arg1=>value1, arg2=>value2 &>string8</&>
+__EXAMPLE__
+#. (arg1=>value1,arg2=>value2)
+#: :1
+msgid "string1"
+msgstr ""
+
+#. (arg1=>value1,arg2=>value2)
+#: :2
+msgid "string2"
+msgstr ""
+
+#. (arg1=>value1,arg2=>value2)
+#: :3
+msgid "string3"
+msgstr ""
+
+#. (arg1=>value1,arg2=>value2)
+#: :4
+msgid "string4"
+msgstr ""
+
+#. (arg1=>value1, arg2=>value2)
+#: :5
+msgid "string5"
+msgstr ""
+
+#. (arg1=>value1, arg2=>value2)
+#: :6
+msgid "string6"
+msgstr ""
+
+#. (arg1=>value1, arg2=>value2)
+#: :7
+msgid "string7"
+msgstr ""
+
+#. (arg1=>value1, arg2=>value2)
+#: :8
+msgid "string8"
+msgstr ""
+__EXPECTED__
+
+}
+#### END HTML::Mason (aka Mason 1) TESTS ############
+
+
+#### BEGIN Mason (aka Mason 2) TESTS ############
+SKIP: {
+    skip( 'Mason unavailable', 5 ) unless eval { require Mason };
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "Mason simple" );
+<%$.fl {%>string1</%>
+<%$.floc {%>string2</%>
+<%$self->fl {%>string3</%>
+<%$self->floc {%>string4</%>
+__EXAMPLE__
+#: :1
+msgid "string1"
+msgstr ""
+
+#: :2
+msgid "string2"
+msgstr ""
+
+#: :3
+msgid "string3"
+msgstr ""
+
+#: :4
+msgid "string4"
+msgstr ""
+__EXPECTED__
+
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "Mason simple with spaces" );
+<% $.fl {%>string1</%>
+<% $.floc {%>string2</%>
+<% $self->fl {%>string3</%>
+<% $self->floc {%>string4</%>
+<% $.fl { %>string5</%>
+<% $.floc { %>string6</%>
+<% $self->fl { %>string7</%>
+<% $self->floc { %>string8</%>
+__EXAMPLE__
+#: :1
+msgid "string1"
+msgstr ""
+
+#: :2
+msgid "string2"
+msgstr ""
+
+#: :3
+msgid "string3"
+msgstr ""
+
+#: :4
+msgid "string4"
+msgstr ""
+
+#: :5
+msgid "string5"
+msgstr ""
+
+#: :6
+msgid "string6"
+msgstr ""
+
+#: :7
+msgid "string7"
+msgstr ""
+
+#: :8
+msgid "string8"
+msgstr ""
+__EXPECTED__
+
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "Mason one argument" );
+<%$.fl(arg1=>value1){%>string1</%>
+<%$.floc(arg1=>value1){%>string2</%>
+<%$self->fl(arg1=>value1){%>string3</%>
+<%$self->floc(arg1=>value1){%>string4</%>
+__EXAMPLE__
+#. (arg1=>value1)
+#: :1
+msgid "string1"
+msgstr ""
+
+#. (arg1=>value1)
+#: :2
+msgid "string2"
+msgstr ""
+
+#. (arg1=>value1)
+#: :3
+msgid "string3"
+msgstr ""
+
+#. (arg1=>value1)
+#: :4
+msgid "string4"
+msgstr ""
+__EXPECTED__
+
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "Mason one argument with spaces" );
+<% $.fl(arg1=>value1){%>string1</%>
+<% $.floc(arg1=>value1){%>string2</%>
+<% $.fl(arg1=>value1) {%>string3</%>
+<% $.floc(arg1=>value1) {%>string4</%>
+<% $.fl(arg1=>value1) { %>string5</%>
+<% $.floc(arg1=>value1) { %>string6</%>
+__EXAMPLE__
+#. (arg1=>value1)
+#: :1
+msgid "string1"
+msgstr ""
+
+#. (arg1=>value1)
+#: :2
+msgid "string2"
+msgstr ""
+
+#. (arg1=>value1)
+#: :3
+msgid "string3"
+msgstr ""
+
+#. (arg1=>value1)
+#: :4
+msgid "string4"
+msgstr ""
+
+#. (arg1=>value1)
+#: :5
+msgid "string5"
+msgstr ""
+
+#. (arg1=>value1)
+#: :6
+msgid "string6"
+msgstr ""
+__EXPECTED__
+
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "Mason two arguments" );
+<% $.fl(arg1=>value1,arg2=>value2){%>string1</%>
+<% $.floc(arg1=>value1,arg2=>value2){%>string2</%>
+<%$self->fl(arg1=>value1,arg2=>value2){%>string3</%>
+<%$self->floc(arg1=>value1,arg2=>value2){%>string4</%>
+__EXAMPLE__
+#. (arg1=>value1,arg2=>value2)
+#: :1
+msgid "string1"
+msgstr ""
+
+#. (arg1=>value1,arg2=>value2)
+#: :2
+msgid "string2"
+msgstr ""
+
+#. (arg1=>value1,arg2=>value2)
+#: :3
+msgid "string3"
+msgstr ""
+
+#. (arg1=>value1,arg2=>value2)
+#: :4
+msgid "string4"
+msgstr ""
+__EXPECTED__
+
+
+
+    write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "Mason two arguments with spaces" );
+<%$.fl(arg1=>value1,arg2=>value2){%>string1</%>
+<%$.floc(arg1=>value1,arg2=>value2){%>string2</%>
+<% $.fl (arg1=>value1,arg2=>value2){%>string3</%>
+<% $.floc (arg1=>value1,arg2=>value2){%>string4</%>
+<% $.fl (arg1=>value1, arg2=>value2){%>string5</%>
+<% $.floc (arg1=>value1, arg2=>value2){%>string6</%>
+<% $.fl (arg1=>value1, arg2=>value2) {%>string7</%>
+<% $.floc (arg1=>value1, arg2=>value2) {%>string8</%>
+<% $.fl (arg1=>value1, arg2=>value2) { %>string9</%>
+<% $.floc (arg1=>value1, arg2=>value2) { %>string10</%>
+__EXAMPLE__
+#. (arg1=>value1,arg2=>value2)
+#: :1
+msgid "string1"
+msgstr ""
+
+#. (arg1=>value1, arg2=>value2)
+#: :10
+msgid "string10"
+msgstr ""
+
+#. (arg1=>value1,arg2=>value2)
+#: :2
+msgid "string2"
+msgstr ""
+
+#. (arg1=>value1,arg2=>value2)
+#: :3
+msgid "string3"
+msgstr ""
+
+#. (arg1=>value1,arg2=>value2)
+#: :4
+msgid "string4"
+msgstr ""
+
+#. (arg1=>value1, arg2=>value2)
+#: :5
+msgid "string5"
+msgstr ""
+
+#. (arg1=>value1, arg2=>value2)
+#: :6
+msgid "string6"
+msgstr ""
+
+#. (arg1=>value1, arg2=>value2)
+#: :7
+msgid "string7"
+msgstr ""
+
+#. (arg1=>value1, arg2=>value2)
+#: :8
+msgid "string8"
+msgstr ""
+
+#. (arg1=>value1, arg2=>value2)
+#: :9
+msgid "string9"
+msgstr ""
+__EXPECTED__
+
+}
+#### END Mason (aka Mason 2) TESTS ############
+
 
 #### BEGIN FORMFU TESTS ############
 SKIP: {

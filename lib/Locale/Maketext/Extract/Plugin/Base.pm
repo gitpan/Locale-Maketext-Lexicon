@@ -19,7 +19,6 @@ Locale::Maketext::Extract::Plugin::Base - Base module for format parser plugins
 
     sub extract {
         my $self = shift;
-        my $filename = shift;
         local $_ = shift;
 
         my $line = 1;

@@ -26,3 +26,4 @@ ok(-s $outfile, "non-empty output for Locale::Maketext::Extract::Run::xgettext")
 
 unlink $_ for ($inputfile, $listfile, $outfile);
 
+

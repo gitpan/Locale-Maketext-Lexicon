@@ -49,7 +49,7 @@ Locale::Maketext::Extract - Extract translatable strings from source
 
         },
 
-        # Warn if a parser can't process a file
+        # Warn if a parser can't process a file or problems loading a plugin
         warnings => 1,
 
         # List processed files
@@ -84,10 +84,14 @@ For a slightly more accurate, but much slower Perl parser, you can  use the PPI
 plugin. This does not have a short name (like C<perl>), but must be specified
 in full.
 
-=item HTML::Mason  (plugin: mason)
+=item HTML::Mason (Mason 1) and Mason (Mason 2) (plugin: mason)
 
-Strings inside C<E<lt>&|/lE<gt>I<...>E<lt>/&E<gt>> and
-C<E<lt>&|/locE<gt>I<...>E<lt>/&E<gt>> are extracted.
+HTML::Mason (aka Mason 1)
+ Strings inside <&|/l>...</&> and <&|/loc>...</&> are extracted.
+
+Mason (aka Mason 2)
+Strings inside <% $.floc { %>...</%> or <% $.fl { %>...</%> or
+<% $self->floc { %>...</%> or <% $self->fl { %>...</%> are extracted.
 
 =item Template Toolkit (plugin: tt2)
 
@@ -234,6 +238,9 @@ The next enabled plugin will be tried.
 By default, you will not see these errors.  If you would like to see them,
 then enable warnings via new(). All parse errors will be printed to STDERR.
 
+Also, if developing your own plugin, turn on warnings to see any errors that
+result from loading your plugin.
+
 =head2 Verbose
 
 If you would like to see which files have been processed, which plugins were
@@ -333,7 +340,12 @@ sub plugins {
             eval {
                 require $filename && 1;
                 1;
-            } or next;
+            } or do {
+                my $error = $@ || 'Unknown';
+                print STDERR "Error loading $plugin_class: $error\n"
+                    if $self->{warnings};
+                next;
+            };
             push @plugins, $plugin_class->new( $params{$name} );
         }
         $self->{plugins} = \@plugins;

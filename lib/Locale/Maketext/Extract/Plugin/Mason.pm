@@ -5,7 +5,7 @@ use base qw(Locale::Maketext::Extract::Plugin::Base);
 
 =head1 NAME
 
-Locale::Maketext::Extract::Plugin::Mason - Mason format parser
+Locale::Maketext::Extract::Plugin::Mason - HTML::Mason (aka Mason 1) and Mason (aka Mason 2) format parser
 
 =head1 SYNOPSIS
 
@@ -26,7 +26,12 @@ Extracts strings to localise from Mason files.
 
 =head1 VALID FORMATS
 
-Strings inside <&|/l>...</&> and <&|/loc>...</&> are extracted.
+HTML::Mason (aka Mason 1)
+ Strings inside <&|/l>...</&> and <&|/loc>...</&> are extracted.
+
+Mason (aka Mason 2)
+Strings inside <% $.floc { %>...</%> or <% $.fl { %>...</%> or
+<% $self->floc { %>...</%> or <% $self->fl { %>...</%> are extracted.
 
 =head1 KNOWN FILE TYPES
 
@@ -42,19 +47,27 @@ sub file_types {
     return qw( * );
 }
 
-
 sub extract {
     my $self = shift;
     local $_ = shift;
 
     my $line = 1;
 
-    # HTML::Mason
+    # HTML::Mason (aka Mason 1)
+    while (m!\G(.*?<&\|[ ]*/l(?:oc)?(?:[ ]*,[ ]*(.*?))?[ ]*&>(.*?)</&>)!sg) {
+        my ( $vars, $str ) = ( $2, $3 );
+        $line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
+        $self->add_entry( $str, $line, $vars );
+    }
 
-    while (m!\G(.*?<&\|/l(?:oc)?(.*?)&>(.*?)</&>)!sg) {
-        my ($vars, $str) = ($2, $3);
-        $line += ( () = ($1 =~ /\n/g) ); # cryptocontext!
-        $self->add_entry($str,  $line, $vars );
+    # Mason (aka Mason 2)
+    while (
+        m!\G(.*?<%[ ]*(?:\$(?:\.|self->))fl(?:oc)?(?:[ ]*\((.*?)\))?[ ]*{[ ]*%>(.*?)</%>)!sg
+        )
+    {
+        my ( $vars, $str ) = ( $2, $3 );
+        $line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
+        $self->add_entry( $str, $line, $vars );
     }
 
 }
@@ -117,6 +130,5 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
 =cut
-
 
 1;
