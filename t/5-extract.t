@@ -1,7 +1,7 @@
 #! /usr/bin/perl -w
 use lib '../lib';
 use strict;
-use Test::More tests => 74;
+use Test::More tests => 76;
 
 use_ok('Locale::Maketext::Extract');
 my $Ext = Locale::Maketext::Extract->new();
@@ -36,7 +36,7 @@ $Ext->{wrap} = 0;
 
 #### BEGIN HTML::Mason (aka Mason 1) TESTS ############
 SKIP: {
-    skip( 'HTML::Mason unavailable', 5 ) unless eval { require HTML::Mason };
+    skip( 'HTML::Mason unavailable', 6 ) unless eval { require HTML::Mason };
 
     write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "HTML::Mason simple" );
 <&|/l&>string1</&>
@@ -227,7 +227,7 @@ __EXPECTED__
 
 #### BEGIN Mason (aka Mason 2) TESTS ############
 SKIP: {
-    skip( 'Mason unavailable', 5 ) unless eval { require Mason };
+    skip( 'Mason unavailable', 6 ) unless eval { require Mason };
 
     write_po_ok( <<'__EXAMPLE__' => <<'__EXPECTED__', "Mason simple" );
 <%$.fl {%>string1</%>

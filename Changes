@@ -1,3 +1,7 @@
+[Changes for 0.88 - 2011-07-30]
+
+* Fixed the t/5-extract.t test count
+
 [Changes for 0.87 - 2011-07-20]
 
 * Locale::Maketext::Extract::Plugin::Mason

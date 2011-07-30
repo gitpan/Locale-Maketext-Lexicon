@@ -5,7 +5,8 @@ use base qw(Locale::Maketext::Extract::Plugin::Base);
 
 =head1 NAME
 
-Locale::Maketext::Extract::Plugin::Mason - HTML::Mason (aka Mason 1) and Mason (aka Mason 2) format parser
+Locale::Maketext::Extract::Plugin::Mason - HTML::Mason (aka Mason 1) and Mason
+(aka Mason 2) format parser
 
 =head1 SYNOPSIS
 
