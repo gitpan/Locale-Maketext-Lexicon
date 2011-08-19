@@ -568,7 +568,7 @@ __PO__
 
 #### BEGIN TT TESTS ############
 SKIP: {
-    skip( 'Template.pm unavailable', 46 ) unless eval { require Template };
+    skip( 'Template.pm unavailable', 48 ) unless eval { require Template };
 
     extract_ok( <<'__EXAMPLE__' => 'foo bar baz', 'trim the string (tt)' );
 [% |loc -%]

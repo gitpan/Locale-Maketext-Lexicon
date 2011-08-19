@@ -2,7 +2,7 @@ NAME
     Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 VERSION
-    This document describes version 0.90 of Locale::Maketext::Lexicon.
+    This document describes version 0.91 of Locale::Maketext::Lexicon.
 
 SYNOPSIS
     As part of a localization class, automatically glob for available
