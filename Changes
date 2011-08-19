@@ -1,3 +1,7 @@
+[Changes for 0.89 - 2011-08-19]
+* Added support to the TT2 parser for Mojolicious style tags
+  Thanks to COSIMO for the patch
+
 [Changes for 0.88 - 2011-07-30]
 
 * Fixed the t/5-extract.t test count
