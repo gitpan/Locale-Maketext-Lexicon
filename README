@@ -2,8 +2,7 @@ NAME
     Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 VERSION
-    This document describes version 0.71 of Locale::Maketext::Lexicon,
-    released October 5, 2008.
+    This document describes version 0.90 of Locale::Maketext::Lexicon.
 
 SYNOPSIS
     As part of a localization class, automatically glob for available
@@ -13,10 +12,12 @@ SYNOPSIS
         use base 'Locale::Maketext';
         use Locale::Maketext::Lexicon {
             '*' => [Gettext => '/usr/local/share/locale/*/LC_MESSAGES/hello.mo'],
-            ### Uncomment to decode lexicon entries into Unicode strings
-            # _decode => 1,
             ### Uncomment to fallback when a key is missing from lexicons
             # _auto   => 1,
+            ### Uncomment to decode lexicon entries into Unicode strings
+            # _decode => 1,
+            ### Uncomment to load and parse everything right away
+            # _preload => 1,
             ### Uncomment to use %1 / %quant(%1) instead of [_1] / [quant, _1]
             # _style  => 'gettext',
         };
@@ -64,7 +65,8 @@ DESCRIPTION
     localization formats, such as *Gettext*, *Msgcat*, and so on.
 
     If you are unfamiliar with the concept of lexicon modules, please
-    consult Locale::Maketext and <http://www.autrijus.org/webl10n/> first.
+    consult Locale::Maketext and the "webl10n" HTML files in the "docs/"
+    directory of this module.
 
     A command-line utility xgettext.pl is also installed with this module,
     for extracting translatable strings from source files.
@@ -125,6 +127,11 @@ DESCRIPTION
 
         If "_encoding" is set to "locale", the encoding from the current
         locale setting is used.
+
+    "_preload"
+        By default parsing is delayed until first use of the lexicon, set
+        this option to true value to parse it asap. Increment adding
+        lexicons forces parsing.
 
   Subclassing format handlers
     If you wish to override how sources specified in different data types
