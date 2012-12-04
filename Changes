@@ -1,3 +1,6 @@
+[Changes for 0.92 - 2012-12-05]
+* Fixed test for Perl 5.17.6+. (ANDK)
+
 [Changes for 0.91 - 2011-08-19]
 * Fixed test count for newly added tests
 
