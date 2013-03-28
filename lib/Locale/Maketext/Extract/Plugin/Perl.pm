@@ -1,70 +1,14 @@
 package Locale::Maketext::Extract::Plugin::Perl;
+{
+  $Locale::Maketext::Extract::Plugin::Perl::VERSION = '0.93';
+}
 
 use strict;
 
 use base qw(Locale::Maketext::Extract::Plugin::Base);
 
-=head1 NAME
+# ABSTRACT: Perl format parser
 
-Locale::Maketext::Extract::Plugin::Perl - Perl format parser
-
-=head1 SYNOPSIS
-
-    $plugin = Locale::Maketext::Extract::Plugin::Perl->new(
-        $lexicon            # A Locale::Maketext::Extract object
-        @file_types         # Optionally specify a list of recognised file types
-    )
-
-    $plugin->extract($filename,$filecontents);
-
-=head1 DESCRIPTION
-
-Extracts strings to localise (including HEREDOCS and
-concatenated strings) from Perl code.
-
-This Perl parser is very fast and very good, but not perfect - it does make
-mistakes. The PPI parser (L<Locale::Maketext::Extract::Plugin::PPI>) is more
-accurate, but a lot slower, and so is not enabled by default.
-
-=head1 SHORT PLUGIN NAME
-
-    perl
-
-=head1 VALID FORMATS
-
-Valid localization function names are:
-
-=over 4
-
-=item translate
-
-=item maketext
-
-=item gettext
-
-=item loc
-
-=item x
-
-=item _
-
-=item __
-
-=back
-
-=head1 KNOWN FILE TYPES
-
-=over 4
-
-=item .pm
-
-=item .pl
-
-=item .cgi
-
-=back
-
-=cut
 
 use constant NUL  => 0;
 use constant BEG  => 1;
@@ -99,7 +43,7 @@ PARSER: {
 
         # various ways to spell the localization function
         $state == NUL
-            && m/\b(translate|maketext|gettext|__?|loc(?:ali[sz]e)?|x)/gc
+            && m/\b(translate|maketext|gettext|__?|loc(?:ali[sz]e)?|l|x)/gc
             && do { $state = BEG; redo };
         $state == BEG && m/^([\s\t\n]*)/gc && redo;
 
@@ -191,8 +135,7 @@ PARSER: {
             $state = NUL;
             $vars =~ s/[\n\r]//g if ($vars);
             $self->add_entry( $str,
-                              $line - ( () = $str =~ /\n/g ) - $line_offset,
-                              $vars )
+                $line - ( () = $str =~ /\n/g ) - $line_offset, $vars )
                 if $str;
             undef $str;
             undef $vars;
@@ -200,10 +143,84 @@ PARSER: {
             $line_offset = 0;
             redo;
         };
+
         # a line of vars
         $state == PAR && m/^([^\)]*)/gc && do { $vars .= "$1\n"; redo };
     }
 }
+
+
+1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+Locale::Maketext::Extract::Plugin::Perl - Perl format parser
+
+=head1 VERSION
+
+version 0.93
+
+=head1 SYNOPSIS
+
+    $plugin = Locale::Maketext::Extract::Plugin::Perl->new(
+        $lexicon            # A Locale::Maketext::Extract object
+        @file_types         # Optionally specify a list of recognised file types
+    )
+
+    $plugin->extract($filename,$filecontents);
+
+=head1 DESCRIPTION
+
+Extracts strings to localise (including HEREDOCS and
+concatenated strings) from Perl code.
+
+This Perl parser is very fast and very good, but not perfect - it does make
+mistakes. The PPI parser (L<Locale::Maketext::Extract::Plugin::PPI>) is more
+accurate, but a lot slower, and so is not enabled by default.
+
+=head1 SHORT PLUGIN NAME
+
+    perl
+
+=head1 VALID FORMATS
+
+Valid localization function names are:
+
+=over 4
+
+=item translate
+
+=item maketext
+
+=item gettext
+
+=item l
+
+=item loc
+
+=item x
+
+=item _
+
+=item __
+
+=back
+
+=head1 KNOWN FILE TYPES
+
+=over 4
+
+=item .pm
+
+=item .pl
+
+=item .cgi
+
+=back
 
 =head1 SEE ALSO
 
@@ -240,7 +257,7 @@ Audrey Tang E<lt>cpan@audreyt.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002-2008 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+Copyright 2002-2013 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
 
 This software is released under the MIT license cited below.
 
@@ -264,6 +281,26 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-=cut
+=head1 AUTHORS
 
-1;
+=over 4
+
+=item *
+
+Clinton Gormley <drtech@cpan.org>
+
+=item *
+
+Audrey Tang <cpan@audreyt.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2013 by Audrey Tang.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
+
+=cut

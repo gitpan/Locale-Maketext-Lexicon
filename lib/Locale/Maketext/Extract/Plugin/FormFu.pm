@@ -1,65 +1,13 @@
 package Locale::Maketext::Extract::Plugin::FormFu;
+{
+  $Locale::Maketext::Extract::Plugin::FormFu::VERSION = '0.93';
+}
 
 use strict;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
 
-=head1 NAME
+# ABSTRACT: FormFu format parser
 
-Locale::Maketext::Extract::Plugin::FormFu - FormFu format parser
-
-=head1 SYNOPSIS
-
-    $plugin = Locale::Maketext::Extract::Plugin::FormFu->new(
-        $lexicon            # A Locale::Maketext::Extract object
-        @file_types         # Optionally specify a list of recognised file types
-    )
-
-    $plugin->extract($filename,$filecontents);
-
-=head1 DESCRIPTION
-
-HTML::FormFu uses a config-file to generate forms, with built in support
-for localizing errors, labels etc.
-
-=head1 SHORT PLUGIN NAME
-
-    formfu
-
-=head1 VALID FORMATS
-
-We extract the text after any key which ends in C<_loc>:
-
-    content_loc: this is the string
-    message_loc: ['Max length [_1]', 10]
-
-=head1 KNOWN FILE TYPES
-
-=over 4
-
-=item .yaml
-
-=item .yml
-
-=item .conf
-
-=back
-
-=head1 REQUIRES
-
-L<YAML>
-
-=head1 NOTES
-
-The docs for the YAML module describes it as alpha code. It is not as tolerant
-of errors as L<YAML::Syck>. However, because it is pure Perl, it is easy
-to hook into.
-
-I have seen it enter endless loops, so if xgettext.pl hangs, try running it
-again with C<--verbose --verbose> (twice) enabled, so that you can see if
-the fault lies with YAML.  If it does, either correct the YAML source file,
-or use the file_types to exclude that file.
-
-=cut
 
 sub file_types {
     return qw( yaml yml conf );
@@ -79,6 +27,9 @@ sub extract {
 }
 
 package Locale::Maketext::Extract::Plugin::FormFu::Extractor;
+{
+  $Locale::Maketext::Extract::Plugin::FormFu::Extractor::VERSION = '0.93';
+}
 
 use base qw(YAML::Loader);
 
@@ -106,9 +57,9 @@ sub _check_key {
         $str = $value;
     }
     return
-        unless $key
-            && $key =~ /_loc$/
-            && defined $str;
+           unless $key
+        && $key =~ /_loc$/
+        && defined $str;
     push @{ $self->{found} }, [ $str, $line, $vars ];
 }
 
@@ -215,6 +166,73 @@ sub found {
     return $self->{found};
 }
 
+
+1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+Locale::Maketext::Extract::Plugin::FormFu - FormFu format parser
+
+=head1 VERSION
+
+version 0.93
+
+=head1 SYNOPSIS
+
+    $plugin = Locale::Maketext::Extract::Plugin::FormFu->new(
+        $lexicon            # A Locale::Maketext::Extract object
+        @file_types         # Optionally specify a list of recognised file types
+    )
+
+    $plugin->extract($filename,$filecontents);
+
+=head1 DESCRIPTION
+
+HTML::FormFu uses a config-file to generate forms, with built in support
+for localizing errors, labels etc.
+
+=head1 SHORT PLUGIN NAME
+
+    formfu
+
+=head1 VALID FORMATS
+
+We extract the text after any key which ends in C<_loc>:
+
+    content_loc: this is the string
+    message_loc: ['Max length [_1]', 10]
+
+=head1 KNOWN FILE TYPES
+
+=over 4
+
+=item .yaml
+
+=item .yml
+
+=item .conf
+
+=back
+
+=head1 REQUIRES
+
+L<YAML>
+
+=head1 NOTES
+
+The docs for the YAML module describes it as alpha code. It is not as tolerant
+of errors as L<YAML::Syck>. However, because it is pure Perl, it is easy
+to hook into.
+
+I have seen it enter endless loops, so if xgettext.pl hangs, try running it
+again with C<--verbose --verbose> (twice) enabled, so that you can see if
+the fault lies with YAML.  If it does, either correct the YAML source file,
+or use the file_types to exclude that file.
+
 =head1 SEE ALSO
 
 =over 4
@@ -252,7 +270,7 @@ Clinton Gormley E<lt>clint@traveljury.comE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002-2008 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+Copyright 2002-2013 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
 
 This software is released under the MIT license cited below.
 
@@ -276,6 +294,26 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-=cut
+=head1 AUTHORS
 
-1;
+=over 4
+
+=item *
+
+Clinton Gormley <drtech@cpan.org>
+
+=item *
+
+Audrey Tang <cpan@audreyt.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2013 by Audrey Tang.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
+
+=cut

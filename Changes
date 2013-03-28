@@ -1,3 +1,7 @@
+[Changes for 0.93 - 2013-03-28]
+* Moved to Dist::Zilla
+* Added support for HAML (Calum Halcrow)
+
 [Changes for 0.92 - 2012-12-05]
 * Fixed test for Perl 5.17.6+. (ANDK)
 

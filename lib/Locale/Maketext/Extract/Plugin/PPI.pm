@@ -1,74 +1,20 @@
 package Locale::Maketext::Extract::Plugin::PPI;
+{
+  $Locale::Maketext::Extract::Plugin::PPI::VERSION = '0.93';
+}
 
 use strict;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
 use PPI();
 
-=head1 NAME
+# ABSTRACT: Perl format parser
 
-Locale::Maketext::Extract::Plugin::PPI - Perl format parser
-
-=head1 SYNOPSIS
-
-    $plugin = Locale::Maketext::Extract::Plugin::PPI->new(
-        $lexicon            # A Locale::Maketext::Extract object
-        @file_types         # Optionally specify a list of recognised file types
-    )
-
-    $plugin->extract($filename,$filecontents);
-
-=head1 DESCRIPTION
-
-Does exactly the same thing as the L<Locale::Maketext::Extract::Plugin::Perl>
-parser, but more accurately, and more slowly. Considerably more slowly! For this
-reason it isn't a built-in plugin.
-
-
-=head1 SHORT PLUGIN NAME
-
-    none - the module must be specified in full
-
-=head1 VALID FORMATS
-
-Valid localization function names are:
-
-=over 4
-
-=item translate
-
-=item maketext
-
-=item gettext
-
-=item loc
-
-=item x
-
-=item _
-
-=item __
-
-=back
-
-=head1 KNOWN FILE TYPES
-
-=over 4
-
-=item .pm
-
-=item .pl
-
-=item .cgi
-
-=back
-
-=cut
 
 sub file_types {
     return qw( pm pl cgi );
 }
 
-my %subnames = map { $_ => 1 } qw (translate maketext gettext loc x __);
+my %subnames = map { $_ => 1 } qw (translate maketext gettext l loc x __);
 
 #===================================
 sub extract {
@@ -84,15 +30,15 @@ sub extract {
         while ( my $child = shift @children ) {
             next
                 unless @children
-                    && (    $child->isa('PPI::Token::Word')
-                         && $subnames{ $child->content }
-                         || $child->isa('PPI::Token::Magic')
-                         && $child->content eq '_' );
+                && ( $child->isa('PPI::Token::Word')
+                && $subnames{ $child->content }
+                || $child->isa('PPI::Token::Magic')
+                && $child->content eq '_' );
 
             my $list = shift @children;
             next
                 unless $list->isa('PPI::Structure::List')
-                    && $list->schildren;
+                && $list->schildren;
 
             $self->_check_arg_list($list);
         }
@@ -112,7 +58,7 @@ sub _check_arg_list {
     while ( my $string_el = shift @args ) {
         return
             unless $string_el->isa('PPI::Token::Quote')
-                || $string_el->isa('PPI::Token::HereDoc');
+            || $string_el->isa('PPI::Token::HereDoc');
         $line ||= $string_el->location->[0];
         my $string;
         if ( $string_el->isa('PPI::Token::HereDoc') ) {
@@ -151,14 +97,84 @@ sub _check_arg_list {
         my $next_op = shift @args;
         last
             unless $next_op
-                && $next_op->isa('PPI::Token::Operator')
-                && $next_op->content eq '.';
+            && $next_op->isa('PPI::Token::Operator')
+            && $next_op->content eq '.';
     }
     return unless $final_string;
 
     my $vars = join( '', map { $_->content } @args );
     $self->add_entry( $final_string, $line, $vars );
 }
+
+
+1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+Locale::Maketext::Extract::Plugin::PPI - Perl format parser
+
+=head1 VERSION
+
+version 0.93
+
+=head1 SYNOPSIS
+
+    $plugin = Locale::Maketext::Extract::Plugin::PPI->new(
+        $lexicon            # A Locale::Maketext::Extract object
+        @file_types         # Optionally specify a list of recognised file types
+    )
+
+    $plugin->extract($filename,$filecontents);
+
+=head1 DESCRIPTION
+
+Does exactly the same thing as the L<Locale::Maketext::Extract::Plugin::Perl>
+parser, but more accurately, and more slowly. Considerably more slowly! For this
+reason it isn't a built-in plugin.
+
+=head1 SHORT PLUGIN NAME
+
+    none - the module must be specified in full
+
+=head1 VALID FORMATS
+
+Valid localization function names are:
+
+=over 4
+
+=item translate
+
+=item maketext
+
+=item gettext
+
+=item l
+
+=item loc
+
+=item x
+
+=item _
+
+=item __
+
+=back
+
+=head1 KNOWN FILE TYPES
+
+=over 4
+
+=item .pm
+
+=item .pl
+
+=item .cgi
+
+=back
 
 =head1 SEE ALSO
 
@@ -195,7 +211,7 @@ Audrey Tang E<lt>cpan@audreyt.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002-2008 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+Copyright 2002-2013 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
 
 This software is released under the MIT license cited below.
 
@@ -219,6 +235,26 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-=cut
+=head1 AUTHORS
 
-1;
+=over 4
+
+=item *
+
+Clinton Gormley <drtech@cpan.org>
+
+=item *
+
+Audrey Tang <cpan@audreyt.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2013 by Audrey Tang.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
+
+=cut

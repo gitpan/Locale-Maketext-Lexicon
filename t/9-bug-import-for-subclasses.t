@@ -18,8 +18,8 @@ package main;
 ok(my $lh = Hello::I18N->get_handle('zh-tw'), 'got handle');
 
 is(
-	$lh->maketext('This is a test'),
-	'這是測試',
+    $lh->maketext('This is a test'),
+    '這是測試',
     'translated'
 );
 

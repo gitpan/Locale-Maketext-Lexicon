@@ -1,20 +1,14 @@
 package Locale::Maketext::Extract::Run;
-$Locale::Maketext::Lexicon::Extract::Run::VERSION = '0.35';
+{
+  $Locale::Maketext::Extract::Run::VERSION = '0.93';
+}
 
 use strict;
 use vars qw( @ISA @EXPORT_OK );
 use File::Spec::Functions qw(catfile);
 
-=head1 NAME
+# ABSTRACT: Module interface to xgettext.pl
 
-Locale::Maketext::Extract::Run - Module interface to xgettext.pl
-
-=head1 SYNOPSIS
-
-    use Locale::Maketext::Extract::Run 'xgettext';
-    xgettext(@ARGV);
-
-=cut
 
 use Cwd;
 use Config ();
@@ -36,19 +30,14 @@ sub run {
 
     my %opts;
     Getopt::Long::Configure("no_ignore_case");
-    Getopt::Long::GetOptions( \%opts,
-                              'f|files-from:s@',
-                              'D|directory:s@',
-                              'u|use-gettext-style|unescaped',
-                              'g|gnu-gettext',
-                              'o|output:s@',
-                              'd|default-domain:s',
-                              'p|output-dir:s@',
-                              'P|plugin:s@',
-                              'W|wrap!',
-                              'w|warnings!',
-                              'v|verbose+',
-                              'h|help',
+    Getopt::Long::GetOptions(
+        \%opts,               'f|files-from:s@',
+        'D|directory:s@',     'u|use-gettext-style|unescaped',
+        'g|gnu-gettext',      'o|output:s@',
+        'd|default-domain:s', 'p|output-dir:s@',
+        'P|plugin:s@',        'W|wrap!',
+        'w|warnings!',        'v|verbose+',
+        'h|help',
     ) or help();
 
     help() if $opts{h};
@@ -66,21 +55,22 @@ sub run {
     }
 
     foreach my $dir ( @{ $opts{D} || [] } ) {
-        File::Find::find( {
-               wanted => sub {
-                   if (-d) {
-                       $File::Find::prune
-                           = /^(\.svn|blib|autogen|var|m4|local|CVS|\.git)$/;
-                       return;
-                   }
-                   # Only extract from non-binary, normal files
-                   return unless (-f or -s) and -T;
-                   return
-                       if (/\.po$|\.bak$|~|,D|,B$/i)
-                       || (/^[\.#]/);
-                   push @ARGV, $File::Find::name;
-               },
-               follow => HAS_SYMLINK,
+        File::Find::find(
+            {   wanted => sub {
+                    if (-d) {
+                        $File::Find::prune
+                            = /^(\.svn|blib|autogen|var|m4|local|CVS|\.git)$/;
+                        return;
+                    }
+
+                    # Only extract from non-binary, normal files
+                    return unless ( -f or -s ) and -T;
+                    return
+                        if (/\.po$|\.bak$|~|,D|,B$/i)
+                        || (/^[\.#]/);
+                    push @ARGV, $File::Find::name;
+                },
+                follow => HAS_SYMLINK,
             },
             $dir
         );
@@ -160,9 +150,26 @@ sub help {
 
 1;
 
+__END__
+
+=pod
+
+=head1 NAME
+
+Locale::Maketext::Extract::Run - Module interface to xgettext.pl
+
+=head1 VERSION
+
+version 0.93
+
+=head1 SYNOPSIS
+
+    use Locale::Maketext::Extract::Run 'xgettext';
+    xgettext(@ARGV);
+
 =head1 COPYRIGHT
 
-Copyright 2003-2008 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+Copyright 2003-2013 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
 
 This software is released under the MIT license cited below.
 
@@ -185,5 +192,27 @@ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
+
+=head1 AUTHORS
+
+=over 4
+
+=item *
+
+Clinton Gormley <drtech@cpan.org>
+
+=item *
+
+Audrey Tang <cpan@audreyt.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2013 by Audrey Tang.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
 
 =cut

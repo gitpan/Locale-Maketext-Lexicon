@@ -2,7 +2,7 @@ NAME
     Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 VERSION
-    This document describes version 0.91 of Locale::Maketext::Lexicon.
+    version 0.93
 
 SYNOPSIS
     As part of a localization class, automatically glob for available
@@ -139,6 +139,9 @@ DESCRIPTION
 
     XXX: not documented well enough yet. Patches welcome.
 
+VERSION
+    This document describes version 0.91 of Locale::Maketext::Lexicon.
+
 NOTES
     When you attempt to localize an entry missing in the lexicon, Maketext
     will throw an exception by default. To inhibit this behaviour, override
@@ -184,7 +187,7 @@ AUTHORS
     Audrey Tang <cpan@audreyt.org>
 
 COPYRIGHT
-    Copyright 2002-2008 by Audrey Tang <cpan@audreyt.org>.
+    Copyright 2002-2013 by Audrey Tang <cpan@audreyt.org>.
 
     This software is released under the MIT license cited below.
 
@@ -207,4 +210,16 @@ COPYRIGHT
     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+AUTHORS
+    *   Clinton Gormley <drtech@cpan.org>
+
+    *   Audrey Tang <cpan@audreyt.org>
+
+COPYRIGHT AND LICENSE
+    This software is Copyright (c) 2013 by Audrey Tang.
+
+    This is free software, licensed under:
+
+      The MIT (X11) License
 

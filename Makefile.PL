@@ -1,28 +1,51 @@
-#!perl
+
+use strict;
+use warnings;
 
 use 5.005;
-use inc::Module::Install;
 
-author 'Audrey Tang <cpan@audreyt.org>';
-abstract 'Use other catalog formats in Maketext';
-name 'Locale-Maketext-Lexicon';
-license 'MIT';
-perl_version '5.005';
-all_from 'lib/Locale/Maketext/Lexicon.pm';
-install_script 'script/xgettext.pl';
-requires 'Locale::Maketext'       => '1.17';
-recommends 'Template'             => '2.20';
-recommends 'Template::Constants'  => '2.75';
-recommends 'YAML'                 => '0.66';
-recommends 'YAML::Loader'         => '0.66';
-recommends 'HTML::Parser'         => '3.56';
-recommends 'Lingua::EN::Sentence' => '0.25';
-recommends 'PPI'                  => '1.203';
+use ExtUtils::MakeMaker 6.30;
 
-test_requires 'Test::More'        => '0';
-if ( $^O eq 'MSWin32' ) {
-    recommends 'Win32::Console' => '0.09';
+
+
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "Use other catalog formats in Maketext",
+  "AUTHOR" => "Clinton Gormley <drtech\@cpan.org>, Audrey Tang <cpan\@audreyt.org>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "Locale-Maketext-Lexicon",
+  "EXE_FILES" => [],
+  "LICENSE" => "mit",
+  "NAME" => "Locale::Maketext::Lexicon",
+  "PREREQ_PM" => {
+    "Locale::Maketext" => "1.17"
+  },
+  "VERSION" => "0.93",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
+);
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
 }
-include_deps 'Test::More';
 
-WriteAll;
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
+

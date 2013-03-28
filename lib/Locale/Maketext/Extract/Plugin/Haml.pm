@@ -1,58 +1,40 @@
-package Locale::Maketext::Extract::Plugin::TextTemplate;
+package Locale::Maketext::Extract::Plugin::Haml;
 {
-  $Locale::Maketext::Extract::Plugin::TextTemplate::VERSION = '0.93';
+  $Locale::Maketext::Extract::Plugin::Haml::VERSION = '0.93';
 }
 
 use strict;
+use warnings;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
+use Text::Haml;
+use Locale::Maketext::Extract::Plugin::Perl;
 
-# ABSTRACT: Text::Template format parser
+# ABSTRACT: HAML format parser
 
 
 sub file_types {
-    return qw( * );
+    return qw( haml );
 }
 
 sub extract {
-    my $self = shift;
-    local $_ = shift;
+    my $self    = shift;
+    my $content = shift;
 
-    my $line = 1;
-    pos($_) = 0;
+    my $haml = Text::Haml->new;
+    $haml->parse($content);
 
-    # Text::Template
-    if ( $_ =~ /^STARTTEXT$/m and $_ =~ /^ENDTEXT$/m ) {
-        require HTML::Parser;
-        require Lingua::EN::Sentence;
+    # Checking for expr and text allows us to recognise
+    # the types of HTML entries we are interested in.
+    my @texts = map { $_->{text} }
+        grep { $_->{expr} and $_->{text} } @{ $haml->tape };
 
-        {
+    my $perl = Locale::Maketext::Extract::Plugin::Perl->new;
 
-            package Locale::Maketext::Extract::Plugin::TextTemplate::Parser;
-{
-  $Locale::Maketext::Extract::Plugin::TextTemplate::Parser::VERSION = '0.93';
-}
-            our @ISA = 'HTML::Parser';
-            *{'text'} = sub {
-                my ( $self, $str, $is_cdata ) = @_;
-                my $sentences = Lingua::EN::Sentence::get_sentences($str)
-                    or return;
-                $str =~ s/\n/ /g;
-                $str =~ s/^\s+//;
-                $str =~ s/\s+$//;
-                $self->add_entry( $str, $line );
-            };
-        }
+    # Calling extract on our strings will cause
+    # EPPerl to store our entries internally.
+    map { $perl->extract($_) } @texts;
 
-        my $p = Locale::Maketext::Extract::Plugin::TextTemplate::Parser->new;
-        while (m/\G((.*?)^(?:START|END)[A-Z]+$)/smg) {
-            my ($str) = ($2);
-            $line += ( () = ( $1 =~ /\n/g ) );    # cryptocontext!
-            $p->parse($str);
-            $p->eof;
-        }
-        $_ = '';
-    }
-
+    map { $self->add_entry( @{$_} ) } @{ $perl->entries };
 }
 
 
@@ -64,7 +46,7 @@ __END__
 
 =head1 NAME
 
-Locale::Maketext::Extract::Plugin::TextTemplate - Text::Template format parser
+Locale::Maketext::Extract::Plugin::Haml - HAML format parser
 
 =head1 VERSION
 
@@ -72,7 +54,7 @@ version 0.93
 
 =head1 SYNOPSIS
 
-    $plugin = Locale::Maketext::Extract::Plugin::TextTemplate->new(
+    $plugin = Locale::Maketext::Extract::Plugin::Haml->new(
         $lexicon            # A Locale::Maketext::Extract object
         @file_types         # Optionally specify a list of recognised file types
     )
@@ -81,21 +63,22 @@ version 0.93
 
 =head1 DESCRIPTION
 
-Extracts strings to localise from Text::Template files
+Extracts strings to localise from HAML files.
 
 =head1 SHORT PLUGIN NAME
 
-    text
+    haml
 
 =head1 VALID FORMATS
 
-Sentences between STARTxxx and ENDxxx are extracted individually.
+Extracts strings in the same way as Locale::Maketext::Extract::Plugin::Perl,
+but only ones within "text" components of HAML files.
 
 =head1 KNOWN FILE TYPES
 
 =over 4
 
-=item All file types
+=item .haml
 
 =back
 
@@ -114,13 +97,15 @@ systems and perl source files.
 
 =item L<Locale::Maketext::Extract::Plugin::FormFu>
 
+=item L<Locale::Maketext::Extract::Plugin::Mason>
+
 =item L<Locale::Maketext::Extract::Plugin::Perl>
 
 =item L<Locale::Maketext::Extract::Plugin::TT2>
 
 =item L<Locale::Maketext::Extract::Plugin::YAML>
 
-=item L<Locale::Maketext::Extract::Plugin::Mason>
+=item L<Locale::Maketext::Extract::Plugin::TextTemplate>
 
 =item L<Locale::Maketext::Extract::Plugin::Generic>
 
@@ -129,6 +114,8 @@ systems and perl source files.
 =head1 AUTHORS
 
 Audrey Tang E<lt>cpan@audreyt.orgE<gt>
+
+Calum Halcrow E<lt>cpan@calumhalcrow.com<gt>
 
 =head1 COPYRIGHT
 

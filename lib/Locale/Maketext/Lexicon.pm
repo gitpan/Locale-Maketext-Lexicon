@@ -1,192 +1,13 @@
 package Locale::Maketext::Lexicon;
-$Locale::Maketext::Lexicon::VERSION = '0.92';
+{
+  $Locale::Maketext::Lexicon::VERSION = '0.93';
+}
 
 use 5.004;
 use strict;
 
-=head1 NAME
+# ABSTRACT: Use other catalog formats in Maketext
 
-Locale::Maketext::Lexicon - Use other catalog formats in Maketext
-
-=head1 VERSION
-
-This document describes version 0.92 of Locale::Maketext::Lexicon.
-
-=head1 SYNOPSIS
-
-As part of a localization class, automatically glob for available
-lexicons:
-
-    package Hello::I18N;
-    use base 'Locale::Maketext';
-    use Locale::Maketext::Lexicon {
-        '*' => [Gettext => '/usr/local/share/locale/*/LC_MESSAGES/hello.mo'],
-        ### Uncomment to fallback when a key is missing from lexicons
-        # _auto   => 1,
-        ### Uncomment to decode lexicon entries into Unicode strings
-        # _decode => 1,
-        ### Uncomment to load and parse everything right away
-        # _preload => 1,
-        ### Uncomment to use %1 / %quant(%1) instead of [_1] / [quant, _1]
-        # _style  => 'gettext',
-    };
-
-Explicitly specify languages, during compile- or run-time:
-
-    package Hello::I18N;
-    use base 'Locale::Maketext';
-    use Locale::Maketext::Lexicon {
-        de => [Gettext => 'hello_de.po'],
-        fr => [
-            Gettext => 'hello_fr.po',
-            Gettext => 'local/hello/fr.po',
-        ],
-    };
-    # ... incrementally add new lexicons
-    Locale::Maketext::Lexicon->import({
-        de => [Gettext => 'local/hello/de.po'],
-    })
-
-Alternatively, as part of a localization subclass:
-
-    package Hello::I18N::de;
-    use base 'Hello::I18N';
-    use Locale::Maketext::Lexicon (Gettext => \*DATA);
-    __DATA__
-    # Some sample data
-    msgid ""
-    msgstr ""
-    "Project-Id-Version: Hello 1.3.22.1\n"
-    "MIME-Version: 1.0\n"
-    "Content-Type: text/plain; charset=iso8859-1\n"
-    "Content-Transfer-Encoding: 8bit\n"
-
-    #: Hello.pm:10
-    msgid "Hello, World!"
-    msgstr "Hallo, Welt!"
-
-    #: Hello.pm:11
-    msgid "You have %quant(%1,piece) of mail."
-    msgstr "Sie haben %quant(%1,Poststueck,Poststuecken)."
-
-=head1 DESCRIPTION
-
-This module provides lexicon-handling modules to read from other
-localization formats, such as I<Gettext>, I<Msgcat>, and so on.
-
-If you are unfamiliar with the concept of lexicon modules, please
-consult L<Locale::Maketext> and the C<webl10n> HTML files in the C<docs/>
-directory of this module.
-
-A command-line utility L<xgettext.pl> is also installed with this
-module, for extracting translatable strings from source files.
-
-=head2 The C<import> function
-
-The C<import()> function accepts two forms of arguments:
-
-=over 4
-
-=item (I<format> => I<source> ... )
-
-This form takes any number of argument pairs (usually one);
-I<source> may be a file name, a filehandle, or an array reference.
-
-For each such pair, it pass the contents specified by the second
-argument to B<Locale::Maketext::Lexicon::I<format>>->parse as a
-plain list, and export its return value as the C<%Lexicon> hash
-in the calling package.
-
-In the case that there are multiple such pairs, the lexicon
-defined by latter ones overrides earlier ones.
-
-=item { I<language> => [ I<format>, I<source> ... ] ... }
-
-This form accepts a hash reference.  It will export a C<%Lexicon>
-into the subclasses specified by each I<language>, using the process
-described above.  It is designed to alleviate the need to set up a
-separate subclass for each localized language, and just use the catalog
-files.
-
-This module will convert the I<language> arguments into lowercase,
-and replace all C<-> with C<_>, so C<zh_TW> and C<zh-tw> will both
-map to the C<zh_tw> subclass.
-
-If I<language> begins with C<_>, it is taken as an option that
-controls how lexicons are parsed.  See L</Options> for a list
-of available options.
-
-The C<*> is a special I<language>; it must be used in conjunction
-with a filename that also contains C<*>; all matched files with
-a valid language code in the place of C<*> will be automatically
-prepared as a lexicon subclass.  If there is multiple C<*> in
-the filename, the last one is used as the language name.
-
-=back
-
-=head2 Options
-
-=over 4
-
-=item C<_auto>
-
-If set to a true value, missing lookups on lexicons are handled
-silently, as if an C<Auto> lexicon has been appended on all
-language lexicons.
-
-=item C<_decode>
-
-If set to a true value, source entries will be converted into
-utf8-strings (available in Perl 5.6.1 or later).  This feature
-needs the B<Encode> or B<Encode::compat> module.
-
-Currently, only the C<Gettext> backend supports this option.
-
-=item C<_encoding>
-
-This option only has effect when C<_decode> is set to true.
-It specifies an encoding to store lexicon entries, instead of
-utf8-strings.
-
-If C<_encoding> is set to C<locale>, the encoding from the
-current locale setting is used.
-
-=item C<_preload>
-
-By default parsing is delayed until first use of the lexicon,
-set this option to true value to parse it asap. Increment
-adding lexicons forces parsing.
-
-=back
-
-=head2 Subclassing format handlers
-
-If you wish to override how sources specified in different data types
-are handled, please use a subclass that overrides C<lexicon_get_I<TYPE>>.
-
-XXX: not documented well enough yet.  Patches welcome.
-
-=head1 NOTES
-
-When you attempt to localize an entry missing in the lexicon, Maketext
-will throw an exception by default.  To inhibit this behaviour, override
-the C<_AUTO> key in your language subclasses, for example:
-
-    $Hello::I18N::en::Lexicon{_AUTO} = 1; # autocreate missing keys
-
-If you want to implement a new C<Lexicon::*> backend module, please note
-that C<parse()> takes an array containing the B<source strings> from the
-specified filehandle or filename, which are I<not> C<chomp>ed.  Although
-if the source is an array reference, its elements will probably not contain
-any newline characters anyway.
-
-The C<parse()> function should return a hash reference, which will be
-assigned to the I<typeglob> (C<*Lexicon>) of the language module.  All
-it amounts to is that if the returned reference points to a tied hash,
-the C<%Lexicon> will be aliased to the same tied hash if it was not
-initialized previously.
-
-=cut
 
 our %Opts;
 sub option { shift if ref( $_[0] ); $Opts{ lc $_[0] } }
@@ -204,11 +25,10 @@ sub encoding {
         require I18N::Langinfo;
         $locale_encoding
             = I18N::Langinfo::langinfo( I18N::Langinfo::CODESET() );
-        }
-        or eval {
+    } or eval {
         require Win32::Console;
         $locale_encoding = 'cp' . Win32::Console::OutputCP();
-        };
+    };
     if ( !$locale_encoding ) {
         foreach my $key (qw( LANGUAGE LC_ALL LC_MESSAGES LANG )) {
             $ENV{$key} =~ /^([^.]+)\.([^.:]+)/ or next;
@@ -273,7 +93,7 @@ sub import {
             }
             delete $entries{$1}
                 unless !defined($1)
-                    or exists $entries{$1} and @{ $entries{$1} };
+                or exists $entries{$1} and @{ $entries{$1} };
         }
     }
 
@@ -524,6 +344,196 @@ sub lexicon_find {
 
 1;
 
+__END__
+
+=pod
+
+=head1 NAME
+
+Locale::Maketext::Lexicon - Use other catalog formats in Maketext
+
+=head1 VERSION
+
+version 0.93
+
+=head1 SYNOPSIS
+
+As part of a localization class, automatically glob for available
+lexicons:
+
+    package Hello::I18N;
+    use base 'Locale::Maketext';
+    use Locale::Maketext::Lexicon {
+        '*' => [Gettext => '/usr/local/share/locale/*/LC_MESSAGES/hello.mo'],
+        ### Uncomment to fallback when a key is missing from lexicons
+        # _auto   => 1,
+        ### Uncomment to decode lexicon entries into Unicode strings
+        # _decode => 1,
+        ### Uncomment to load and parse everything right away
+        # _preload => 1,
+        ### Uncomment to use %1 / %quant(%1) instead of [_1] / [quant, _1]
+        # _style  => 'gettext',
+    };
+
+Explicitly specify languages, during compile- or run-time:
+
+    package Hello::I18N;
+    use base 'Locale::Maketext';
+    use Locale::Maketext::Lexicon {
+        de => [Gettext => 'hello_de.po'],
+        fr => [
+            Gettext => 'hello_fr.po',
+            Gettext => 'local/hello/fr.po',
+        ],
+    };
+    # ... incrementally add new lexicons
+    Locale::Maketext::Lexicon->import({
+        de => [Gettext => 'local/hello/de.po'],
+    })
+
+Alternatively, as part of a localization subclass:
+
+    package Hello::I18N::de;
+    use base 'Hello::I18N';
+    use Locale::Maketext::Lexicon (Gettext => \*DATA);
+    __DATA__
+    # Some sample data
+    msgid ""
+    msgstr ""
+    "Project-Id-Version: Hello 1.3.22.1\n"
+    "MIME-Version: 1.0\n"
+    "Content-Type: text/plain; charset=iso8859-1\n"
+    "Content-Transfer-Encoding: 8bit\n"
+
+    #: Hello.pm:10
+    msgid "Hello, World!"
+    msgstr "Hallo, Welt!"
+
+    #: Hello.pm:11
+    msgid "You have %quant(%1,piece) of mail."
+    msgstr "Sie haben %quant(%1,Poststueck,Poststuecken)."
+
+=head1 DESCRIPTION
+
+This module provides lexicon-handling modules to read from other
+localization formats, such as I<Gettext>, I<Msgcat>, and so on.
+
+If you are unfamiliar with the concept of lexicon modules, please
+consult L<Locale::Maketext> and the C<webl10n> HTML files in the C<docs/>
+directory of this module.
+
+A command-line utility L<xgettext.pl> is also installed with this
+module, for extracting translatable strings from source files.
+
+=head2 The C<import> function
+
+The C<import()> function accepts two forms of arguments:
+
+=over 4
+
+=item (I<format> => I<source> ... )
+
+This form takes any number of argument pairs (usually one);
+I<source> may be a file name, a filehandle, or an array reference.
+
+For each such pair, it pass the contents specified by the second
+argument to B<Locale::Maketext::Lexicon::I<format>>->parse as a
+plain list, and export its return value as the C<%Lexicon> hash
+in the calling package.
+
+In the case that there are multiple such pairs, the lexicon
+defined by latter ones overrides earlier ones.
+
+=item { I<language> => [ I<format>, I<source> ... ] ... }
+
+This form accepts a hash reference.  It will export a C<%Lexicon>
+into the subclasses specified by each I<language>, using the process
+described above.  It is designed to alleviate the need to set up a
+separate subclass for each localized language, and just use the catalog
+files.
+
+This module will convert the I<language> arguments into lowercase,
+and replace all C<-> with C<_>, so C<zh_TW> and C<zh-tw> will both
+map to the C<zh_tw> subclass.
+
+If I<language> begins with C<_>, it is taken as an option that
+controls how lexicons are parsed.  See L</Options> for a list
+of available options.
+
+The C<*> is a special I<language>; it must be used in conjunction
+with a filename that also contains C<*>; all matched files with
+a valid language code in the place of C<*> will be automatically
+prepared as a lexicon subclass.  If there is multiple C<*> in
+the filename, the last one is used as the language name.
+
+=back
+
+=head2 Options
+
+=over 4
+
+=item C<_auto>
+
+If set to a true value, missing lookups on lexicons are handled
+silently, as if an C<Auto> lexicon has been appended on all
+language lexicons.
+
+=item C<_decode>
+
+If set to a true value, source entries will be converted into
+utf8-strings (available in Perl 5.6.1 or later).  This feature
+needs the B<Encode> or B<Encode::compat> module.
+
+Currently, only the C<Gettext> backend supports this option.
+
+=item C<_encoding>
+
+This option only has effect when C<_decode> is set to true.
+It specifies an encoding to store lexicon entries, instead of
+utf8-strings.
+
+If C<_encoding> is set to C<locale>, the encoding from the
+current locale setting is used.
+
+=item C<_preload>
+
+By default parsing is delayed until first use of the lexicon,
+set this option to true value to parse it asap. Increment
+adding lexicons forces parsing.
+
+=back
+
+=head2 Subclassing format handlers
+
+If you wish to override how sources specified in different data types
+are handled, please use a subclass that overrides C<lexicon_get_I<TYPE>>.
+
+XXX: not documented well enough yet.  Patches welcome.
+
+=head1 VERSION
+
+This document describes version 0.91 of Locale::Maketext::Lexicon.
+
+=head1 NOTES
+
+When you attempt to localize an entry missing in the lexicon, Maketext
+will throw an exception by default.  To inhibit this behaviour, override
+the C<_AUTO> key in your language subclasses, for example:
+
+    $Hello::I18N::en::Lexicon{_AUTO} = 1; # autocreate missing keys
+
+If you want to implement a new C<Lexicon::*> backend module, please note
+that C<parse()> takes an array containing the B<source strings> from the
+specified filehandle or filename, which are I<not> C<chomp>ed.  Although
+if the source is an array reference, its elements will probably not contain
+any newline characters anyway.
+
+The C<parse()> function should return a hash reference, which will be
+assigned to the I<typeglob> (C<*Lexicon>) of the language module.  All
+it amounts to is that if the returned reference points to a tied hash,
+the C<%Lexicon> will be aliased to the same tied hash if it was not
+initialized previously.
+
 =head1 ACKNOWLEDGMENTS
 
 Thanks to Jesse Vincent for suggesting this module to be written.
@@ -554,7 +564,7 @@ Audrey Tang E<lt>cpan@audreyt.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2002-2008 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+Copyright 2002-2013 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
 
 This software is released under the MIT license cited below.
 
@@ -577,5 +587,27 @@ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
+
+=head1 AUTHORS
+
+=over 4
+
+=item *
+
+Clinton Gormley <drtech@cpan.org>
+
+=item *
+
+Audrey Tang <cpan@audreyt.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2013 by Audrey Tang.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
 
 =cut
