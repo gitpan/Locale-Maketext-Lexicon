@@ -1,3 +1,7 @@
+[Changes for 0.94 - 2013-05-07]
+* Corrected spelling of Text::Haml
+* xgettext.pl was not being installed
+
 [Changes for 0.93 - 2013-03-28]
 * Moved to Dist::Zilla
 * Added support for HAML (Calum Halcrow)

@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::YAML;
 {
-  $Locale::Maketext::Extract::Plugin::YAML::VERSION = '0.93';
+  $Locale::Maketext::Extract::Plugin::YAML::VERSION = '0.94';
 }
 
 use strict;
@@ -28,7 +28,7 @@ sub extract {
 
 package Locale::Maketext::Extract::Plugin::YAML::Extractor;
 {
-  $Locale::Maketext::Extract::Plugin::YAML::Extractor::VERSION = '0.93';
+  $Locale::Maketext::Extract::Plugin::YAML::Extractor::VERSION = '0.94';
 }
 
 use base qw(YAML::Loader);
@@ -113,7 +113,7 @@ Locale::Maketext::Extract::Plugin::YAML - YAML format parser
 
 =head1 VERSION
 
-version 0.93
+version 0.94
 
 =head1 SYNOPSIS
 

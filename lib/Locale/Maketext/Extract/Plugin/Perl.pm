@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::Perl;
 {
-  $Locale::Maketext::Extract::Plugin::Perl::VERSION = '0.93';
+  $Locale::Maketext::Extract::Plugin::Perl::VERSION = '0.94';
 }
 
 use strict;
@@ -162,7 +162,7 @@ Locale::Maketext::Extract::Plugin::Perl - Perl format parser
 
 =head1 VERSION
 
-version 0.93
+version 0.94
 
 =head1 SYNOPSIS
 

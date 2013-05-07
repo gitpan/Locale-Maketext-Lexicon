@@ -7,7 +7,7 @@ build_requires: {}
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.130880'
 license: mit
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -19,7 +19,7 @@ recommends:
   PPI: 1.203
   Template: 2.20
   Template::Constants: 2.75
-  Text::HAML: 0
+  Text::Haml: 0
   YAML: 0.66
   YAML::Loader: 0.66
 requires:
@@ -29,4 +29,4 @@ resources:
   bugtracker: https://github.com/clintongormley/locale-maketext-lexicon/issues
   homepage: http://search.cpan.org/dist/Locale-Maketext-Lexicon
   repository: git://github.com/clintongormley/locale-maketext-lexicon.git
-version: 0.93
+version: 0.94

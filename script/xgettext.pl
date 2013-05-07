@@ -9,9 +9,20 @@ else {
     system(qq[perldoc "$0"]);
 }
 
+# PODNAME:  xgettext.pl
+# ABSTRACT: Extract translatable strings from source
+
+__END__
+
+=pod
+
 =head1 NAME
 
 xgettext.pl - Extract translatable strings from source
+
+=head1 VERSION
+
+version 0.94
 
 =head1 SYNOPSIS
 
@@ -131,7 +142,6 @@ Multiple plugins can be specified on the command line.
 
 =head3 Available plugins:
 
-
 =over 4
 
 =item C<perl>    : L<Locale::Maketext::Extract::Plugin::Perl>
@@ -224,7 +234,6 @@ extracted strings, the line where they were found, and any variables.
 
 =back
 
-
 =head1 AUTHORS
 
 Audrey Tang E<lt>cpan@audreyt.orgE<gt>
@@ -254,5 +263,27 @@ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
+
+=head1 AUTHORS
+
+=over 4
+
+=item *
+
+Clinton Gormley <drtech@cpan.org>
+
+=item *
+
+Audrey Tang <cpan@audreyt.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2013 by Audrey Tang.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
 
 =cut
