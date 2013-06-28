@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::Base;
 {
-  $Locale::Maketext::Extract::Plugin::Base::VERSION = '0.94';
+  $Locale::Maketext::Extract::Plugin::Base::VERSION = '0.95';
 }
 
 use strict;
@@ -104,7 +104,7 @@ Locale::Maketext::Extract::Plugin::Base - Base module for format parser plugins
 
 =head1 VERSION
 
-version 0.94
+version 0.95
 
 =head1 SYNOPSIS
 

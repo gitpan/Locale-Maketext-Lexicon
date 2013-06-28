@@ -1,3 +1,6 @@
+[Changes for 0.95 - 2013-06-28]
+* Handle Haml blocks too (Calum Halcrow)
+
 [Changes for 0.94 - 2013-05-07]
 * Corrected spelling of Text::Haml
 * xgettext.pl was not being installed

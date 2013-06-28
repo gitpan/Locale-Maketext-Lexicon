@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::Mason;
 {
-  $Locale::Maketext::Extract::Plugin::Mason::VERSION = '0.94';
+  $Locale::Maketext::Extract::Plugin::Mason::VERSION = '0.95';
 }
 
 use strict;
@@ -51,7 +51,7 @@ Locale::Maketext::Extract::Plugin::Mason - HTML::Mason (aka Mason 1) and Mason (
 
 =head1 VERSION
 
-version 0.94
+version 0.95
 
 =head1 SYNOPSIS
 

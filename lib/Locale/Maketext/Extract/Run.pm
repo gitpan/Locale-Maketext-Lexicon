@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Run;
 {
-  $Locale::Maketext::Extract::Run::VERSION = '0.94';
+  $Locale::Maketext::Extract::Run::VERSION = '0.95';
 }
 
 use strict;
@@ -160,7 +160,7 @@ Locale::Maketext::Extract::Run - Module interface to xgettext.pl
 
 =head1 VERSION
 
-version 0.94
+version 0.95
 
 =head1 SYNOPSIS
 

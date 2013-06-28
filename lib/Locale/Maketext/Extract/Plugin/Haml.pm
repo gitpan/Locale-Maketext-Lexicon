@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::Haml;
 {
-  $Locale::Maketext::Extract::Plugin::Haml::VERSION = '0.94';
+  $Locale::Maketext::Extract::Plugin::Haml::VERSION = '0.95';
 }
 
 use strict;
@@ -50,7 +50,7 @@ Locale::Maketext::Extract::Plugin::Haml - HAML format parser
 
 =head1 VERSION
 
-version 0.94
+version 0.95
 
 =head1 SYNOPSIS
 
@@ -115,7 +115,7 @@ systems and perl source files.
 
 Audrey Tang E<lt>cpan@audreyt.orgE<gt>
 
-Calum Halcrow E<lt>cpan@calumhalcrow.com<gt>
+Calum Halcrow E<lt>cpan@calumhalcrow.comE<gt>
 
 =head1 COPYRIGHT
 

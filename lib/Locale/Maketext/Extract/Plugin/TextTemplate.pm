@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::TextTemplate;
 {
-  $Locale::Maketext::Extract::Plugin::TextTemplate::VERSION = '0.94';
+  $Locale::Maketext::Extract::Plugin::TextTemplate::VERSION = '0.95';
 }
 
 use strict;
@@ -29,7 +29,7 @@ sub extract {
 
             package Locale::Maketext::Extract::Plugin::TextTemplate::Parser;
 {
-  $Locale::Maketext::Extract::Plugin::TextTemplate::Parser::VERSION = '0.94';
+  $Locale::Maketext::Extract::Plugin::TextTemplate::Parser::VERSION = '0.95';
 }
             our @ISA = 'HTML::Parser';
             *{'text'} = sub {
@@ -68,7 +68,7 @@ Locale::Maketext::Extract::Plugin::TextTemplate - Text::Template format parser
 
 =head1 VERSION
 
-version 0.94
+version 0.95
 
 =head1 SYNOPSIS
 
