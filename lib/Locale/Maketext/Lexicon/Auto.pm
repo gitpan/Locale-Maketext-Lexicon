@@ -1,6 +1,6 @@
 package Locale::Maketext::Lexicon::Auto;
 {
-  $Locale::Maketext::Lexicon::Auto::VERSION = '0.95';
+  $Locale::Maketext::Lexicon::Auto::VERSION = '0.96';
 }
 
 use strict;
@@ -24,7 +24,7 @@ Locale::Maketext::Lexicon::Auto - Auto fallback lexicon for Maketext
 
 =head1 VERSION
 
-version 0.95
+version 0.96
 
 =head1 SYNOPSIS
 

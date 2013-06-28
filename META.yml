@@ -29,4 +29,4 @@ resources:
   bugtracker: https://github.com/clintongormley/locale-maketext-lexicon/issues
   homepage: http://search.cpan.org/dist/Locale-Maketext-Lexicon
   repository: git://github.com/clintongormley/locale-maketext-lexicon.git
-version: 0.95
+version: 0.96

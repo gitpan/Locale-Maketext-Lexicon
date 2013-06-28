@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::PPI;
 {
-  $Locale::Maketext::Extract::Plugin::PPI::VERSION = '0.95';
+  $Locale::Maketext::Extract::Plugin::PPI::VERSION = '0.96';
 }
 
 use strict;
@@ -119,7 +119,7 @@ Locale::Maketext::Extract::Plugin::PPI - Perl format parser
 
 =head1 VERSION
 
-version 0.95
+version 0.96
 
 =head1 SYNOPSIS
 

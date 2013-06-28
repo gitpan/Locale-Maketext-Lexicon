@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::Haml;
 {
-  $Locale::Maketext::Extract::Plugin::Haml::VERSION = '0.95';
+  $Locale::Maketext::Extract::Plugin::Haml::VERSION = '0.96';
 }
 
 use strict;
@@ -26,7 +26,8 @@ sub extract {
     # Checking for expr and text allows us to recognise
     # the types of HTML entries we are interested in.
     my @texts = map { $_->{text} }
-        grep { $_->{expr} and $_->{text} } @{ $haml->tape };
+      grep { $_->{text} and ( $_->{expr} or $_->{type} eq 'block') }
+          @{ $haml->tape };
 
     my $perl = Locale::Maketext::Extract::Plugin::Perl->new;
 
@@ -50,7 +51,7 @@ Locale::Maketext::Extract::Plugin::Haml - HAML format parser
 
 =head1 VERSION
 
-version 0.95
+version 0.96
 
 =head1 SYNOPSIS
 

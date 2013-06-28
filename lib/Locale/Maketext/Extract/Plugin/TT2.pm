@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::TT2;
 {
-  $Locale::Maketext::Extract::Plugin::TT2::VERSION = '0.95';
+  $Locale::Maketext::Extract::Plugin::TT2::VERSION = '0.96';
 }
 
 use strict;
@@ -96,7 +96,7 @@ sub _init_overrides {
 #===================================
 package Locale::Maketext::Extract::Plugin::TT2::Parser;
 {
-  $Locale::Maketext::Extract::Plugin::TT2::Parser::VERSION = '0.95';
+  $Locale::Maketext::Extract::Plugin::TT2::Parser::VERSION = '0.96';
 }
 #===================================
 #===================================
@@ -125,7 +125,7 @@ sub location {''}
 #===================================
 package Locale::Maketext::Extract::Plugin::TT2::Directive;
 {
-  $Locale::Maketext::Extract::Plugin::TT2::Directive::VERSION = '0.95';
+  $Locale::Maketext::Extract::Plugin::TT2::Directive::VERSION = '0.96';
 }
 #===================================
 #===================================
@@ -297,7 +297,7 @@ Locale::Maketext::Extract::Plugin::TT2 - Template Toolkit format parser
 
 =head1 VERSION
 
-version 0.95
+version 0.96
 
 =head1 SYNOPSIS
 
