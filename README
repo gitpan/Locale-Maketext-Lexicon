@@ -2,7 +2,7 @@ NAME
     Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 VERSION
-    version 0.96
+    version 0.97
 
 SYNOPSIS
     As part of a localization class, automatically glob for available
@@ -217,7 +217,7 @@ AUTHORS
     *   Audrey Tang <cpan@audreyt.org>
 
 COPYRIGHT AND LICENSE
-    This software is Copyright (c) 2013 by Audrey Tang.
+    This software is Copyright (c) 2014 by Audrey Tang.
 
     This is free software, licensed under:
 

@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::FormFu;
 {
-  $Locale::Maketext::Extract::Plugin::FormFu::VERSION = '0.96';
+  $Locale::Maketext::Extract::Plugin::FormFu::VERSION = '0.97';
 }
 
 use strict;
@@ -28,7 +28,7 @@ sub extract {
 
 package Locale::Maketext::Extract::Plugin::FormFu::Extractor;
 {
-  $Locale::Maketext::Extract::Plugin::FormFu::Extractor::VERSION = '0.96';
+  $Locale::Maketext::Extract::Plugin::FormFu::Extractor::VERSION = '0.97';
 }
 
 use base qw(YAML::Loader);
@@ -179,7 +179,7 @@ Locale::Maketext::Extract::Plugin::FormFu - FormFu format parser
 
 =head1 VERSION
 
-version 0.96
+version 0.97
 
 =head1 SYNOPSIS
 
@@ -310,7 +310,7 @@ Audrey Tang <cpan@audreyt.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by Audrey Tang.
+This software is Copyright (c) 2014 by Audrey Tang.
 
 This is free software, licensed under:
 

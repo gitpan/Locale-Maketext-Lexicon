@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::TT2;
 {
-  $Locale::Maketext::Extract::Plugin::TT2::VERSION = '0.96';
+  $Locale::Maketext::Extract::Plugin::TT2::VERSION = '0.97';
 }
 
 use strict;
@@ -96,14 +96,14 @@ sub _init_overrides {
 #===================================
 package Locale::Maketext::Extract::Plugin::TT2::Parser;
 {
-  $Locale::Maketext::Extract::Plugin::TT2::Parser::VERSION = '0.96';
+  $Locale::Maketext::Extract::Plugin::TT2::Parser::VERSION = '0.97';
 }
 #===================================
 #===================================
 
 use base 'Template::Parser';
 
-# disabled location() because it was adding unneccessary text
+# disabled location() because it was adding unnecessary text
 # to filter blocks
 #===================================
 sub location {''}
@@ -125,7 +125,7 @@ sub location {''}
 #===================================
 package Locale::Maketext::Extract::Plugin::TT2::Directive;
 {
-  $Locale::Maketext::Extract::Plugin::TT2::Directive::VERSION = '0.96';
+  $Locale::Maketext::Extract::Plugin::TT2::Directive::VERSION = '0.97';
 }
 #===================================
 #===================================
@@ -297,7 +297,7 @@ Locale::Maketext::Extract::Plugin::TT2 - Template Toolkit format parser
 
 =head1 VERSION
 
-version 0.96
+version 0.97
 
 =head1 SYNOPSIS
 
@@ -498,7 +498,7 @@ Audrey Tang <cpan@audreyt.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by Audrey Tang.
+This software is Copyright (c) 2014 by Audrey Tang.
 
 This is free software, licensed under:
 

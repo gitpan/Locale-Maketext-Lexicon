@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Run;
 {
-  $Locale::Maketext::Extract::Run::VERSION = '0.96';
+  $Locale::Maketext::Extract::Run::VERSION = '0.97';
 }
 
 use strict;
@@ -97,7 +97,7 @@ sub _parse_extract_options {
     my $opts = shift;
 
     # If a list of plugins is specified, then we use those modules
-    # plus their default list of file extensionse
+    # plus their default list of file extensions
     # and warnings enabled by default
 
     my %extract_options
@@ -160,7 +160,7 @@ Locale::Maketext::Extract::Run - Module interface to xgettext.pl
 
 =head1 VERSION
 
-version 0.96
+version 0.97
 
 =head1 SYNOPSIS
 
@@ -209,7 +209,7 @@ Audrey Tang <cpan@audreyt.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by Audrey Tang.
+This software is Copyright (c) 2014 by Audrey Tang.
 
 This is free software, licensed under:
 

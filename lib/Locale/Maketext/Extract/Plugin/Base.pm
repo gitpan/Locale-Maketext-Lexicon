@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::Base;
 {
-  $Locale::Maketext::Extract::Plugin::Base::VERSION = '0.96';
+  $Locale::Maketext::Extract::Plugin::Base::VERSION = '0.97';
 }
 
 use strict;
@@ -104,7 +104,7 @@ Locale::Maketext::Extract::Plugin::Base - Base module for format parser plugins
 
 =head1 VERSION
 
-version 0.96
+version 0.97
 
 =head1 SYNOPSIS
 
@@ -297,7 +297,7 @@ Audrey Tang <cpan@audreyt.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by Audrey Tang.
+This software is Copyright (c) 2014 by Audrey Tang.
 
 This is free software, licensed under:
 

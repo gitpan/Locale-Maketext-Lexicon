@@ -1,6 +1,6 @@
 package Locale::Maketext::Lexicon::Tie;
 {
-  $Locale::Maketext::Lexicon::Tie::VERSION = '0.96';
+  $Locale::Maketext::Lexicon::Tie::VERSION = '0.97';
 }
 
 use strict;
@@ -39,7 +39,7 @@ Locale::Maketext::Lexicon::Tie - Use tied hashes as lexicons for Maketext
 
 =head1 VERSION
 
-version 0.96
+version 0.97
 
 =head1 SYNOPSIS
 
@@ -108,7 +108,7 @@ Audrey Tang <cpan@audreyt.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by Audrey Tang.
+This software is Copyright (c) 2014 by Audrey Tang.
 
 This is free software, licensed under:
 

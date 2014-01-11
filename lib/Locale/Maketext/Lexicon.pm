@@ -1,6 +1,6 @@
 package Locale::Maketext::Lexicon;
 {
-  $Locale::Maketext::Lexicon::VERSION = '0.96';
+  $Locale::Maketext::Lexicon::VERSION = '0.97';
 }
 
 use 5.004;
@@ -354,7 +354,7 @@ Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-version 0.96
+version 0.97
 
 =head1 SYNOPSIS
 
@@ -604,7 +604,7 @@ Audrey Tang <cpan@audreyt.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by Audrey Tang.
+This software is Copyright (c) 2014 by Audrey Tang.
 
 This is free software, licensed under:
 

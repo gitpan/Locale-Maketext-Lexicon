@@ -1,6 +1,6 @@
 package Locale::Maketext::Extract::Plugin::Mason;
 {
-  $Locale::Maketext::Extract::Plugin::Mason::VERSION = '0.96';
+  $Locale::Maketext::Extract::Plugin::Mason::VERSION = '0.97';
 }
 
 use strict;
@@ -51,7 +51,7 @@ Locale::Maketext::Extract::Plugin::Mason - HTML::Mason (aka Mason 1) and Mason (
 
 =head1 VERSION
 
-version 0.96
+version 0.97
 
 =head1 SYNOPSIS
 
@@ -160,7 +160,7 @@ Audrey Tang <cpan@audreyt.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by Audrey Tang.
+This software is Copyright (c) 2014 by Audrey Tang.
 
 This is free software, licensed under:
 

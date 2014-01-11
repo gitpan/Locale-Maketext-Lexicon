@@ -25,7 +25,7 @@ my %WriteMakefileArgs = (
     "Locale::Maketext" => "1.17"
   },
   "TEST_REQUIRES" => {},
-  "VERSION" => "0.96",
+  "VERSION" => "0.97",
   "test" => {
     "TESTS" => "t/*.t"
   }
