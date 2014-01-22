@@ -1,8 +1,5 @@
 package Locale::Maketext::Extract::Run;
-{
-  $Locale::Maketext::Extract::Run::VERSION = '0.97';
-}
-
+$Locale::Maketext::Extract::Run::VERSION = '0.98';
 use strict;
 use vars qw( @ISA @EXPORT_OK );
 use File::Spec::Functions qw(catfile);
@@ -66,7 +63,7 @@ sub run {
                     # Only extract from non-binary, normal files
                     return unless ( -f or -s ) and -T;
                     return
-                        if (/\.po$|\.bak$|~|,D|,B$/i)
+                        if (/\.pot?$|\.bak$|~|,D|,B$/i)
                         || (/^[\.#]/);
                     push @ARGV, $File::Find::name;
                 },
@@ -154,13 +151,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Locale::Maketext::Extract::Run - Module interface to xgettext.pl
 
 =head1 VERSION
 
-version 0.97
+version 0.98
 
 =head1 SYNOPSIS
 

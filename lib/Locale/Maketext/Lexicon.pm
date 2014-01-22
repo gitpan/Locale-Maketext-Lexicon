@@ -1,8 +1,5 @@
 package Locale::Maketext::Lexicon;
-{
-  $Locale::Maketext::Lexicon::VERSION = '0.97';
-}
-
+$Locale::Maketext::Lexicon::VERSION = '0.98';
 use 5.004;
 use strict;
 
@@ -348,13 +345,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Locale::Maketext::Lexicon - Use other catalog formats in Maketext
 
 =head1 VERSION
 
-version 0.97
+version 0.98
 
 =head1 SYNOPSIS
 

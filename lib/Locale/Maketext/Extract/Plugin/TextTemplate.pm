@@ -1,8 +1,5 @@
 package Locale::Maketext::Extract::Plugin::TextTemplate;
-{
-  $Locale::Maketext::Extract::Plugin::TextTemplate::VERSION = '0.97';
-}
-
+$Locale::Maketext::Extract::Plugin::TextTemplate::VERSION = '0.98';
 use strict;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
 
@@ -28,10 +25,8 @@ sub extract {
         {
 
             package Locale::Maketext::Extract::Plugin::TextTemplate::Parser;
-{
-  $Locale::Maketext::Extract::Plugin::TextTemplate::Parser::VERSION = '0.97';
-}
-            our @ISA = 'HTML::Parser';
+$Locale::Maketext::Extract::Plugin::TextTemplate::Parser::VERSION = '0.98';
+our @ISA = 'HTML::Parser';
             *{'text'} = sub {
                 my ( $self, $str, $is_cdata ) = @_;
                 my $sentences = Lingua::EN::Sentence::get_sentences($str)
@@ -62,13 +57,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Locale::Maketext::Extract::Plugin::TextTemplate - Text::Template format parser
 
 =head1 VERSION
 
-version 0.97
+version 0.98
 
 =head1 SYNOPSIS
 

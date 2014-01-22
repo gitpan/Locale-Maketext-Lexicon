@@ -1,8 +1,5 @@
 package Locale::Maketext::Extract::Plugin::FormFu;
-{
-  $Locale::Maketext::Extract::Plugin::FormFu::VERSION = '0.97';
-}
-
+$Locale::Maketext::Extract::Plugin::FormFu::VERSION = '0.98';
 use strict;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
 
@@ -27,10 +24,7 @@ sub extract {
 }
 
 package Locale::Maketext::Extract::Plugin::FormFu::Extractor;
-{
-  $Locale::Maketext::Extract::Plugin::FormFu::Extractor::VERSION = '0.97';
-}
-
+$Locale::Maketext::Extract::Plugin::FormFu::Extractor::VERSION = '0.98';
 use base qw(YAML::Loader);
 
 #===================================
@@ -173,13 +167,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Locale::Maketext::Extract::Plugin::FormFu - FormFu format parser
 
 =head1 VERSION
 
-version 0.97
+version 0.98
 
 =head1 SYNOPSIS
 

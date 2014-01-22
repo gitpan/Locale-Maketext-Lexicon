@@ -1,8 +1,5 @@
 package Locale::Maketext::Extract::Plugin::TT2;
-{
-  $Locale::Maketext::Extract::Plugin::TT2::VERSION = '0.97';
-}
-
+$Locale::Maketext::Extract::Plugin::TT2::VERSION = '0.98';
 use strict;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
 use Template::Constants qw( :debug );
@@ -95,12 +92,9 @@ sub _init_overrides {
 #===================================
 #===================================
 package Locale::Maketext::Extract::Plugin::TT2::Parser;
-{
-  $Locale::Maketext::Extract::Plugin::TT2::Parser::VERSION = '0.97';
-}
 #===================================
 #===================================
-
+$Locale::Maketext::Extract::Plugin::TT2::Parser::VERSION = '0.98';
 use base 'Template::Parser';
 
 # disabled location() because it was adding unnecessary text
@@ -124,12 +118,9 @@ sub location {''}
 #===================================
 #===================================
 package Locale::Maketext::Extract::Plugin::TT2::Directive;
-{
-  $Locale::Maketext::Extract::Plugin::TT2::Directive::VERSION = '0.97';
-}
 #===================================
 #===================================
-
+$Locale::Maketext::Extract::Plugin::TT2::Directive::VERSION = '0.98';
 use base 'Template::Directive';
 
 our $PARSER;
@@ -291,13 +282,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Locale::Maketext::Extract::Plugin::TT2 - Template Toolkit format parser
 
 =head1 VERSION
 
-version 0.97
+version 0.98
 
 =head1 SYNOPSIS
 

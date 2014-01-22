@@ -1,8 +1,5 @@
 package Locale::Maketext::Lexicon::Msgcat;
-{
-  $Locale::Maketext::Lexicon::Msgcat::VERSION = '0.97';
-}
-
+$Locale::Maketext::Lexicon::Msgcat::VERSION = '0.98';
 use strict;
 
 # ABSTRACT: Msgcat catalog parser Maketext
@@ -91,13 +88,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Locale::Maketext::Lexicon::Msgcat - Msgcat catalog parser Maketext
 
 =head1 VERSION
 
-version 0.97
+version 0.98
 
 =head1 SYNOPSIS
 

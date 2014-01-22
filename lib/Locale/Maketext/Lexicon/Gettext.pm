@@ -1,8 +1,5 @@
 package Locale::Maketext::Lexicon::Gettext;
-{
-  $Locale::Maketext::Lexicon::Gettext::VERSION = '0.97';
-}
-
+$Locale::Maketext::Lexicon::Gettext::VERSION = '0.98';
 use strict;
 
 # ABSTRACT: PO and MO file parser for Maketext
@@ -243,13 +240,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Locale::Maketext::Lexicon::Gettext - PO and MO file parser for Maketext
 
 =head1 VERSION
 
-version 0.97
+version 0.98
 
 =head1 SYNOPSIS
 

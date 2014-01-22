@@ -1,8 +1,5 @@
 package Locale::Maketext::Extract::Plugin::Haml;
-{
-  $Locale::Maketext::Extract::Plugin::Haml::VERSION = '0.97';
-}
-
+$Locale::Maketext::Extract::Plugin::Haml::VERSION = '0.98';
 use strict;
 use warnings;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
@@ -45,13 +42,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Locale::Maketext::Extract::Plugin::Haml - HAML format parser
 
 =head1 VERSION
 
-version 0.97
+version 0.98
 
 =head1 SYNOPSIS
 
