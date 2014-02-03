@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract::Plugin::Base;
-$Locale::Maketext::Extract::Plugin::Base::VERSION = '0.98';
+$Locale::Maketext::Extract::Plugin::Base::VERSION = '0.99';
 use strict;
 
 use File::Basename qw(fileparse);
@@ -103,7 +103,7 @@ Locale::Maketext::Extract::Plugin::Base - Base module for format parser plugins
 
 =head1 VERSION
 
-version 0.98
+version 0.99
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.98';
+$Locale::Maketext::Extract::VERSION = '0.99';
 use strict;
 use Locale::Maketext::Lexicon();
 
@@ -268,9 +268,12 @@ sub extract {
 sub extract_file {
     my ( $self, $file ) = @_;
 
-    local ( $/, *FH );
+    local ( *FH );
     open FH, $file or die "Error reading from file '$file' : $!";
-    my $content = scalar <FH>;
+    my $content = do {
+        local $/;
+        scalar <FH>;
+    };
 
     $self->extract( $file => $content );
     close FH;
@@ -450,7 +453,7 @@ Locale::Maketext::Extract - Extract translatable strings from source
 
 =head1 VERSION
 
-version 0.98
+version 0.99
 
 =head1 SYNOPSIS
 

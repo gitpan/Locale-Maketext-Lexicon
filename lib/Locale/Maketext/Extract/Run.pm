@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract::Run;
-$Locale::Maketext::Extract::Run::VERSION = '0.98';
+$Locale::Maketext::Extract::Run::VERSION = '0.99';
 use strict;
 use vars qw( @ISA @EXPORT_OK );
 use File::Spec::Functions qw(catfile);
@@ -159,7 +159,7 @@ Locale::Maketext::Extract::Run - Module interface to xgettext.pl
 
 =head1 VERSION
 
-version 0.98
+version 0.99
 
 =head1 SYNOPSIS
 
