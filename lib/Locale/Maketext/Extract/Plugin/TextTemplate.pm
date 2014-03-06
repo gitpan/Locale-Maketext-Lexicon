@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract::Plugin::TextTemplate;
-$Locale::Maketext::Extract::Plugin::TextTemplate::VERSION = '0.99';
+$Locale::Maketext::Extract::Plugin::TextTemplate::VERSION = '1.00';
 use strict;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
 
@@ -25,7 +25,7 @@ sub extract {
         {
 
             package Locale::Maketext::Extract::Plugin::TextTemplate::Parser;
-$Locale::Maketext::Extract::Plugin::TextTemplate::Parser::VERSION = '0.99';
+$Locale::Maketext::Extract::Plugin::TextTemplate::Parser::VERSION = '1.00';
 our @ISA = 'HTML::Parser';
             *{'text'} = sub {
                 my ( $self, $str, $is_cdata ) = @_;
@@ -65,7 +65,7 @@ Locale::Maketext::Extract::Plugin::TextTemplate - Text::Template format parser
 
 =head1 VERSION
 
-version 0.99
+version 1.00
 
 =head1 SYNOPSIS
 

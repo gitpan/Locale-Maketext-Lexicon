@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract::Plugin::PPI;
-$Locale::Maketext::Extract::Plugin::PPI::VERSION = '0.99';
+$Locale::Maketext::Extract::Plugin::PPI::VERSION = '1.00';
 use strict;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
 use PPI();
@@ -118,7 +118,7 @@ Locale::Maketext::Extract::Plugin::PPI - Perl format parser
 
 =head1 VERSION
 
-version 0.99
+version 1.00
 
 =head1 SYNOPSIS
 

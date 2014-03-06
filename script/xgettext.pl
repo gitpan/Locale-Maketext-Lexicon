@@ -24,7 +24,7 @@ xgettext.pl - Extract translatable strings from source
 
 =head1 VERSION
 
-version 0.99
+version 1.00
 
 =head1 SYNOPSIS
 

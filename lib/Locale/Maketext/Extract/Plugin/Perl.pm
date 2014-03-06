@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract::Plugin::Perl;
-$Locale::Maketext::Extract::Plugin::Perl::VERSION = '0.99';
+$Locale::Maketext::Extract::Plugin::Perl::VERSION = '1.00';
 use strict;
 
 use base qw(Locale::Maketext::Extract::Plugin::Base);
@@ -161,7 +161,7 @@ Locale::Maketext::Extract::Plugin::Perl - Perl format parser
 
 =head1 VERSION
 
-version 0.99
+version 1.00
 
 =head1 SYNOPSIS
 

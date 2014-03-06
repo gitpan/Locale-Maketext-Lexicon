@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract;
-$Locale::Maketext::Extract::VERSION = '0.99';
+$Locale::Maketext::Extract::VERSION = '1.00';
 use strict;
 use Locale::Maketext::Lexicon();
 
@@ -453,7 +453,7 @@ Locale::Maketext::Extract - Extract translatable strings from source
 
 =head1 VERSION
 
-version 0.99
+version 1.00
 
 =head1 SYNOPSIS
 

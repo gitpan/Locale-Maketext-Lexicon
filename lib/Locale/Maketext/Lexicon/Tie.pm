@@ -1,5 +1,5 @@
 package Locale::Maketext::Lexicon::Tie;
-$Locale::Maketext::Lexicon::Tie::VERSION = '0.99';
+$Locale::Maketext::Lexicon::Tie::VERSION = '1.00';
 use strict;
 use Symbol ();
 
@@ -38,7 +38,7 @@ Locale::Maketext::Lexicon::Tie - Use tied hashes as lexicons for Maketext
 
 =head1 VERSION
 
-version 0.99
+version 1.00
 
 =head1 SYNOPSIS
 

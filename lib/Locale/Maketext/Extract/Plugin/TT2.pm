@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract::Plugin::TT2;
-$Locale::Maketext::Extract::Plugin::TT2::VERSION = '0.99';
+$Locale::Maketext::Extract::Plugin::TT2::VERSION = '1.00';
 use strict;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
 use Template::Constants qw( :debug );
@@ -94,7 +94,7 @@ sub _init_overrides {
 package Locale::Maketext::Extract::Plugin::TT2::Parser;
 #===================================
 #===================================
-$Locale::Maketext::Extract::Plugin::TT2::Parser::VERSION = '0.99';
+$Locale::Maketext::Extract::Plugin::TT2::Parser::VERSION = '1.00';
 use base 'Template::Parser';
 
 # disabled location() because it was adding unnecessary text
@@ -120,7 +120,7 @@ sub location {''}
 package Locale::Maketext::Extract::Plugin::TT2::Directive;
 #===================================
 #===================================
-$Locale::Maketext::Extract::Plugin::TT2::Directive::VERSION = '0.99';
+$Locale::Maketext::Extract::Plugin::TT2::Directive::VERSION = '1.00';
 use base 'Template::Directive';
 
 our $PARSER;
@@ -173,7 +173,9 @@ sub ident {
         }
 
         # Mojolicious TT syntax [% c.l('...') %]
-        elsif ( $ident->[0] eq "'c'" && $ident->[2] eq "'l'" ) {
+        elsif ( $ident->[0] eq "'c'"
+            && ( $ident->[2] eq "'l'" || $ident->[2] eq "'loc'" ) )
+        {
             $got_i18n = 1;
             splice( @$ident, 0, 2 );
         }
@@ -233,7 +235,9 @@ sub filter {
     return ''
         unless $name eq "'l'"
         or $name eq "'loc'"
-        or $name eq "'c.l'";
+        or $name eq "'c.l'"
+        or $name eq "'c.loc'";
+
     if ( strip_quotes($block) ) {
         $block =~ s/\\\\/\\/g;
         $args = join_args( $class->args($args) );
@@ -290,7 +294,7 @@ Locale::Maketext::Extract::Plugin::TT2 - Template Toolkit format parser
 
 =head1 VERSION
 
-version 0.99
+version 1.00
 
 =head1 SYNOPSIS
 

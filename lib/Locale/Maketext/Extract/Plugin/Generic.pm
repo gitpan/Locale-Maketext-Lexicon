@@ -1,5 +1,5 @@
 package Locale::Maketext::Extract::Plugin::Generic;
-$Locale::Maketext::Extract::Plugin::Generic::VERSION = '0.99';
+$Locale::Maketext::Extract::Plugin::Generic::VERSION = '1.00';
 use strict;
 use base qw(Locale::Maketext::Extract::Plugin::Base);
 
@@ -67,7 +67,7 @@ Locale::Maketext::Extract::Plugin::Generic - Generic template parser
 
 =head1 VERSION
 
-version 0.99
+version 1.00
 
 =head1 SYNOPSIS
 
